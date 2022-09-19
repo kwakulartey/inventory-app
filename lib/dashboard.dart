@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:inventory_1/more.dart';
+import 'package:inventory_1/new_item.dart';
 import 'package:inventory_1/widget/card_dash.dart';
 
 class Dashboard extends StatefulWidget {
@@ -17,13 +19,18 @@ class _DashboardState extends State<Dashboard> {
           centerTitle: true,
           title: const Text(
             'Dashboard',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
           ),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return More();
+                  }));
+                },
                 icon: Icon(Icons.more_vert),
               ),
             )
@@ -109,20 +116,28 @@ class _DashboardState extends State<Dashboard> {
                     'Recent',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10)),
-                    height: 40,
-                    width: 120,
-                    child: const Padding(
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      child: Text(
-                        '+New Item',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                  GestureDetector(
+                    onTap: (() {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return NewItem();
+                      }));
+                    }),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10)),
+                      height: 40,
+                      width: 120,
+                      child: const Padding(
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        child: Text(
+                          '+New Item',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
