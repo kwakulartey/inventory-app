@@ -9,12 +9,12 @@ class PostManager with ChangeNotifier {
   static final FirebaseFirestore _firebaseFirestore =
       FirebaseFirestore.instance;
 
-      final CollectionReference<Map<String, dynamic>> _productCollection =
+  final CollectionReference<Map<String, dynamic>> _productCollection =
       _firebaseFirestore.collection("products");
-      final CollectionReference<Map<String, dynamic>> _transactionCollection =
+  final CollectionReference<Map<String, dynamic>> _transactionCollection =
       _firebaseFirestore.collection("transaction");
 
-      String _message = '';
+  String _message = '';
   bool _isLoading = false;
   String get message => _message;
   bool get isLoading => _isLoading;
@@ -37,7 +37,7 @@ class PostManager with ChangeNotifier {
     await _productCollection.doc().set({
       "name": product.name,
       "type": product.type,
-      "costPrice": product.price,
+      "price": product.price,
       "quantity": product.quantity,
       "productId": product.productId,
     }).then((_) {
@@ -52,5 +52,52 @@ class PostManager with ChangeNotifier {
       setIsLoading(false);
     });
     return result;
+  }
+
+  //READ ALL PRODUCTS
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getAllProducts() {
+    return _productCollection.snapshots();
+  }
+
+  //READ SINGLE PRODUCT
+   Stream<DocumentSnapshot<Map<String, dynamic>>> getProduct(
+      {required String docID}) {
+    return _productCollection.doc(docID).snapshots();
+  }
+
+//UPDATE PRODUCT
+  Future<bool> updateProduct({required String docID, Product? product}) async {
+    Map<String, dynamic> data = <String, dynamic>{
+      "price": product?.price,
+      "quantity": product?.quantity
+    };
+    bool isUpdated = false;
+    await _productCollection.doc(docID).update(data).then((value) {
+      isUpdated = true;
+      return value;
+    }).catchError((onError) {
+      setMessage(onError);
+      setIsLoading(false);
+      isUpdated = false;
+    }).timeout(const Duration(seconds: 60), onTimeout: (() {
+      setMessage("Check your internet connection");
+      isUpdated = false;
+    }));
+
+    return isUpdated;
+  }
+
+  //DELETE ROOMS
+  Future<bool> deletedProduct({required String docId}) async {
+    bool isDeleted = false;
+    await _productCollection.doc(docId).delete().then((value) {
+      isDeleted = true;
+      setMessage("Product deleted succefully");
+    }).catchError((onError) {
+      setMessage("Failed to delete product: $onError");
+      setIsLoading(false);
+      isDeleted = false;
+    });
+    return isDeleted;
   }
 }
