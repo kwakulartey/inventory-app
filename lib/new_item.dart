@@ -12,6 +12,20 @@ class _NewItemState extends State<NewItem> {
   String dropdownValueType = 'Select option';
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _lowStockController = TextEditingController();
+
+  List<String> chickenData = [
+    'Select option',
+    'Legs',
+    'wings',
+    'Gizard',
+  ];
+  List<String> fishData = [
+    'Select option',
+    'Slamon',
+    'Kpanla',
+    'Tuna',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,20 +111,29 @@ class _NewItemState extends State<NewItem> {
                       icon: const Icon(Icons.arrow_drop_down),
                       elevation: 16,
                       style: TextStyle(color: Colors.black, fontSize: 20),
-                      items: <String>[
-                        'Select option',
-                        'Legs',
-                        'wings',
-                        'Gizard',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        );
-                      }).toList(),
+                      items: dropdownValueItem == "Fish"
+                          ? fishData
+                              .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              );
+                            }).toList()
+                          : dropdownValueItem == "chicken"
+                              ? chickenData.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  );
+                                }).toList()
+                              : null,
                       onChanged: (String? newValue) {
                         setState(() {
                           dropdownValueType = newValue!;
