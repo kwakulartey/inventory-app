@@ -209,7 +209,7 @@ class _NewItemState extends State<NewItem> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
