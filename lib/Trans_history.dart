@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Colla extends StatelessWidget {
-  const Colla({Key? key}) : super(key: key);
+class TransHistory extends StatelessWidget {
+  const TransHistory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manage Collatorators'),
+        title: Text('Transaction History'),
         centerTitle: true,
       ),
     );

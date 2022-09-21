@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:inventory_1/Trans_history.dart';
 import 'package:inventory_1/more.dart';
 import 'package:inventory_1/new_item.dart';
 import 'package:inventory_1/widget/card_dash.dart';
@@ -77,33 +78,41 @@ class _DashboardState extends State<Dashboard> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: BoxDecoration(
-                    border:
-                        const Border(bottom: BorderSide(color: Colors.black))),
-                padding: EdgeInsets.all(10),
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: const [
-                        Icon(
-                          Icons.history,
-                          color: Colors.blue,
-                        ),
-                        Text(
-                          'Transaction History',
-                          style: TextStyle(color: Colors.blue, fontSize: 16),
-                        )
-                      ],
-                    ),
-                    Icon(
-                      Icons.chevron_right,
-                      color: Colors.blue,
-                    )
-                  ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return TransHistory();
+                  }));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: const Border(
+                          bottom: BorderSide(color: Colors.black))),
+                  padding: EdgeInsets.all(10),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: const [
+                          Icon(
+                            Icons.history,
+                            color: Colors.blue,
+                          ),
+                          Text(
+                            'Transaction History',
+                            style: TextStyle(color: Colors.blue, fontSize: 16),
+                          )
+                        ],
+                      ),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Colors.blue,
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
