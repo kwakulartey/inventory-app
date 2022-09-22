@@ -8,6 +8,7 @@ class Product {
     required this.type,
     required this.price,
     required this.quantity,
+    required this.lowOnStock,
     required this.productId,
   });
 
@@ -15,6 +16,7 @@ class Product {
   String type;
   double price;
   int quantity;
+  int lowOnStock;
   int productId;
 
 
@@ -25,6 +27,7 @@ class Product {
         type: doc.data()!['type'],
         price: doc.data()!['costPrice'],
         quantity: doc.data()!['quantity'],
+        lowOnStock: doc.data()!['lowOnStock'],
         productId: doc.data()!['productId'],
        
       );
@@ -34,6 +37,7 @@ class Product {
         'type': type,
         'costPrice': price,
         'quantity': quantity,
+        'lowOnStock':lowOnStock,
         'productId': productId,
       };
 

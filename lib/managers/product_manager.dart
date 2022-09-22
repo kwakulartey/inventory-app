@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../models/product.dart';
 
-class PostManager with ChangeNotifier {
+class ProductManager with ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   static final FirebaseFirestore _firebaseFirestore =
       FirebaseFirestore.instance;
@@ -39,6 +39,7 @@ class PostManager with ChangeNotifier {
       "type": product.type,
       "price": product.price,
       "quantity": product.quantity,
+      "lowOnStock": product.lowOnStock,
       "productId": product.productId,
     }).then((_) {
       result = true;

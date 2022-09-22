@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:inventory_1/dashboard.dart';
+import 'package:inventory_1/managers/product_manager.dart';
+import 'package:inventory_1/models/product.dart';
 
 class NewItem extends StatefulWidget {
   NewItem({Key? key}) : super(key: key);
@@ -13,6 +18,7 @@ class _NewItemState extends State<NewItem> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _lowStockController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
+  final ProductManager _productManager = ProductManager();
 
   List<String> chickenData = [
     'Select option',
@@ -300,20 +306,25 @@ class _NewItemState extends State<NewItem> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 50,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color.fromARGB(255, 9, 82, 142)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 30, top: 15),
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      addItem();
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 9, 82, 142)),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 30, top: 15),
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
@@ -324,5 +335,36 @@ class _NewItemState extends State<NewItem> {
         ),
       ),
     );
+  }
+
+  void addItem() async {
+    bool isCreated = await _productManager.addProduct(Product(
+        name: dropdownValueItem.toString(),
+        type: dropdownValueType.toString(),
+        price: double.parse(_priceController.text),
+        quantity: int.parse(_quantityController.text),
+        productId: 1,
+        lowOnStock: int.parse(_lowStockController.text)));
+
+    if (isCreated) {
+      Get.to(() => Dashboard());
+      Fluttertoast.showToast(
+          msg: "Product Added Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else{
+       Fluttertoast.showToast(
+          msg: _productManager.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 }
