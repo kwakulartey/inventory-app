@@ -4,12 +4,14 @@ class CardDash extends StatelessWidget {
   IconData icon;
   String text;
   Color? color;
+  String number;
 
   CardDash({
     Key? key,
     required this.icon,
     required this.text,
     this.color,
+    required this.number
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class CardDash extends StatelessWidget {
                 color: color,
               ),
               Text(
-                '0',
+                number,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               )
             ],

@@ -56,14 +56,25 @@ class ProductManager with ChangeNotifier {
   }
 
   //READ ALL PRODUCTS
-  Stream<QuerySnapshot<Map<String, dynamic>?>> getAllProducts() {
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getAllProducts()  {
     return _productCollection.snapshots();
   }
 
+  
+
   //READ SINGLE PRODUCT
-   Stream<DocumentSnapshot<Map<String, dynamic>>> getProduct(
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getProduct(
       {required String docID}) {
     return _productCollection.doc(docID).snapshots();
+  }
+
+  //READ PRODUCT BASED ON IN-STOCK
+  Stream<QuerySnapshot<Map<String, dynamic>>> getInStock(String stock) {
+    return _productCollection
+        .where(
+          'lowOnStock', isEqualTo: stock
+        )
+        .snapshots();
   }
 
 //UPDATE PRODUCT

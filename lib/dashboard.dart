@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:inventory_1/Trans_history.dart';
 import 'package:inventory_1/all_items.dart';
+import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/more.dart';
 import 'package:inventory_1/new_item.dart';
 import 'package:inventory_1/widget/alertdialog.dart';
@@ -15,6 +16,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final ProductManager _productManager = ProductManager();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +65,7 @@ class _DashboardState extends State<Dashboard> {
                   child: CardDash(
                     icon: Icons.desk_rounded,
                     text: 'Total',
+                    number: "",
                   ),
                 ),
                 GestureDetector(
@@ -75,6 +79,7 @@ class _DashboardState extends State<Dashboard> {
                     icon: Icons.warning_amber_rounded,
                     color: Colors.red,
                     text: 'Out of Stock',
+                    number: '0',
                   ),
                 )
               ]),
@@ -84,6 +89,8 @@ class _DashboardState extends State<Dashboard> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 GestureDetector(
                   onTap: () {
+                    
+                    // print("${_productManager.getAllProducts().length}");
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return AllItems();
@@ -93,6 +100,7 @@ class _DashboardState extends State<Dashboard> {
                     icon: Icons.warning_amber_rounded,
                     text: 'Low Stock',
                     color: Colors.yellow,
+                    number: '0',
                   ),
                 ),
                 GestureDetector(
@@ -106,6 +114,7 @@ class _DashboardState extends State<Dashboard> {
                     icon: Icons.warning_amber_rounded,
                     text: 'Reminders',
                     color: Color.fromARGB(255, 16, 79, 131),
+                    number: '0',
                   ),
                 )
               ]),

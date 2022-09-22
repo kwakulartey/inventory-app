@@ -40,6 +40,7 @@ class AuthManager with ChangeNotifier {
         "name": client.name,
         "email": client.email,
         "phonenumber": client.phone,
+        "role":client.role,
         "user_id": client.userId
       });
       isCreated = true;
