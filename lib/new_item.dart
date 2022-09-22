@@ -12,16 +12,17 @@ class _NewItemState extends State<NewItem> {
   String dropdownValueType = 'Select option';
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _lowStockController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
 
   List<String> chickenData = [
     'Select option',
     'Legs',
     'wings',
-    'Gizard',
+    'Gizzard',
   ];
   List<String> fishData = [
     'Select option',
-    'Slamon',
+    'Salmon',
     'Kpanla',
     'Tuna',
   ];
@@ -65,7 +66,7 @@ class _NewItemState extends State<NewItem> {
                       items: <String>[
                         'Select option',
                         'Meat',
-                        'fish',
+                        'Fish',
                         'chicken',
                         'Sausage',
                       ].map<DropdownMenuItem<String>>((String value) {
@@ -203,6 +204,51 @@ class _NewItemState extends State<NewItem> {
                       Row(
                         children: [
                           Icon(
+                            Icons.monitor_weight_rounded,
+                            color: Color.fromARGB(255, 12, 4, 154),
+                          )
+                        ],
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                            controller: _quantityController,
+                            decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                labelText: 'Quantity',
+                                prefix: Text('Kilogram(s)    '),
+                                labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                                hintStyle: TextStyle(fontSize: 16),
+                                hintText: '10')),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(10)),
+                height: 80,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
                             Icons.ac_unit_rounded,
                             color: Colors.red,
                           )
@@ -219,7 +265,7 @@ class _NewItemState extends State<NewItem> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 labelText: 'Low Stock',
-                                prefix: Text('Units    '),
+                                prefix: Text('Kilogram(s)    '),
                                 labelStyle: TextStyle(
                                     fontSize: 16,
                                     color: Colors.black,
@@ -259,7 +305,7 @@ class _NewItemState extends State<NewItem> {
                     width: 100,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue),
+                        color: Color.fromARGB(255, 9, 82, 142)),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 30, top: 15),
                       child: Text(

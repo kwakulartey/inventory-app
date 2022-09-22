@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:inventory_1/Trans_history.dart';
+import 'package:inventory_1/all_items.dart';
 import 'package:inventory_1/more.dart';
 import 'package:inventory_1/new_item.dart';
+import 'package:inventory_1/widget/alertdialog.dart';
 import 'package:inventory_1/widget/card_dash.dart';
 
 class Dashboard extends StatefulWidget {
@@ -50,29 +52,61 @@ class _DashboardState extends State<Dashboard> {
                 height: 10,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                CardDash(
-                  icon: Icons.desk_rounded,
-                  text: 'Total',
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return AllItems();
+                    }));
+                  },
+                  child: CardDash(
+                    icon: Icons.desk_rounded,
+                    text: 'Total',
+                  ),
                 ),
-                CardDash(
-                  icon: Icons.warning_amber_outlined,
-                  color: Colors.red,
-                  text: 'Out of Stock',
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return AllItems();
+                    }));
+                  },
+                  child: CardDash(
+                    icon: Icons.warning_amber_rounded,
+                    color: Colors.red,
+                    text: 'Out of Stock',
+                  ),
                 )
               ]),
               SizedBox(
                 height: 10,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                CardDash(
-                  icon: Icons.warning_amber_outlined,
-                  text: 'Low Stock',
-                  color: Colors.yellow,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return AllItems();
+                    }));
+                  },
+                  child: CardDash(
+                    icon: Icons.warning_amber_rounded,
+                    text: 'Low Stock',
+                    color: Colors.yellow,
+                  ),
                 ),
-                CardDash(
-                  icon: Icons.warning_amber_rounded,
-                  text: 'Reminders',
-                  color: Color.fromARGB(255, 16, 79, 131),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return AllItems();
+                    }));
+                  },
+                  child: CardDash(
+                    icon: Icons.warning_amber_rounded,
+                    text: 'Reminders',
+                    color: Color.fromARGB(255, 16, 79, 131),
+                  ),
                 )
               ]),
               SizedBox(
@@ -99,17 +133,19 @@ class _DashboardState extends State<Dashboard> {
                         children: const [
                           Icon(
                             Icons.history,
-                            color: Colors.blue,
+                            color: Color.fromARGB(255, 11, 72, 122),
                           ),
                           Text(
                             'Transaction History',
-                            style: TextStyle(color: Colors.blue, fontSize: 16),
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 11, 72, 122),
+                                fontSize: 16),
                           )
                         ],
                       ),
                       Icon(
                         Icons.chevron_right,
-                        color: Colors.blue,
+                        color: Color.fromARGB(255, 11, 72, 122),
                       )
                     ],
                   ),
@@ -134,7 +170,7 @@ class _DashboardState extends State<Dashboard> {
                     }),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.blue,
+                          color: Color.fromARGB(255, 11, 72, 122),
                           borderRadius: BorderRadius.circular(10)),
                       height: 40,
                       width: 120,
@@ -170,7 +206,7 @@ class _DashboardState extends State<Dashboard> {
                       height: 80,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey),
+                          color: Colors.black12),
                       child: Container(
                         padding: EdgeInsets.all(10),
                         child: Column(
@@ -204,8 +240,28 @@ class _DashboardState extends State<Dashboard> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('0 in Stock'),
-                                Icon(Icons.more_vert)
+                                Text(
+                                  '0 in Stock',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                GestureDetector(
+                                    onTap: (() {
+                                      showDialog(
+                                          barrierColor: Colors.black45,
+                                          context: context,
+                                          builder: (context) {
+                                            return alertdialog(
+                                              text: 'Edit Item',
+                                              text1: 'Delete Item',
+                                              icon: Icons.edit_note_rounded,
+                                              icon1:
+                                                  Icons.delete_outline_rounded,
+                                            );
+                                          });
+                                    }),
+                                    child: Icon(Icons.more_horiz))
                               ],
                             )
                           ],

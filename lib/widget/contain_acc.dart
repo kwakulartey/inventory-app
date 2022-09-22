@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class ContainAcc extends StatelessWidget {
   String text1;
   String text2;
-  ContainAcc({Key? key, required this.text1, required this.text2})
+  IconData icon4;
+  ContainAcc(
+      {Key? key, required this.text1, required this.text2, required this.icon4})
       : super(key: key);
 
   @override
@@ -15,6 +17,13 @@ class ContainAcc extends StatelessWidget {
       decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1))),
       child: Row(
         children: [
+          Icon(
+            icon4,
+            color: Color.fromARGB(255, 7, 85, 148),
+          ),
+          SizedBox(
+            width: 5,
+          ),
           Text(
             text1,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),

@@ -19,7 +19,7 @@ class CardDash extends StatelessWidget {
       height: 100,
       width: 180,
       decoration: BoxDecoration(
-          color: Colors.grey, borderRadius: BorderRadius.circular(10)),
+          color: Colors.black12, borderRadius: BorderRadius.circular(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
