@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:inventory_1/Trans_history.dart';
@@ -17,6 +18,9 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final ProductManager _productManager = ProductManager();
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final Future<int> products =
+      _firestore.collection('products').snapshots().length;
 
   @override
   Widget build(BuildContext context) {
@@ -55,54 +59,83 @@ class _DashboardState extends State<Dashboard> {
                 height: 10,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return AllItems();
-                    }));
-                  },
-                  child: CardDash(
-                    icon: Icons.desk_rounded,
-                    text: 'Total',
-                    number: "",
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return AllItems();
-                    }));
-                  },
-                  child: CardDash(
-                    icon: Icons.warning_amber_rounded,
-                    color: Colors.red,
-                    text: 'Out of Stock',
-                    number: '0',
-                  ),
-                )
+                StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
+                    stream: _productManager.getAllProducts(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting &&
+                          snapshot.data == null) {
+                        return const Center(
+                            child: CircularProgressIndicator.adaptive());
+                      }
+                      // if (snapshot.connectionState == ConnectionState.done )
+
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return AllItems();
+                          }));
+                        },
+                        child: CardDash(
+                          icon: Icons.desk_rounded,
+                          text: 'Total',
+                          number: snapshot.data!.docs.length.toString(),
+                        ),
+                      );
+                    }),
+                StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
+                    stream: _productManager.getOutOfStock(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting &&
+                          snapshot.data == null) {
+                        return const Center(
+                            child: CircularProgressIndicator.adaptive());
+                      }
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return AllItems();
+                          }));
+                        },
+                        child: CardDash(
+                          icon: Icons.warning_amber_rounded,
+                          color: Colors.red,
+                          text: 'Out of Stock',
+                          number: snapshot.data!.docs.toString().isEmpty
+                              ? "0"
+                              : snapshot.data!.docs.length.toString(),
+                        ),
+                      );
+                    })
               ]),
               SizedBox(
                 height: 10,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                GestureDetector(
-                  onTap: () {
-                    
-                    // print("${_productManager.getAllProducts().length}");
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return AllItems();
-                    }));
-                  },
-                  child: CardDash(
-                    icon: Icons.warning_amber_rounded,
-                    text: 'Low Stock',
-                    color: Colors.yellow,
-                    number: '0',
-                  ),
-                ),
+                StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
+                    stream: _productManager.getInStock(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting &&
+                          snapshot.data == null) {
+                        return const Center(
+                            child: CircularProgressIndicator.adaptive());
+                      }
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return AllItems();
+                          }));
+                        },
+                        child: CardDash(
+                          icon: Icons.warning_amber_rounded,
+                          text: 'Low Stock',
+                          color: Colors.yellow,
+                          number: snapshot.data!.docs.length.toString(),
+                        ),
+                      );
+                    }),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context)

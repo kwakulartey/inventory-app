@@ -41,6 +41,7 @@ class ProductManager with ChangeNotifier {
       "quantity": product.quantity,
       "lowOnStock": product.lowOnStock,
       "productId": product.productId,
+      "createdAt": FieldValue.serverTimestamp()
     }).then((_) {
       result = true;
       setMessage('Product added successfully');
@@ -56,11 +57,16 @@ class ProductManager with ChangeNotifier {
   }
 
   //READ ALL PRODUCTS
-  Stream<QuerySnapshot<Map<String, dynamic>?>> getAllProducts()  {
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getAllProducts() {
     return _productCollection.snapshots();
   }
 
-  
+  // Future<QuerySnapshot<Map<String, dynamic>>> getTotal() {
+
+  //   return _productCollection.get().then((value) {
+  //     return value;
+  //   });
+  // }
 
   //READ SINGLE PRODUCT
   Stream<DocumentSnapshot<Map<String, dynamic>>> getProduct(
@@ -68,12 +74,25 @@ class ProductManager with ChangeNotifier {
     return _productCollection.doc(docID).snapshots();
   }
 
-  //READ PRODUCT BASED ON IN-STOCK
-  Stream<QuerySnapshot<Map<String, dynamic>>> getInStock(String stock) {
+  //READ  IN-STOCK
+  Stream<QuerySnapshot<Map<String, dynamic>>> getInStock() {
+    return _productCollection
+        .where('lowOnStock', isLessThanOrEqualTo: 10)
+        .snapshots();
+  }
+
+  //OUT OF STOCK
+  Stream<QuerySnapshot<Map<String, dynamic>>> getOutOfStock() {
+    return _productCollection.where('lowOnStock', isEqualTo: 0).snapshots();
+  }
+
+//READ PRODUCTS BASED ON STOCK
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getStock(int value) {
     return _productCollection
         .where(
-          'lowOnStock', isEqualTo: stock
+          "lowOnStock", isLessThanOrEqualTo: value
         )
+        .orderBy("createdAt", descending: true)
         .snapshots();
   }
 

@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
- 
-
   Product({
     required this.name,
     required this.type,
@@ -10,6 +8,7 @@ class Product {
     required this.quantity,
     required this.lowOnStock,
     required this.productId,
+    this.createdAt,
   });
 
   String name;
@@ -18,7 +17,7 @@ class Product {
   int quantity;
   int lowOnStock;
   int productId;
-
+  String? createdAt;
 
   factory Product.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> doc) =>
@@ -29,17 +28,16 @@ class Product {
         quantity: doc.data()!['quantity'],
         lowOnStock: doc.data()!['lowOnStock'],
         productId: doc.data()!['productId'],
-       
+        createdAt: doc.data()!['createdAt']
       );
 
-      Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         'name': name,
         'type': type,
         'costPrice': price,
         'quantity': quantity,
-        'lowOnStock':lowOnStock,
+        'lowOnStock': lowOnStock,
         'productId': productId,
+        'createdAt':createdAt
       };
-
- 
 }
