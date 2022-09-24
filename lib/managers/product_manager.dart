@@ -87,7 +87,7 @@ class ProductManager with ChangeNotifier {
   }
 
 //READ PRODUCTS BASED ON STOCK
-  Stream<QuerySnapshot<Map<String, dynamic>?>> getStock(int value) {
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getStock(int? value) {
     return _productCollection
         .where(
           "lowOnStock", isLessThanOrEqualTo: value

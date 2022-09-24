@@ -121,12 +121,15 @@ class _DashboardState extends State<Dashboard> {
                         return const Center(
                             child: CircularProgressIndicator.adaptive());
                       }
+
                       return GestureDetector(
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return AllItems();
-                          }));
+                          snapshot.data!.docs.forEach((element) {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return AllItems();
+                            }));
+                          });
                         },
                         child: CardDash(
                           icon: Icons.warning_amber_rounded,
