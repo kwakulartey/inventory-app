@@ -75,6 +75,11 @@ class AllItems extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w500),
                             ),
+                            Text(
+                              'GHC 390.00',
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w600),
+                            ),
                             GestureDetector(
                                 onTap: (() {
                                   showDialog(
