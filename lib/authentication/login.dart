@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/authentication/Sign_up.dart';
 import 'package:inventory_1/authentication/forgot_password.dart';
-import 'package:inventory_1/dashboard.dart';
+import '../views/dashboard.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
