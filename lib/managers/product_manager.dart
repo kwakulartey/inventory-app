@@ -74,25 +74,22 @@ class ProductManager with ChangeNotifier {
     return _productCollection.doc(docID).snapshots();
   }
 
-  //READ  IN-STOCK
-  Stream<QuerySnapshot<Map<String, dynamic>>> getInStock() {
+  //READ  LOW ON STOCK
+  Stream<QuerySnapshot<Map<String, dynamic>>> getLowStock({required int lowInStock}) {
     return _productCollection
-        .where('lowOnStock', isLessThanOrEqualTo: 10)
+        .where('quantity', isLessThanOrEqualTo: lowInStock)
         .snapshots();
   }
 
   //OUT OF STOCK
   Stream<QuerySnapshot<Map<String, dynamic>>> getOutOfStock() {
-    return _productCollection.where('lowOnStock', isEqualTo: 0).snapshots();
+    return _productCollection.where('quantity', isEqualTo: 0).snapshots();
   }
 
 //READ PRODUCTS BASED ON STOCK
-  Stream<QuerySnapshot<Map<String, dynamic>?>> getStock(int value) {
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getStock(int? value) {
     return _productCollection
-        .where(
-          "lowOnStock", isLessThanOrEqualTo: value
-        )
-        .orderBy("createdAt", descending: true)
+        .where("quantity", isLessThanOrEqualTo: value)
         .snapshots();
   }
 

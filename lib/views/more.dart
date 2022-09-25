@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inventory_1/Colla.dart';
 import 'package:inventory_1/widget/contain_acc.dart';
+
+import 'Colla.dart';
 
 class More extends StatefulWidget {
   const More({Key? key}) : super(key: key);

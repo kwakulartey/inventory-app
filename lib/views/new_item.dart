@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:inventory_1/dashboard.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/models/product.dart';
+
+import 'dashboard.dart';
 
 class NewItem extends StatefulWidget {
   NewItem({Key? key}) : super(key: key);
