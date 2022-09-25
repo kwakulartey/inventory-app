@@ -29,6 +29,7 @@ class _MoreState extends State<More> {
                 children: const [
                   Center(
                     child: CircleAvatar(
+                      backgroundImage: AssetImage('assets/Profile_avatar.png'),
                       radius: 80,
                     ),
                   ),

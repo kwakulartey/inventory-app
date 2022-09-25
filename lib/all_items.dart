@@ -23,10 +23,6 @@ class AllItems extends StatelessWidget {
             }));
           }),
           child: ListView.separated(
-              scrollDirection: Axis.vertical,
-              physics: ScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics(),
-              ),
               shrinkWrap: true,
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(height: 10);
@@ -38,8 +34,8 @@ class AllItems extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.black12),
-                  child: Container(
-                    padding: EdgeInsets.all(10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

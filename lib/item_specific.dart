@@ -11,6 +11,22 @@ class ItemSpecific extends StatefulWidget {
 
 class _ItemSpecificState extends State<ItemSpecific> {
   final TextEditingController _quantityController = TextEditingController();
+  int _count = 0;
+
+  void _incrementCount() {
+    setState(() {
+      var news = _count++;
+      _quantityController.text = news.toString();
+    });
+  }
+
+  void _decrementCount() {
+    setState(() {
+      var news = _count--;
+      _quantityController.text = news.toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +150,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text(
-                              'New Quantity:',
+                              'Quantity in Stock:',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -205,10 +221,10 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                     child: Row(
                                       children: [
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: _decrementCount,
                                             icon: Icon(Icons.chevron_left)),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: _incrementCount,
                                             icon: Icon(
                                               Icons.chevron_right,
                                             )),
