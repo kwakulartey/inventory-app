@@ -4,8 +4,8 @@ import 'package:inventory_1/managers/product_manager.dart';
 
 import '../widget/alertdialog.dart';
 
-class AllItems extends StatelessWidget {
-  AllItems({
+class OutOfStock extends StatelessWidget {
+  OutOfStock({
     Key? key,
   }) : super(key: key);
 
@@ -15,12 +15,12 @@ class AllItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('All Items'),
+          title: const Text('Low on Stock'),
           centerTitle: true,
         ),
         body: SafeArea(
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
-                stream: _productManager.getAllProducts(),
+                stream: _productManager.getOutOfStock(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting &&
                       snapshot.data == null) {
@@ -77,7 +77,7 @@ class AllItems extends StatelessWidget {
                                     ),
                                     Icon(
                                       Icons.warning_amber_rounded,
-                                      color: Colors.red,
+                                      color: Colors.yellow,
                                     )
                                   ],
                                 ),
@@ -95,7 +95,7 @@ class AllItems extends StatelessWidget {
                                           fontWeight: FontWeight.w500),
                                     ),
                                     Text(
-                                      'GHC $newPrice',
+                                      'GHC 390.00',
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600),

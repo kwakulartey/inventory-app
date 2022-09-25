@@ -7,7 +7,8 @@ import '../widget/alertdialog.dart';
 class LowOnStock extends StatelessWidget {
   final int lowOnStock;
   LowOnStock({
-    Key? key, required this.lowOnStock,
+    Key? key,
+    required this.lowOnStock,
   }) : super(key: key);
 
   final ProductManager _productManager = ProductManager();
@@ -44,6 +45,11 @@ class LowOnStock extends StatelessWidget {
                           );
                         }
                         var name = snapshot.data!.docs[index].data()!['name'];
+                        var type = snapshot.data!.docs[index].data()!['type'];
+                        var quantity =
+                            snapshot.data!.docs[index].data()!['quantity'];
+                        var price = snapshot.data!.docs[index].data()!['price'];
+                        var newPrice = price * quantity;
                         return Container(
                           height: 80,
                           decoration: BoxDecoration(
@@ -59,7 +65,7 @@ class LowOnStock extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '$name',
+                                      '$name $type',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
@@ -73,7 +79,7 @@ class LowOnStock extends StatelessWidget {
                                     ),
                                     Icon(
                                       Icons.warning_amber_rounded,
-                                      color: Colors.red,
+                                      color: Colors.yellow,
                                     )
                                   ],
                                 ),
@@ -85,7 +91,7 @@ class LowOnStock extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '0 in Stock',
+                                      '$quantity in Stock',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
