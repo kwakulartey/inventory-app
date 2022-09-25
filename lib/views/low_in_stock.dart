@@ -2,39 +2,48 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 
-import 'widget/alertdialog.dart';
+import '../widget/alertdialog.dart';
 
-class AllItems extends StatelessWidget {
-  AllItems({Key? key}) : super(key: key);
+class LowOnStock extends StatelessWidget {
+  final int lowOnStock;
+  LowOnStock({
+    Key? key, required this.lowOnStock,
+  }) : super(key: key);
 
   final ProductManager _productManager = ProductManager();
-  int value = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('All Items'),
+          title: const Text('Low on Stock'),
           centerTitle: true,
         ),
         body: SafeArea(
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
-                stream: _productManager.getStock(value),
+                stream: _productManager.getLowStock(lowInStock: lowOnStock),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting &&
                       snapshot.data == null) {
-                    Center(
+                    const Center(
                       child: CircularProgressIndicator.adaptive(),
                     );
                   }
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.data == null) {
-                    return Text("no dat available yet");
+                    return const Text("no dat available yet");
                   }
                   return ListView.separated(
                       padding: EdgeInsets.all(10),
                       itemBuilder: ((context, index) {
-                        
+                        if (snapshot.connectionState ==
+                                ConnectionState.waiting &&
+                            snapshot.data == null) {
+                          const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
+                        }
+                        var name = snapshot.data!.docs[index].data()!['name'];
                         return Container(
                           height: 80,
                           decoration: BoxDecoration(
@@ -48,9 +57,9 @@ class AllItems extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  children: const [
+                                  children: [
                                     Text(
-                                      'Cow Meat',
+                                      '$name',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
@@ -111,7 +120,9 @@ class AllItems extends StatelessWidget {
                         );
                       }),
                       separatorBuilder: ((context, index) => Divider()),
-                      itemCount: 2);
+                      itemCount: snapshot.data == null
+                          ? 0
+                          : snapshot.data!.docs.length);
                 })));
   }
 }
