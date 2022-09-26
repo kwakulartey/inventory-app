@@ -40,8 +40,9 @@ class AuthManager with ChangeNotifier {
         "name": client.name,
         "email": client.email,
         "phonenumber": client.phone,
-        "role":client.role,
-        "user_id": client.userId
+        "role": client.role,
+        "user_id": userCredential.user!.uid,
+        "company": client.company
       });
       isCreated = true;
     }).catchError((onError) {
@@ -53,5 +54,25 @@ class AuthManager with ChangeNotifier {
       setIsLoading(false);
     });
     return isCreated;
+  }
+
+  Future<bool> loginUser(
+      {required String email, required String password}) async {
+    bool isSuccessful = false;
+    setIsLoading(true);
+    await _firebaseAuth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((userCredential) {
+      if (userCredential.user != null) {
+        isSuccessful = true;
+      }else{}
+    }).catchError((onError) {
+      setMesage('$onError');
+    }).timeout(const Duration(seconds: 60), onTimeout: () {
+      setMesage('Please check your connection');
+      isSuccessful = false;
+      setIsLoading(false);
+    });
+    return isSuccessful;
   }
 }

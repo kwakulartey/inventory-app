@@ -15,6 +15,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final emailRegExp = RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +36,7 @@ class _LoginState extends State<Login> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.email),
                   labelText: ('E-mail'),
                   labelStyle: TextStyle(fontSize: 12),
@@ -66,7 +67,7 @@ class _LoginState extends State<Login> {
                 obscuringCharacter: '*',
                 keyboardType: TextInputType.visiblePassword,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.lock),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   labelText: ('Password'),
@@ -112,11 +113,12 @@ class _LoginState extends State<Login> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(10)),
                 child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) {
-                        return Dashboard();
-                      }), (route) => false);
+                    onPressed: () async {
+                      
+                      // Navigator.of(context).pushAndRemoveUntil(
+                      //     MaterialPageRoute(builder: (context) {
+                      //   return Dashboard();
+                      // }), (route) => false);
                     },
                     child: Text(
                       'Login',
