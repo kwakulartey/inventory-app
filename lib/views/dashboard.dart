@@ -63,7 +63,7 @@ class _DashboardState extends State<Dashboard> {
                   print('wow');
                   print(element.data()!['qauntity']);
                 }
-                
+
                 for (int i = 1; i < snapshot.data!.docs.length; i++) {
                   // quantitys = element[i].data()!['quantity'];
                   print(snapshot.data!.docs[i].data()!['quantity']);

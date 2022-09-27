@@ -6,13 +6,13 @@ class CardDash extends StatelessWidget {
   Color? color;
   String number;
 
-  CardDash({
-    Key? key,
-    required this.icon,
-    required this.text,
-    this.color,
-    required this.number
-  }) : super(key: key);
+  CardDash(
+      {Key? key,
+      required this.icon,
+      required this.text,
+      this.color,
+      required this.number})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

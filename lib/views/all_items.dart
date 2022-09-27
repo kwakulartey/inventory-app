@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_1/managers/product_manager.dart';
-import 'package:inventory_1/views/item_specific.dart';
+import 'package:inventory_1/item_specific.dart';
 
 import '../widget/alertdialog.dart';
 
