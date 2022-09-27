@@ -6,12 +6,14 @@ class alertdialog extends StatelessWidget {
   String text1;
   IconData icon;
   IconData icon1;
+  String docId;
   alertdialog(
       {Key? key,
       required this.text,
       required this.icon,
       required this.text1,
-      required this.icon1})
+      required this.icon1,
+      required this.docId})
       : super(key: key);
 
   @override
@@ -24,9 +26,12 @@ class alertdialog extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return ItemSpecific();
+                  return ItemSpecific(
+                    docId: docId,
+                  );
                 }));
               },
               child: Container(

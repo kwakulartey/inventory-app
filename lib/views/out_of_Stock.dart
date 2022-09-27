@@ -107,6 +107,7 @@ class OutOfStock extends StatelessWidget {
                                               context: context,
                                               builder: (context) {
                                                 return alertdialog(
+                                                  docId: '',
                                                   text: 'Edit Item',
                                                   text1: 'Delete Item',
                                                   icon: Icons.edit_note_rounded,

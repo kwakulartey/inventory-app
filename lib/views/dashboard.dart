@@ -329,6 +329,7 @@ class _DashboardState extends State<Dashboard> {
                                                 context: context,
                                                 builder: (context) {
                                                   return alertdialog(
+                                                    docId: '',
                                                     text: 'Edit Item',
                                                     text1: 'Delete Item',
                                                     icon:
