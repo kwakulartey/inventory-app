@@ -65,7 +65,9 @@ class AuthManager with ChangeNotifier {
         .then((userCredential) {
       if (userCredential.user != null) {
         isSuccessful = true;
-      }else{}
+      } else {
+        isSuccessful = false;
+      }
     }).catchError((onError) {
       setMesage('$onError');
     }).timeout(const Duration(seconds: 60), onTimeout: () {

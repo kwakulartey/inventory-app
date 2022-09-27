@@ -28,7 +28,7 @@ class Client {
       Client(
         email: doc.data()!["email"],
         name: doc.data()!["name"],
-        phone: doc.data()!["phone"],
+        phone: doc.data()!["phonenumber"],
         profilePicture: doc.data()!["profile_picture"],
         role: doc.data()!["role"],
         company: doc.data()!["company"],
