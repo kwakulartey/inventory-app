@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inventory_1/views/SalesPerson/dashbord_sales.dart';
 import 'package:inventory_1/views/dashboard.dart';
 
 import 'authentication/login.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Login(),
+      home: const DashboardSales(),
     );
   }
 }
