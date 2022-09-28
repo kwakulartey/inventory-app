@@ -50,6 +50,7 @@ class LowOnStock extends StatelessWidget {
                             snapshot.data!.docs[index].data()!['quantity'];
                         var price = snapshot.data!.docs[index].data()!['price'];
                         var newPrice = price * quantity;
+                        var docId = snapshot.data!.docs[index].id;
                         return Container(
                           height: 80,
                           decoration: BoxDecoration(
@@ -97,7 +98,7 @@ class LowOnStock extends StatelessWidget {
                                           fontWeight: FontWeight.w500),
                                     ),
                                     Text(
-                                      'GHC 390.00',
+                                      'GHC $newPrice',
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600),
@@ -109,7 +110,7 @@ class LowOnStock extends StatelessWidget {
                                               context: context,
                                               builder: (context) {
                                                 return alertdialog(
-                                                  docId: '',
+                                                  docId: docId,
                                                   text: 'Edit Item',
                                                   text1: 'Delete Item',
                                                   icon: Icons.edit_note_rounded,

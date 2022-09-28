@@ -265,88 +265,93 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       height: 10,
                     ),
-                    ListView.separated(
-                        scrollDirection: Axis.vertical,
-                        physics: ScrollPhysics(
-                          parent: NeverScrollableScrollPhysics(),
-                        ),
-                        shrinkWrap: true,
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(height: 10);
-                        },
-                        itemCount: 5,
-                        itemBuilder: ((BuildContext context, int index) {
-                          return Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black12),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: const [
-                                      Text(
-                                        'Cow Meat',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
+                    StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
+                      stream: null,
+                      builder: (context, snapshot) {
+                        return ListView.separated(
+                            scrollDirection: Axis.vertical,
+                            physics: ScrollPhysics(
+                              parent: NeverScrollableScrollPhysics(),
+                            ),
+                            shrinkWrap: true,
+                            separatorBuilder: (BuildContext context, int index) {
+                              return SizedBox(height: 10);
+                            },
+                            itemCount: 5,
+                            itemBuilder: ((BuildContext context, int index) {
+                              return Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.black12),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: const [
+                                          Text(
+                                            'Cow Meat',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text('23:40;32'),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Icon(
+                                            Icons.warning_amber_rounded,
+                                            color: Colors.red,
+                                          )
+                                        ],
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        height: 10,
                                       ),
-                                      Text('23:40;32'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Icon(
-                                        Icons.warning_amber_rounded,
-                                        color: Colors.red,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '0 in Stock',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          GestureDetector(
+                                              onTap: (() {
+                                                showDialog(
+                                                    barrierColor: Colors.black45,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return alertdialog(
+                                                        docId: '',
+                                                        text: 'Edit Item',
+                                                        text1: 'Delete Item',
+                                                        icon:
+                                                            Icons.edit_note_rounded,
+                                                        icon1: Icons
+                                                            .delete_outline_rounded,
+                                                      );
+                                                    });
+                                              }),
+                                              child: Icon(Icons.more_horiz))
+                                        ],
                                       )
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '0 in Stock',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      GestureDetector(
-                                          onTap: (() {
-                                            showDialog(
-                                                barrierColor: Colors.black45,
-                                                context: context,
-                                                builder: (context) {
-                                                  return alertdialog(
-                                                    docId: '',
-                                                    text: 'Edit Item',
-                                                    text1: 'Delete Item',
-                                                    icon:
-                                                        Icons.edit_note_rounded,
-                                                    icon1: Icons
-                                                        .delete_outline_rounded,
-                                                  );
-                                                });
-                                          }),
-                                          child: Icon(Icons.more_horiz))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        }))
+                                ),
+                              );
+                            }));
+                      }
+                    )
                   ],
                 );
               }),

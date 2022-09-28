@@ -1,5 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:inventory_1/item_specific.dart';
+import 'package:inventory_1/managers/product_manager.dart';
+import 'package:inventory_1/utils/dimmension.dart';
 
 class alertdialog extends StatelessWidget {
   String text;
@@ -15,6 +20,8 @@ class alertdialog extends StatelessWidget {
       required this.icon1,
       required this.docId})
       : super(key: key);
+
+  final ProductManager _productManager = ProductManager();
 
   @override
   Widget build(BuildContext context) {
@@ -62,26 +69,79 @@ class alertdialog extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      text1,
-                      style: TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.bold),
-                    ),
-                    Icon(
-                      icon1,
-                      color: Colors.red,
-                    )
-                  ],
+            GestureDetector(
+              onTap: () async {
+                showDialog(
+                    context: context,
+                    builder: ((context) {
+                      return AlertDialog(
+                        title: const Icon(Icons.warning_amber_rounded,
+                            color: Colors.red),
+                        content:
+                            Text('Are you sure you want to delete product?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('No')),
+                          TextButton(
+                              onPressed: () async {
+                                bool isDeleted = await _productManager
+                                    .deletedProduct(docId: docId);
+                                if (isDeleted) {
+                                  Navigator.pop(context);
+                                  Fluttertoast.showToast(
+                                      msg: "Product Deleted",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                  
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: _productManager.message,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                }
+                              },
+                              child: Text(
+                                'Yes',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: Dimensions.font20),
+                              ))
+                        ],
+                      );
+                    }));
+              },
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        text1,
+                        style: const TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold),
+                      ),
+                      Icon(
+                        icon1,
+                        color: Colors.red,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

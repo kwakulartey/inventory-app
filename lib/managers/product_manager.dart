@@ -93,11 +93,18 @@ class ProductManager with ChangeNotifier {
         .snapshots();
   }
 
+  //READ PRODUCTS BASED ON STOCK
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getRecent() {
+    return _productCollection
+        .orderBy("createdAt", descending: true)
+        .snapshots();
+  }
+
 //UPDATE PRODUCT
-  Future<bool> updateProduct({required String docID, Product? product}) async {
+  Future<bool> updateProduct({required String docID, double? price, int? quantity}) async {
     Map<String, dynamic> data = <String, dynamic>{
-      "price": product?.price,
-      "quantity": product?.quantity
+      "price": price,
+      "quantity":quantity
     };
     bool isUpdated = false;
     await _productCollection.doc(docID).update(data).then((value) {

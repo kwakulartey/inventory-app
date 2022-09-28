@@ -7,7 +7,7 @@ class Product {
     required this.price,
     required this.quantity,
     required this.lowOnStock,
-    required this.productId,
+    this.productId,
     this.createdAt,
   });
 
@@ -16,7 +16,7 @@ class Product {
   double price;
   int quantity;
   int lowOnStock;
-  int productId;
+  int? productId;
   String? createdAt;
 
   factory Product.fromDocumentSnapshot(
