@@ -79,7 +79,11 @@ class AllItems extends StatelessWidget {
                                     ),
                                     Icon(
                                       Icons.warning_amber_rounded,
-                                      color: Colors.red,
+                                      color: quantity <= 20 && quantity > 0
+                                          ? Colors.yellow
+                                          : quantity == 0
+                                              ? Colors.red
+                                              : Colors.green,
                                     )
                                   ],
                                 ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -352,7 +354,7 @@ class _NewItemState extends State<NewItem> {
         type: dropdownValueType.toString(),
         price: double.parse(_priceController.text),
         quantity: int.parse(_quantityController.text),
-        productId: 1,
+        productId: generateProductId(),
         lowOnStock: int.parse(_lowStockController.text)));
 
     if (isCreated) {
@@ -375,5 +377,11 @@ class _NewItemState extends State<NewItem> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+  }
+
+  int generateProductId() {
+    var random = Random();
+    var randomNumber = random.nextInt(1000000);
+    return randomNumber;
   }
 }
