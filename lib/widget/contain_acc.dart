@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_1/utils/dimmension.dart';
 
 class ContainAcc extends StatelessWidget {
   String text1;
@@ -11,10 +12,12 @@ class ContainAcc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 10),
-      height: 80,
+      padding:
+          EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width10),
+      height: Dimensions.height20 * 4,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1))),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(width: Dimensions.width10 / 10))),
       child: Row(
         children: [
           Icon(
@@ -22,18 +25,20 @@ class ContainAcc extends StatelessWidget {
             color: Color.fromARGB(255, 7, 85, 148),
           ),
           SizedBox(
-            width: 5,
+            width: Dimensions.width10,
           ),
           Text(
             text1,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: Dimensions.font16, fontWeight: FontWeight.w600),
           ),
           SizedBox(
-            width: 20,
+            width: Dimensions.width20,
           ),
           Text(
             text2,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: TextStyle(
+                fontSize: Dimensions.font16, fontWeight: FontWeight.w400),
           )
         ],
       ),
