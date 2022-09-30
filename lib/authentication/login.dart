@@ -6,6 +6,7 @@ import 'package:inventory_1/authentication/Sign_up.dart';
 import 'package:inventory_1/authentication/forgot_password.dart';
 import 'package:inventory_1/managers/auth_manager.dart';
 import 'package:inventory_1/managers/client_model.dart';
+import 'package:inventory_1/views/SalesPerson/dashbord_sales.dart';
 import '../views/dashboard.dart';
 
 class Login extends StatefulWidget {
@@ -146,7 +147,7 @@ class _LoginState extends State<Login> {
                                     if (value!.role == "user") {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(builder: (context) {
-                                        return Dashboard();
+                                        return DashboardSales();
                                       }), (route) => false);
 
                                       Fluttertoast.showToast(
@@ -161,10 +162,16 @@ class _LoginState extends State<Login> {
                                       setState(() {
                                         _isLoading = false;
                                       });
-                                    } else {
+                                    } else if(value.role == "admin"){
                                       setState(() {
                                         _isLoading = false;
                                       });
+                                       Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(builder: (context) {
+                                        return Dashboard();
+                                      }), (route) => false);
+                                      
+                                      
                                       Fluttertoast.showToast(
                                           msg: "You are not an Admin",
                                           toastLength: Toast.LENGTH_SHORT,

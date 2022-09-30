@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:inventory_1/authentication/forgot_password.dart';
 import 'package:inventory_1/views/SalesPerson/dashbord_sales.dart';
 import 'package:inventory_1/views/dashboard.dart';
+import 'package:inventory_1/helpers/dependencies.dart' as dep;
 
 import 'authentication/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await dep.init();
   runApp(const MyApp());
 }
 
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const DashboardSales(),
+      home: const Login(),
     );
   }
 }

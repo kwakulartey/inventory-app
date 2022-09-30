@@ -7,7 +7,7 @@ import 'package:inventory_1/models/product.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
 
-  CartController(this.cartRepo);
+  CartController({required this.cartRepo});
 
   Map<int, CartModel> _items = {};
 
