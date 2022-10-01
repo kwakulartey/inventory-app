@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/item_specific.dart';
+import 'package:inventory_1/utils/dimmension.dart';
 
 import '../widget/alertdialog.dart';
 
@@ -31,10 +32,12 @@ class AllItems extends StatelessWidget {
                   }
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.data == null) {
-                    return const Text("no dat available yet");
+                    return const Text("no data available yet");
                   }
                   return ListView.separated(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.symmetric(
+                          vertical: Dimensions.height10,
+                          horizontal: Dimensions.width10),
                       itemBuilder: ((context, index) {
                         if (snapshot.connectionState ==
                                 ConnectionState.waiting &&
@@ -51,12 +54,14 @@ class AllItems extends StatelessWidget {
                         var newPrice = price * quantity;
                         var docId = snapshot.data!.docs[index].id;
                         return Container(
-                          height: 80,
+                          height: Dimensions.height20 * 5,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.black12),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.symmetric(
+                                vertical: Dimensions.height10,
+                                horizontal: Dimensions.width10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -67,15 +72,19 @@ class AllItems extends StatelessWidget {
                                     Text(
                                       '$name $type',
                                       style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: Dimensions.font16,
                                           fontWeight: FontWeight.w500),
                                     ),
                                     SizedBox(
-                                      width: 10,
+                                      width: Dimensions.width10,
                                     ),
-                                    Text('23:40;32'),
+                                    Text(
+                                      '23:40;32',
+                                      style: TextStyle(
+                                          fontSize: Dimensions.font16),
+                                    ),
                                     SizedBox(
-                                      width: 10,
+                                      width: Dimensions.width10,
                                     ),
                                     Icon(
                                       Icons.warning_amber_rounded,
@@ -88,7 +97,7 @@ class AllItems extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: Dimensions.width20,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -97,14 +106,15 @@ class AllItems extends StatelessWidget {
                                     Text(
                                       '$quantity in Stock',
                                       style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: Dimensions.font16,
                                           fontWeight: FontWeight.w500),
                                     ),
                                     Text(
                                       'GHC $newPrice',
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                        fontSize: Dimensions.font16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                     GestureDetector(
                                         onTap: (() {
@@ -122,7 +132,10 @@ class AllItems extends StatelessWidget {
                                                 );
                                               });
                                         }),
-                                        child: Icon(Icons.more_horiz))
+                                        child: Icon(
+                                          Icons.more_horiz,
+                                          size: Dimensions.iconSize24,
+                                        ))
                                   ],
                                 )
                               ],

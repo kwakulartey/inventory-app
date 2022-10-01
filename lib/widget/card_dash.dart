@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_1/utils/dimmension.dart';
 
 class CardDash extends StatelessWidget {
   IconData icon;
@@ -18,8 +19,8 @@ class CardDash extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      height: 100,
-      width: 180,
+      height: Dimensions.height20 * 5,
+      width: Dimensions.width20 * 9,
       decoration: BoxDecoration(
           color: Colors.black12, borderRadius: BorderRadius.circular(10)),
       child: Column(
@@ -30,21 +31,24 @@ class CardDash extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                size: 30,
+                size: Dimensions.iconSize24 + 6,
                 color: color,
               ),
               Text(
                 number,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: Dimensions.font20 + 5,
+                    fontWeight: FontWeight.bold),
               )
             ],
           ),
           SizedBox(
-            height: 20,
+            height: Dimensions.height20,
           ),
           Text(
             text,
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: Dimensions.font16, fontWeight: FontWeight.w600),
           )
         ],
       ),

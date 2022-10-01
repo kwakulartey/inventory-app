@@ -41,7 +41,10 @@ class _ItemSpecificState extends State<ItemSpecific> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Item Spec'),
+        title: Text(
+          'Item Spec',
+          style: TextStyle(fontSize: Dimensions.font20),
+        ),
         centerTitle: true,
       ),
       body: ListView(
@@ -74,58 +77,58 @@ class _ItemSpecificState extends State<ItemSpecific> {
                       key: _globalKey,
                       child: Column(
                         children: [
-                          Center(
-                            child: Text(
-                              'Stock',
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
-                            ),
-                          ),
                           SizedBox(
-                            height: 20,
+                            height: Dimensions.height20,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                  height: 50,
+                                  height: Dimensions.height45 + 5,
                                   decoration: BoxDecoration(
                                       color: Colors.black12,
-                                      borderRadius: BorderRadius.circular(10)),
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radius15 - 5)),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Dimensions.width20,
+                                        vertical: Dimensions.height10),
                                     child: Row(
                                       children: [
                                         Text(
                                           'Quantity:',
-                                          style: TextStyle(fontSize: 10),
+                                          style: TextStyle(
+                                              fontSize: Dimensions.font16),
                                         ),
                                         Text(
-                                          '$quantity',
+                                          ' $quantity',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 16),
+                                              fontSize: Dimensions.font16),
                                         )
                                       ],
                                     ),
                                   )),
                               Container(
-                                  height: 50,
+                                  height: Dimensions.height45 + 5,
                                   decoration: BoxDecoration(
                                       color: Colors.black12,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Dimensions.width10,
+                                        vertical: Dimensions.height10),
                                     child: Row(
                                       children: [
                                         Text(
                                           'Total Value:',
-                                          style: TextStyle(fontSize: 16),
+                                          style: TextStyle(
+                                              fontSize: Dimensions.font16),
                                         ),
                                         Text(
-                                          'GHC ${quantity * price}',
+                                          ' GHC ${quantity * price}',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: Dimensions.font16,
                                               fontWeight: FontWeight.bold),
                                         )
                                       ],
@@ -134,42 +137,45 @@ class _ItemSpecificState extends State<ItemSpecific> {
                             ],
                           ),
                           SizedBox(
-                            height: 30,
+                            height: Dimensions.height30,
                           ),
                           Container(
-                            height: 400,
+                            height: Dimensions.height20 * 20,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                                 color: Colors.black12,
-                                borderRadius: BorderRadius.circular(10)),
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radius15 - 5)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 50,
+                                  height: Dimensions.height45 + 5,
                                   width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(
-                                              width: 1, color: Colors.grey))),
+                                              width: Dimensions.width10 / 10,
+                                              color: Colors.grey))),
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 80, left: 20),
+                                    padding: EdgeInsets.only(
+                                        right: Dimensions.width20 * 4,
+                                        left: Dimensions.width20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
+                                        Text(
                                           'Product Name:',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: Dimensions.font16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey),
                                         ),
                                         Text(
                                           '$name $type',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: Dimensions.font16,
                                               fontWeight: FontWeight.bold),
                                         )
                                       ],
@@ -177,15 +183,17 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                   ),
                                 ),
                                 Container(
-                                  height: 70,
+                                  height: Dimensions.height45 + 25,
                                   width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(
-                                              width: 1, color: Colors.grey))),
+                                              width: Dimensions.width10 / 10,
+                                              color: Colors.grey))),
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 80, left: 20),
+                                    padding: EdgeInsets.only(
+                                        right: Dimensions.width20 * 4,
+                                        left: Dimensions.width20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -193,14 +201,14 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                         Text(
                                           'Quantity in Stock:',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: Dimensions.font16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey),
                                         ),
                                         Text(
                                           '$quantity',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: Dimensions.font16,
                                               fontWeight: FontWeight.bold),
                                         )
                                       ],
@@ -208,37 +216,41 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                   ),
                                 ),
                                 Container(
-                                  height: 70,
+                                  height: Dimensions.height45 + 25,
                                   width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(
-                                              width: 1, color: Colors.grey))),
+                                              width: Dimensions.width10 / 10,
+                                              color: Colors.grey))),
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 80, left: 20),
+                                    padding: EdgeInsets.only(
+                                        right: Dimensions.width20 * 2.5,
+                                        left: Dimensions.width20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
+                                        Text(
                                           'Price:',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: Dimensions.font16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey),
                                         ),
-                                        // SizedBox(
-                                        //   width: Dimensions.width30 * 2,
-                                        // ),
                                         SizedBox(
-                                          height: 60,
-                                          width: 100,
+                                          height: Dimensions.height20 * 3,
+                                          width: Dimensions.width20 * 5,
                                           child: TextFormField(
                                             decoration: InputDecoration(
                                               floatingLabelBehavior:
                                                   FloatingLabelBehavior.never,
-                                              prefix: const Text('GHC  '),
+                                              prefix: Text(
+                                                'GHC  ',
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        Dimensions.font16),
+                                              ),
                                               labelStyle: TextStyle(
                                                   fontSize: Dimensions.font16,
                                                   color: Colors.black,
@@ -249,7 +261,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                             controller: _priceController,
                                             keyboardType: TextInputType.number,
                                             style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize: Dimensions.font16,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         )
@@ -258,15 +270,17 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                   ),
                                 ),
                                 Container(
-                                  height: 170,
+                                  height: Dimensions.height45 * 4,
                                   width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(
-                                              width: 10, color: Colors.black))),
+                                              width: Dimensions.width10,
+                                              color: Colors.black))),
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 20, left: 20, bottom: 2),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Dimensions.width20,
+                                        vertical: Dimensions.height10),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -276,7 +290,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                         Text(
                                           'Adjust',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: Dimensions.font16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey),
                                         ),
@@ -285,8 +299,8 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
-                                              height: 60,
-                                              width: 150,
+                                              height: Dimensions.height20 * 3,
+                                              width: Dimensions.width15 * 10,
                                               child: TextFormField(
                                                 decoration: InputDecoration(
                                                   floatingLabelBehavior:
@@ -294,7 +308,9 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                                           .never,
                                                   border: OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                        width: 1,
+                                                        width:
+                                                            Dimensions.width10 /
+                                                                10,
                                                         color: Colors.grey),
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -303,18 +319,20 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                                   labelText: 'Quantity',
                                                   prefix: Text('kilos    '),
                                                   labelStyle: TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize:
+                                                          Dimensions.font16,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold),
-                                                  hintStyle:
-                                                      TextStyle(fontSize: 16),
+                                                  hintStyle: TextStyle(
+                                                    fontSize: Dimensions.font16,
+                                                  ),
                                                 ),
                                                 controller: _quantityController,
                                                 keyboardType:
                                                     TextInputType.number,
                                                 style: TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: Dimensions.font16,
                                                     fontWeight:
                                                         FontWeight.bold),
                                                 validator: (value) {
@@ -331,20 +349,25 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                                     IconButton(
                                                         onPressed:
                                                             _decrementCount,
-                                                        icon: Icon(Icons
-                                                            .chevron_left)),
+                                                        icon: Icon(
+                                                          Icons.chevron_left,
+                                                          size: Dimensions
+                                                              .iconSize24,
+                                                        )),
                                                     IconButton(
                                                         onPressed:
                                                             _incrementCount,
                                                         icon: Icon(
                                                           Icons.chevron_right,
+                                                          size: Dimensions
+                                                              .iconSize24,
                                                         )),
                                                   ],
                                                 ))
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 5,
+                                          height: Dimensions.height10 - 5,
                                         ),
                                         GestureDetector(
                                           onTap: (() async {
@@ -379,7 +402,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                                 setState(() {
                                                   _isLoading = false;
                                                 });
-                                                
+
                                                 showDialog(
                                                     context: context,
                                                     builder: ((context) =>
@@ -430,16 +453,18 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                                 color: const Color.fromARGB(
                                                     255, 16, 81, 133),
                                                 borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            height: 50,
+                                                    BorderRadius.circular(
+                                                        Dimensions.radius15 -
+                                                            5)),
+                                            height: Dimensions.height10 * 5,
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
-                                            child: const Center(
+                                            child: Center(
                                                 child: Text(
                                               'Save Changes',
                                               style: TextStyle(
-                                                  fontSize: 16,
+                                                  fontSize: Dimensions.font16,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold),
                                             )),

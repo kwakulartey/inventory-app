@@ -28,7 +28,7 @@ class alertdialog extends StatelessWidget {
     return AlertDialog(
       elevation: 30,
       content: Container(
-        height: 100,
+        height: Dimensions.height20 * 5,
         child: Column(
           children: [
             GestureDetector(
@@ -42,23 +42,28 @@ class alertdialog extends StatelessWidget {
                 }));
               },
               child: Container(
-                height: 40,
+                height: Dimensions.height20 * 2,
                 decoration: BoxDecoration(
                     color: Colors.black12,
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radius15 - 5)),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.symmetric(
+                      vertical: Dimensions.height10,
+                      horizontal: Dimensions.width10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         text,
                         style: TextStyle(
+                            fontSize: Dimensions.font16,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 22, 90, 145)),
                       ),
                       Icon(
                         icon,
+                        size: Dimensions.iconSize24,
                         color: Color.fromARGB(225, 22, 90, 145),
                       )
                     ],
@@ -67,7 +72,7 @@ class alertdialog extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: Dimensions.height10,
             ),
             GestureDetector(
               onTap: () async {
@@ -99,7 +104,6 @@ class alertdialog extends StatelessWidget {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.white,
                                       fontSize: 16.0);
-                                  
                                 } else {
                                   Fluttertoast.showToast(
                                       msg: _productManager.message,
@@ -115,7 +119,7 @@ class alertdialog extends StatelessWidget {
                                 'Yes',
                                 style: TextStyle(
                                     color: Colors.red,
-                                    fontSize: Dimensions.font20),
+                                    fontSize: Dimensions.font16),
                               ))
                         ],
                       );

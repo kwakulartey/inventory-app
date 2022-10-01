@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_1/utils/dimmension.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class addmore extends StatefulWidget {
   const addmore({
@@ -30,7 +31,7 @@ class _addmoreState extends State<addmore> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (() => showModalBottomSheet(
+      onTap: (() => showMaterialModalBottomSheet(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                   top: Radius.circular(Dimensions.radius20))),
@@ -42,7 +43,7 @@ class _addmoreState extends State<addmore> {
                 Center(
                   child: Text(
                     'Item List',
-                    style: TextStyle(fontSize: 25),
+                    style: TextStyle(fontSize: Dimensions.font20),
                   ),
                 ),
                 ListView.separated(

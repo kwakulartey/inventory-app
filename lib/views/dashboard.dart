@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:inventory_1/utils/dimmension.dart';
 import 'package:inventory_1/views/all_items.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/views/low_in_stock.dart';
@@ -29,9 +30,9 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
+          title: Text(
             'Dashboard',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(fontSize: Dimensions.font20, color: Colors.white),
           ),
           actions: [
             Padding(
@@ -43,13 +44,17 @@ class _DashboardState extends State<Dashboard> {
                     return More();
                   }));
                 },
-                icon: Icon(Icons.more_vert),
+                icon: Icon(
+                  Icons.more_vert,
+                  size: Dimensions.iconSize24,
+                ),
               ),
             )
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.symmetric(
+              horizontal: Dimensions.width20, vertical: Dimensions.height20),
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
               stream: _productManager.getAllProducts(),
               builder: (context, snapshot) {
@@ -74,13 +79,14 @@ class _DashboardState extends State<Dashboard> {
                 return ListView(
                   shrinkWrap: true,
                   children: [
-                    const Text(
+                    Text(
                       'Stats',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: Dimensions.font20),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: Dimensions.height20,
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +136,7 @@ class _DashboardState extends State<Dashboard> {
                               })
                         ]),
                     SizedBox(
-                      height: 10,
+                      height: Dimensions.height20,
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,7 +189,7 @@ class _DashboardState extends State<Dashboard> {
                           )
                         ]),
                     SizedBox(
-                      height: 20,
+                      height: Dimensions.height20,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -194,46 +200,53 @@ class _DashboardState extends State<Dashboard> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            border: const Border(
-                                bottom: BorderSide(color: Colors.black))),
-                        padding: EdgeInsets.all(10),
-                        height: 50,
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Colors.black,
+                                    width: Dimensions.width10 / 10))),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Dimensions.width10,
+                            vertical: Dimensions.height10),
+                        height: Dimensions.height45 + 5,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.history,
+                                  size: Dimensions.iconSize24,
                                   color: Color.fromARGB(255, 11, 72, 122),
                                 ),
                                 Text(
                                   'Transaction History',
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 11, 72, 122),
-                                      fontSize: 16),
+                                      fontSize: Dimensions.font16),
                                 )
                               ],
                             ),
                             Icon(
                               Icons.chevron_right,
+                              size: Dimensions.iconSize24,
                               color: Color.fromARGB(255, 11, 72, 122),
                             )
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: Dimensions.height30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Recent',
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                              fontSize: Dimensions.font20,
+                              fontWeight: FontWeight.w600),
                         ),
                         GestureDetector(
                           onTap: (() {
@@ -246,15 +259,15 @@ class _DashboardState extends State<Dashboard> {
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 11, 72, 122),
                                 borderRadius: BorderRadius.circular(10)),
-                            height: 40,
-                            width: 120,
-                            child: const Padding(
+                            height: Dimensions.height20 * 2,
+                            width: Dimensions.width30 * 4,
+                            child: Padding(
                               padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                               child: Text(
                                 '+New Item',
                                 style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: Dimensions.font16,
+                                    fontWeight: FontWeight.normal,
                                     color: Colors.white),
                               ),
                             ),
@@ -263,95 +276,103 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: Dimensions.height15,
                     ),
-                    StreamBuilder<QuerySnapshot<Map<String,dynamic>>>(
-                      stream: null,
-                      builder: (context, snapshot) {
-                        return ListView.separated(
-                            scrollDirection: Axis.vertical,
-                            physics: ScrollPhysics(
-                              parent: NeverScrollableScrollPhysics(),
-                            ),
-                            shrinkWrap: true,
-                            separatorBuilder: (BuildContext context, int index) {
-                              return SizedBox(height: 10);
-                            },
-                            itemCount: 5,
-                            itemBuilder: ((BuildContext context, int index) {
-                              return Container(
-                                height: 80,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.black12),
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: const [
-                                          Text(
-                                            'Cow Meat',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text('23:40;32'),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Icon(
-                                            Icons.warning_amber_rounded,
-                                            color: Colors.red,
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            '0 in Stock',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          GestureDetector(
-                                              onTap: (() {
-                                                showDialog(
-                                                    barrierColor: Colors.black45,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return alertdialog(
-                                                        docId: '',
-                                                        text: 'Edit Item',
-                                                        text1: 'Delete Item',
-                                                        icon:
-                                                            Icons.edit_note_rounded,
-                                                        icon1: Icons
-                                                            .delete_outline_rounded,
-                                                      );
-                                                    });
-                                              }),
-                                              child: Icon(Icons.more_horiz))
-                                        ],
-                                      )
-                                    ],
+                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                        stream: null,
+                        builder: (context, snapshot) {
+                          return ListView.separated(
+                              scrollDirection: Axis.vertical,
+                              physics: const ScrollPhysics(
+                                parent: NeverScrollableScrollPhysics(),
+                              ),
+                              shrinkWrap: true,
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return SizedBox(height: Dimensions.height10);
+                              },
+                              itemCount: 5,
+                              itemBuilder: ((BuildContext context, int index) {
+                                return Container(
+                                  height: Dimensions.height20 * 5,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.black12),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Dimensions.width10,
+                                        vertical: Dimensions.height10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Cow Meat',
+                                              style: TextStyle(
+                                                  fontSize: Dimensions.font16,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            SizedBox(
+                                              width: Dimensions.width10,
+                                            ),
+                                            Text('23:40;32'),
+                                            SizedBox(
+                                              width: Dimensions.width10,
+                                            ),
+                                            Icon(
+                                              Icons.warning_amber_rounded,
+                                              size: Dimensions.iconSize24,
+                                              color: Colors.red,
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: Dimensions.height20,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              '0 in Stock',
+                                              style: TextStyle(
+                                                  fontSize: Dimensions.font16,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            GestureDetector(
+                                                onTap: (() {
+                                                  showDialog(
+                                                      barrierColor:
+                                                          Colors.black45,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return alertdialog(
+                                                          docId: '',
+                                                          text: 'Edit Item',
+                                                          text1: 'Delete Item',
+                                                          icon: Icons
+                                                              .edit_note_rounded,
+                                                          icon1: Icons
+                                                              .delete_outline_rounded,
+                                                        );
+                                                      });
+                                                }),
+                                                child: Icon(
+                                                  Icons.more_horiz,
+                                                  size: Dimensions.iconSize24,
+                                                ))
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }));
-                      }
-                    )
+                                );
+                              }));
+                        })
                   ],
                 );
               }),
