@@ -260,7 +260,7 @@ class _DashboardState extends State<Dashboard> {
                                 color: Color.fromARGB(255, 11, 72, 122),
                                 borderRadius: BorderRadius.circular(10)),
                             height: Dimensions.height20 * 2,
-                            width: Dimensions.width30 * 4,
+                            width: Dimensions.width30 * 5,
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                               child: Text(

@@ -18,6 +18,7 @@ class _DashboardSalesState extends State<DashboardSales> {
   String dropdownValueType = 'Select option';
   final TextEditingController _quantitysaleController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
+  double price = 0.0;
 
   final ProductManager _productManager = ProductManager();
 
@@ -120,19 +121,22 @@ class _DashboardSalesState extends State<DashboardSales> {
                                       }
                                       return null;
                                     },
-                                    value: dropdownValueItem,
+                                    // value: dropdownValueItem,
                                     icon: const Icon(Icons.arrow_drop_down),
                                     elevation: 16,
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 20),
                                     items: name.map((doc) {
-                                      dropdownValueItem = doc.data()!['name'];
+                                      // dropdownValueItem = doc.data()!['name'];
+                                      price = doc.data()!['price'];
                                       return DropdownMenuItem<String>(
                                         value: doc.data()!['name'] +
+                                            " " +
                                             doc.data()!['type'],
                                         child: Text(
                                           doc.data()!['name'] +
-                                              doc.data()!['name'],
+                                              " " +
+                                              doc.data()!['type'],
                                           style: TextStyle(fontSize: 16),
                                         ),
                                       );
@@ -147,68 +151,68 @@ class _DashboardSalesState extends State<DashboardSales> {
                             SizedBox(
                               height: 20,
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.black12,
-                                  borderRadius: BorderRadius.circular(10)),
-                              height: 80,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 30, right: 30),
-                                child: DropdownButtonFormField(
-                                    dropdownColor: Colors.white,
-                                    decoration: InputDecoration(
-                                        labelText: 'Types',
-                                        labelStyle: TextStyle(fontSize: 20),
-                                        prefixIcon: Icon(Icons.type_specimen,
-                                            color: Colors.red)),
-                                    validator: (value) {
-                                      if (value == 'Select option') {
-                                        return 'Please select an option';
-                                      }
-                                      return null;
-                                    },
-                                    value: dropdownValueType,
-                                    icon: const Icon(Icons.arrow_drop_down),
-                                    elevation: 16,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 20),
-                                    items: dropdownValueItem == "Fish"
-                                        ? fishData
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: TextStyle(fontSize: 16),
-                                              ),
-                                            );
-                                          }).toList()
-                                        : dropdownValueItem == "chicken"
-                                            ? chickenData
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(
-                                                    value,
-                                                    style:
-                                                        TextStyle(fontSize: 16),
-                                                  ),
-                                                );
-                                              }).toList()
-                                            : null,
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownValueType = newValue!;
-                                      });
-                                    }),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //       color: Colors.black12,
+                            //       borderRadius: BorderRadius.circular(10)),
+                            //   height: 80,
+                            //   child: Padding(
+                            //     padding:
+                            //         const EdgeInsets.only(left: 30, right: 30),
+                            //     child: DropdownButtonFormField(
+                            //         dropdownColor: Colors.white,
+                            //         decoration: InputDecoration(
+                            //             labelText: 'Types',
+                            //             labelStyle: TextStyle(fontSize: 20),
+                            //             prefixIcon: Icon(Icons.type_specimen,
+                            //                 color: Colors.red)),
+                            //         validator: (value) {
+                            //           if (value == 'Select option') {
+                            //             return 'Please select an option';
+                            //           }
+                            //           return null;
+                            //         },
+                            //         value: dropdownValueType,
+                            //         icon: const Icon(Icons.arrow_drop_down),
+                            //         elevation: 16,
+                            //         style: TextStyle(
+                            //             color: Colors.black, fontSize: 20),
+                            //         items: dropdownValueItem == "Fish"
+                            //             ? fishData
+                            //                 .map<DropdownMenuItem<String>>(
+                            //                     (String value) {
+                            //                 return DropdownMenuItem<String>(
+                            //                   value: value,
+                            //                   child: Text(
+                            //                     value,
+                            //                     style: TextStyle(fontSize: 16),
+                            //                   ),
+                            //                 );
+                            //               }).toList()
+                            //             : dropdownValueItem == "chicken"
+                            //                 ? chickenData
+                            //                     .map<DropdownMenuItem<String>>(
+                            //                         (String value) {
+                            //                     return DropdownMenuItem<String>(
+                            //                       value: value,
+                            //                       child: Text(
+                            //                         value,
+                            //                         style:
+                            //                             TextStyle(fontSize: 16),
+                            //                       ),
+                            //                     );
+                            //                   }).toList()
+                            //                 : null,
+                            //         onChanged: (String? newValue) {
+                            //           setState(() {
+                            //             dropdownValueType = newValue!;
+                            //           });
+                            //         }),
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
                             Container(
                               height: 80,
                               width: MediaQuery.of(context).size.width,
@@ -235,7 +239,7 @@ class _DashboardSalesState extends State<DashboardSales> {
                                       ],
                                     ),
                                     Text(
-                                      'GHC 30',
+                                      "$price",
                                       style: TextStyle(fontSize: 16),
                                     )
                                   ],

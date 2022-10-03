@@ -6,6 +6,7 @@ import 'package:inventory_1/authentication/Sign_up.dart';
 import 'package:inventory_1/authentication/forgot_password.dart';
 import 'package:inventory_1/managers/auth_manager.dart';
 import 'package:inventory_1/managers/client_model.dart';
+import 'package:inventory_1/utils/dimmension.dart';
 import 'package:inventory_1/views/SalesPerson/dashbord_sales.dart';
 import '../views/dashboard.dart';
 
@@ -31,26 +32,35 @@ class _LoginState extends State<Login> {
         child: Form(
             key: _globalKey,
             child: ListView(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: Dimensions.width20,
+                  vertical: Dimensions.height10),
               children: [
                 Center(
                     child: Text(
                   'Welcome',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: Dimensions.font20 * 2,
+                      fontWeight: FontWeight.bold),
                 )),
                 SizedBox(
-                  height: 40,
+                  height: Dimensions.height45,
                 ),
                 TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     textCapitalization: TextCapitalization.sentences,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.email),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.email,
+                        size: Dimensions.iconSize24,
+                      ),
                       labelText: ('E-mail'),
-                      labelStyle: TextStyle(fontSize: 12),
+                      labelStyle: TextStyle(fontSize: Dimensions.font16),
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
+                          borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: Dimensions.width10 / 10)),
                       hintText: 'Enter your E-mail',
                       hintStyle: TextStyle(fontSize: 12),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -162,16 +172,15 @@ class _LoginState extends State<Login> {
                                       setState(() {
                                         _isLoading = false;
                                       });
-                                    } else if(value.role == "admin"){
+                                    } else if (value.role == "admin") {
                                       setState(() {
                                         _isLoading = false;
                                       });
-                                       Navigator.of(context).pushAndRemoveUntil(
+                                      Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(builder: (context) {
                                         return Dashboard();
                                       }), (route) => false);
-                                      
-                                      
+
                                       Fluttertoast.showToast(
                                           msg: "You are not an Admin",
                                           toastLength: Toast.LENGTH_SHORT,
