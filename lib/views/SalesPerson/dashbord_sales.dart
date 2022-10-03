@@ -93,6 +93,12 @@ class _DashboardSalesState extends State<DashboardSales> {
                           child: CircularProgressIndicator.adaptive(),
                         );
                       }
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.data == null) {
+                        const Center(
+                          child: Text("No Data"),
+                        );
+                      }
                       var name = snapshot.data!.docs;
                       return ListView(
                           padding:
@@ -128,16 +134,19 @@ class _DashboardSalesState extends State<DashboardSales> {
                                         color: Colors.black, fontSize: 20),
                                     items: name.map((doc) {
                                       // dropdownValueItem = doc.data()!['name'];
-                                      price = doc.data()!['price'];
+
                                       return DropdownMenuItem<String>(
-                                        value: doc.data()!['name'] +
-                                            " " +
-                                            doc.data()!['type'],
+                                        onTap: () {
+                                          price = doc.data()!['price'];
+                                        },
+                                        value:
+                                            doc.data()!['productId'].toString(),
                                         child: Text(
                                           doc.data()!['name'] +
                                               " " +
                                               doc.data()!['type'],
-                                          style: TextStyle(fontSize: 16),
+                                          style: TextStyle(
+                                              fontSize: Dimensions.font20),
                                         ),
                                       );
                                     }).toList(),
