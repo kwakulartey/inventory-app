@@ -1,18 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/controllers/cart_controller.dart';
+import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/models/cart_model.dart';
 import 'package:inventory_1/models/product.dart';
 
 class ProductController extends GetxController {
+  // final ProductManager productManager;
   ProductController();
 
+  List<dynamic> _productsList = [];
+  List<dynamic> get productList => _productsList;
   late CartController _cart;
 
   int _quantity = 0;
   int get quantity => _quantity;
   int _inCartItem = 0;
   int get inCartItem => _inCartItem;
+
+  // Future<void> getProductList() async {
+  //   Stream<QuerySnapshot<Map<String, dynamic>?>> response =
+  //       await productManager.getAllProducts();
+  //   _productsList = [];
+  //   _productsList.addAll(Product.fromDocumentSnapshot(doc).)
+  // }
 
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
@@ -63,6 +75,7 @@ class ProductController extends GetxController {
     });
     update();
   }
+
   int get totalItems {
     return _cart.totalItems;
   }

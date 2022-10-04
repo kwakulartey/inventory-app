@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:inventory_1/controllers/cart_controller.dart';
+import 'package:inventory_1/controllers/product_controller.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/utils/dimmension.dart';
 import 'package:inventory_1/views/more.dart';
@@ -19,6 +22,7 @@ class _DashboardSalesState extends State<DashboardSales> {
   final TextEditingController _quantitysaleController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   double price = 0.0;
+  int index = 0;
 
   final ProductManager _productManager = ProductManager();
 
@@ -54,6 +58,8 @@ class _DashboardSalesState extends State<DashboardSales> {
 
   @override
   Widget build(BuildContext context) {
+   
+    _quantitysaleController.text;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -94,6 +100,7 @@ class _DashboardSalesState extends State<DashboardSales> {
                         );
                       }
                       var name = snapshot.data!.docs;
+                      
                       return ListView(
                           padding:
                               EdgeInsets.only(top: 20, left: 10, right: 10),
@@ -129,9 +136,12 @@ class _DashboardSalesState extends State<DashboardSales> {
                                     items: name.map((doc) {
                                       // dropdownValueItem = doc.data()!['name'];
                                       // price = doc.data()!['price'];
+                                      
                                       return DropdownMenuItem<String>(
                                         onTap: () {
                                           price = doc.data()!['price'];
+                                          index = doc.data()!['productId'];
+                                          
                                         },
                                         value: doc.data()!['name'] +
                                             " " +

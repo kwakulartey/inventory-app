@@ -1,5 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+class ProductModel {
+  late List<Product> _products;
+  List<Product> get products => _products;
+
+  ProductModel({required products}) {
+    this._products = products;
+  }
+
+//  factory ProductModel.fromDocumentSanpshot(
+//    DocumentSnapshot<Map<String, dynamic>> doc) =>
+//       ProductModel(products: _products.add(value)
+       
+//        );
+ 
+}
+
 class Product {
   Product({
     required this.name,
@@ -22,14 +38,13 @@ class Product {
   factory Product.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> doc) =>
       Product(
-        name: doc.data()!['name'],
-        type: doc.data()!['type'],
-        price: doc.data()!['costPrice'],
-        quantity: doc.data()!['quantity'],
-        lowOnStock: doc.data()!['lowOnStock'],
-        productId: doc.data()!['productId'],
-        createdAt: doc.data()!['createdAt']
-      );
+          name: doc.data()!['name'],
+          type: doc.data()!['type'],
+          price: doc.data()!['costPrice'],
+          quantity: doc.data()!['quantity'],
+          lowOnStock: doc.data()!['lowOnStock'],
+          productId: doc.data()!['productId'],
+          createdAt: doc.data()!['createdAt']);
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -38,6 +53,6 @@ class Product {
         'quantity': quantity,
         'lowOnStock': lowOnStock,
         'productId': productId,
-        'createdAt':createdAt
+        'createdAt': createdAt
       };
 }
