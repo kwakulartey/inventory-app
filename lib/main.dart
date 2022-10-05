@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/authentication/forgot_password.dart';
 import 'package:inventory_1/controllers/cart_controller.dart';
+import 'package:inventory_1/views/SalesPerson/dash.dart';
 import 'package:inventory_1/views/SalesPerson/dashbord_sales.dart';
 import 'package:inventory_1/views/dashboard.dart';
 import 'package:inventory_1/helpers/dependencies.dart' as dep;
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Login(),
+      home: const Dash(),
     );
   }
 }
