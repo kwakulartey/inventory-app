@@ -58,8 +58,8 @@ class _DashboardSalesState extends State<DashboardSales> {
 
   @override
   Widget build(BuildContext context) {
-   
-    _quantitysaleController.text;
+    var products = Get.find<ProductController>();
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -100,7 +100,7 @@ class _DashboardSalesState extends State<DashboardSales> {
                         );
                       }
                       var name = snapshot.data!.docs;
-                      
+
                       return ListView(
                           padding:
                               EdgeInsets.only(top: 20, left: 10, right: 10),
@@ -134,14 +134,11 @@ class _DashboardSalesState extends State<DashboardSales> {
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 20),
                                     items: name.map((doc) {
-                                      // dropdownValueItem = doc.data()!['name'];
-                                      // price = doc.data()!['price'];
                                       
                                       return DropdownMenuItem<String>(
                                         onTap: () {
                                           price = doc.data()!['price'];
                                           index = doc.data()!['productId'];
-                                          
                                         },
                                         value: doc.data()!['name'] +
                                             " " +
@@ -261,12 +258,12 @@ class _DashboardSalesState extends State<DashboardSales> {
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: Dimensions.height20,
                             ),
                             Container(
                                 height: 100,
                                 width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
                                             width: 10, color: Colors.black))),
@@ -279,65 +276,46 @@ class _DashboardSalesState extends State<DashboardSales> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                height: 60,
-                                                width: 150,
-                                                child: TextFormField(
-                                                  decoration: InputDecoration(
-                                                    floatingLabelBehavior:
-                                                        FloatingLabelBehavior
-                                                            .never,
-                                                    border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          width: 1,
-                                                          color: Colors.grey),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                    labelText: 'Quantity',
-                                                    prefix: Text('kilos    '),
-                                                    labelStyle: TextStyle(
-                                                        fontSize: 16,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    hintStyle:
-                                                        TextStyle(fontSize: 16),
-                                                  ),
-                                                  controller:
-                                                      _quantitysaleController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Container(
-                                                  color: Colors.black12,
-                                                  child: Row(
-                                                    children: [
-                                                      IconButton(
-                                                          onPressed:
-                                                              _decrementCount,
-                                                          icon: Icon(Icons
-                                                              .chevron_left)),
-                                                      IconButton(
-                                                          onPressed:
-                                                              _incrementCount,
-                                                          icon: Icon(
-                                                            Icons.chevron_right,
-                                                          )),
-                                                    ],
-                                                  ))
-                                            ],
-                                          ),
+                                          GetBuilder<ProductController>(
+                                              builder: (product) {
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                            
+
+                                                Text(product.inCartItem
+                                                    .toString()),
+                                                Container(
+                                                    color: Colors.black12,
+                                                    child: Row(
+                                                      children: [
+                                                        IconButton(
+                                                            onPressed: () {
+                                                              product
+                                                                  .setQuantity(
+                                                                      false);
+                                                            },
+                                                            // _decrementCount,
+                                                            icon: Icon(Icons
+                                                                .chevron_left)),
+                                                        IconButton(
+                                                            onPressed: () {
+                                                              product
+                                                                  .setQuantity(
+                                                                      true);
+                                                            },
+                                                            // _incrementCount,
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .chevron_right,
+                                                            )),
+                                                      ],
+                                                    ))
+                                              ],
+                                            );
+                                          }),
                                         ]))),
                             SizedBox(
                               height: 20,

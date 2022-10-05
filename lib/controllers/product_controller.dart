@@ -7,8 +7,8 @@ import 'package:inventory_1/models/cart_model.dart';
 import 'package:inventory_1/models/product.dart';
 
 class ProductController extends GetxController {
-  // final ProductManager productManager;
-  ProductController();
+  final ProductManager productManager;
+  ProductController({required this.productManager});
 
   List<dynamic> _productsList = [];
   List<dynamic> get productList => _productsList;
@@ -19,16 +19,17 @@ class ProductController extends GetxController {
   int _inCartItem = 0;
   int get inCartItem => _inCartItem;
 
-  // Future<void> getProductList() async {
-  //   Stream<QuerySnapshot<Map<String, dynamic>?>> response =
-  //       await productManager.getAllProducts();
-  //   _productsList = [];
-  //   _productsList.addAll(Product.fromDocumentSnapshot(doc).)
-  // }
+  Future<void> getProductList() async {
+    Map<String, dynamic> response =
+        (productManager.getAllProducts()) as Map<String, dynamic>;
+    _productsList = [];
+    _productsList.addAll(ProductModel.fromJson(response).products);
+  }
 
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
       _quantity = checkQuantity(_quantity + 1);
+      print(_quantity);
     } else {
       _quantity = checkQuantity(_quantity - 1);
     }

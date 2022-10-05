@@ -23,14 +23,14 @@ class CartRepo {
 
     List<CartModel> cartList = [];
     cart.forEach((element) =>
-        cartList.add(CartModel.fromDocumentSnapshot(jsonDecode(element))));
+        cartList.add(CartModel.fromJson(jsonDecode(element))));
     return cartList;
   }
 
   List<CartModel> getCartHistoryList() {
     List<CartModel> cartListHistory = [];
     cartHistory.forEach((element) => cartListHistory
-        .add(CartModel.fromDocumentSnapshot(jsonDecode(element))));
+        .add(CartModel.fromJson(jsonDecode(element))));
     return cartListHistory;
   }
 
