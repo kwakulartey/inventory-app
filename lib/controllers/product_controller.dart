@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,16 +16,63 @@ class ProductController extends GetxController {
   List<dynamic> get productList => _productsList;
   late CartController _cart;
 
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
+
   int _quantity = 0;
   int get quantity => _quantity;
   int _inCartItem = 0;
   int get inCartItem => _inCartItem;
 
   Future<void> getProductList() async {
-    Map<String, dynamic> response =
-        (productManager.getAllProducts()) as Map<String, dynamic>;
-    _productsList = [];
-    _productsList.addAll(ProductModel.fromJson(response).products);
+    // var response =
+    //     (productManager.getAllProducts());
+    // print(response);
+    // if (response.isNotEmpty) {
+    //   print('got products');
+    //   _productsList = [];
+    //   _productsList.addAll(ProductModel.fromJson(response).products);
+    //   _isLoaded = true;
+    //   update();
+    // } else {
+    //   print('Failed to get products');
+    // }
+    try {
+      final productRef = FirebaseFirestore.instance
+          .collection("products")
+          .withConverter<Product>(
+              fromFirestore: (snapshot, _) =>
+                  Product.fromJson(snapshot.data()!),
+              toFirestore: (product, _) => product.toJson());
+      QuerySnapshot<Product> productDoc;
+      productDoc = await productRef.get();
+      _productsList = productDoc.docs.map((e) => e.data()).toList();
+      // productDoc.docs.map((e) {
+      //   _productsList = e.data() as List;
+      //   // _productsList.addAll(ProductModel.fromJson(e.data()).products);
+      // });
+    } catch (e) {}
+  }
+
+  static Future<List<Product>> getProducts(List<String>? ids) async {
+    try {
+      final producRef = FirebaseFirestore.instance
+          .collection("products")
+          .withConverter<Product>(
+              fromFirestore: (snapshot, _) =>
+                  Product.fromJson(snapshot.data()!),
+              toFirestore: (product, _) => product.toJson());
+      QuerySnapshot<Product> productDoc;
+      if (ids != null && ids.isNotEmpty) {
+        productDoc = await producRef.where('id', whereIn: ids).get();
+      } else {
+        productDoc = await producRef.get();
+      }
+      return productDoc.docs.map((e) => e.data()).toList();
+    } on FirebaseException catch (e, staktrace) {
+      log('Error getting products', stackTrace: staktrace, error: e);
+    }
+    return [];
   }
 
   void setQuantity(bool isIncrement) {

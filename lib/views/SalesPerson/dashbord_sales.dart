@@ -6,6 +6,7 @@ import 'package:inventory_1/controllers/product_controller.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/utils/dimmension.dart';
 import 'package:inventory_1/views/more.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'add_more.dart';
 
@@ -134,7 +135,6 @@ class _DashboardSalesState extends State<DashboardSales> {
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 20),
                                     items: name.map((doc) {
-                                      
                                       return DropdownMenuItem<String>(
                                         onTap: () {
                                           price = doc.data()!['price'];
@@ -283,8 +283,6 @@ class _DashboardSalesState extends State<DashboardSales> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                            
-
                                                 Text(product.inCartItem
                                                     .toString()),
                                                 Container(
@@ -321,7 +319,33 @@ class _DashboardSalesState extends State<DashboardSales> {
                               height: 20,
                             ),
                             Center(
-                              child: addmore(),
+                              child: GestureDetector(
+                                onTap: () {
+                                  // var products = products.productList[index];
+                                  showBarModalBottomSheet(
+                                      context: context,
+                                      builder: ((context) {
+                                        return Container(
+                                          height: 100,
+                                        );
+                                      }));
+                                },
+                                child: Container(
+                                  height: 50,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Center(
+                                      child: Text(
+                                    'Add Item',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                ),
+                              ),
                             )
                           ]);
                     }))));
