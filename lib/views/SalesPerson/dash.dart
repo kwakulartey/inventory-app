@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:inventory_1/views/SalesPerson/confirm_order.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../utils/dimmension.dart';
@@ -39,31 +41,50 @@ class _DashState extends State<Dash> {
         children: [
           Positioned(
               bottom: 40,
-              left: 20,
-              right: 30,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Dimensions.width20,
-                    vertical: Dimensions.height10 - 5),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius15 - 5)),
-                      height: Dimensions.height30 * 2,
-                      width: MediaQuery.of(context).size.width,
-                      child: Center(
-                          child: Text(
-                        'CONFIRM ORDER 2 ITEM(S) (GHS 35.20)',
-                        style: TextStyle(
-                            fontSize: Dimensions.font16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      ))),
-                ),
+              child: TextButton(
+                child: Text('CONFIRM ORDER 2 ITEM(S) GHC 30.50'),
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return ConfirmOrder();
+                  }));
+                },
               )),
+
+          // Positioned(
+          //     bottom: 40,
+          //     left: 20,
+          //     right: 30,
+          //     child: Padding(
+          //       padding: EdgeInsets.symmetric(
+          //           horizontal: Dimensions.width20,
+          //           vertical: Dimensions.height10 - 5),
+          //       child:
+          //       GestureDetector(
+          //         behavior: HitTestBehavior.translucent,
+          //         onTap: (() {
+          //           Navigator.of(context)
+          //               .push(MaterialPageRoute(builder: ((context) {
+          //             return ConfirmOrder();
+          //           })));
+          //         }),
+          //         child: Container(
+          //             decoration: BoxDecoration(
+          //                 color: Colors.blue,
+          //                 borderRadius:
+          //                     BorderRadius.circular(Dimensions.radius15 - 5)),
+          //             height: Dimensions.height30 * 2,
+          //             width: MediaQuery.of(context).size.width,
+          //             child: Center(
+          //                 child: Text(
+          //               'CONFIRM ORDER 2 ITEM(S) (GHS 35.20)',
+          //               style: TextStyle(
+          //                   fontSize: Dimensions.font16,
+          //                   color: Colors.white,
+          //                   fontWeight: FontWeight.w600),
+          //             ))),
+          //       ),
+          //     )),
           ListView.separated(
               padding: EdgeInsets.symmetric(
                   horizontal: Dimensions.width10,
