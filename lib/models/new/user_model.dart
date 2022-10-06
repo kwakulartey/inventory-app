@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:inventory_1/models/cart_item_model.dart';
+import 'package:inventory_1/models/new/cart_item_model.dart';
 
 class UserModel {
   static const ID = "id";

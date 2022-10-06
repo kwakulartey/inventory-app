@@ -1,9 +1,14 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
-// import 'package:inventory_1/models/cart_item_model.dart';
-// import 'package:inventory_1/models/product.dart';
-// import 'package:inventory_1/models/user_model.dart';
+// import 'package:inventory_1/models/new/cart_item_model.dart';
+// import 'package:inventory_1/models/new/user_model.dart';
+
+// import '../../constants/app_constants.dart';
+// import '../../constants/controllers.dart';
+// import 'package:uuid/uuid.dart';
+
+// import '../../models/new/product_model.dart';
 
 
 // class CartController extends GetxController {
@@ -30,7 +35,6 @@
 //               "name": product.name,
 //               "quantity": 1,
 //               "price": product.price,
-//               "image": product.image,
 //               "cost": product.price
 //             }
 //           ])
@@ -50,7 +54,7 @@
 //       });
 //     } catch (e) {
 //       Get.snackbar("Error", "Cannot remove this item");
-//       debugPrint(e.message);
+//       debugPrint(e.toString());
 //     }
 //   }
 
@@ -58,13 +62,13 @@
 //     totalCartPrice.value = 0.0;
 //     if (userModel.cart!.isNotEmpty) {
 //       userModel.cart!.forEach((cartItem) {
-//         totalCartPrice += cartItem.cost;
+//         totalCartPrice += cartItem.price;
 //       });
 //     }
 //   }
 
 //   bool _isItemAlreadyAdded(ProductModel product) =>
-//       userController.userModel.value.cart
+//       userController.userModel.value.cart!
 //           .where((item) => item.productId == product.id)
 //           .isNotEmpty;
 
@@ -73,7 +77,7 @@
 //       removeCartItem(item);
 //     }else{
 //       removeCartItem(item);
-//       item.quantity--;
+//       // item.quantity--;
 //           userController.updateUserData({
 //         "cart": FieldValue.arrayUnion([item.toJson()])
 //       });
@@ -82,7 +86,7 @@
 
 //     void increaseQuantity(CartItemModel item){
 //       removeCartItem(item);
-//       item.quantity++;
+//       // item.quantity++;
 //       logger.i({"quantity": item.quantity});
 //           userController.updateUserData({
 //         "cart": FieldValue.arrayUnion([item.toJson()])

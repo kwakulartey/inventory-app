@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -75,7 +77,8 @@ class ProductManager with ChangeNotifier {
   }
 
   //READ  LOW ON STOCK
-  Stream<QuerySnapshot<Map<String, dynamic>>> getLowStock({required int lowInStock}) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getLowStock(
+      {required int lowInStock}) {
     return _productCollection
         .where('quantity', isLessThanOrEqualTo: lowInStock)
         .snapshots();
@@ -101,10 +104,11 @@ class ProductManager with ChangeNotifier {
   }
 
 //UPDATE PRODUCT
-  Future<bool> updateProduct({required String docID, double? price, int? quantity}) async {
+  Future<bool> updateProduct(
+      {required String docID, double? price, int? quantity}) async {
     Map<String, dynamic> data = <String, dynamic>{
       "price": price,
-      "quantity":quantity
+      "quantity": quantity
     };
     bool isUpdated = false;
     await _productCollection.doc(docID).update(data).then((value) {

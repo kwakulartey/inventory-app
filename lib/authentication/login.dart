@@ -7,6 +7,7 @@ import 'package:inventory_1/authentication/forgot_password.dart';
 import 'package:inventory_1/managers/auth_manager.dart';
 import 'package:inventory_1/managers/client_model.dart';
 import 'package:inventory_1/utils/dimmension.dart';
+import 'package:inventory_1/views/SalesPerson/dash.dart';
 import 'package:inventory_1/views/SalesPerson/dashbord_sales.dart';
 import '../views/dashboard.dart';
 
@@ -157,7 +158,7 @@ class _LoginState extends State<Login> {
                                     if (value!.role == "user") {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(builder: (context) {
-                                        return DashboardSales();
+                                        return Dash();
                                       }), (route) => false);
 
                                       Fluttertoast.showToast(
