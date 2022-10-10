@@ -43,9 +43,9 @@ class _NewItemState extends State<NewItem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Add New Item',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black, fontSize: Dimensions.font20),
         ),
         centerTitle: true,
       ),
@@ -58,9 +58,8 @@ class _NewItemState extends State<NewItem> {
             child: ListView(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(10)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   height: Dimensions.height20 * 4,
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -69,7 +68,7 @@ class _NewItemState extends State<NewItem> {
                         decoration: InputDecoration(
                             labelText: 'Items',
                             labelStyle: TextStyle(
-                                fontSize: Dimensions.font26 - 2,
+                                fontSize: Dimensions.font20,
                                 fontWeight: FontWeight.w600),
                             prefixIcon: Icon(
                               Icons.type_specimen,
@@ -119,9 +118,8 @@ class _NewItemState extends State<NewItem> {
                   height: Dimensions.height20,
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(10)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   height: Dimensions.height20 * 4,
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -145,7 +143,10 @@ class _NewItemState extends State<NewItem> {
                           return null;
                         },
                         value: dropdownValueType,
-                        icon: const Icon(Icons.arrow_drop_down),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          size: Dimensions.iconSize24,
+                        ),
                         elevation: 16,
                         style: TextStyle(
                             color: Colors.black, fontSize: Dimensions.font20),
@@ -183,144 +184,157 @@ class _NewItemState extends State<NewItem> {
                 SizedBox(
                   height: Dimensions.height20,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(10)),
-                  height: Dimensions.height20 * 4,
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: Dimensions.width20 * 2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.monetization_on,
-                              color: Colors.green,
-                              size: Dimensions.iconSize24,
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                              controller: _priceController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  labelText: 'Price',
-                                  prefix: Text('GHC    '),
-                                  labelStyle: TextStyle(
-                                      fontSize: Dimensions.font16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                  hintStyle:
-                                      TextStyle(fontSize: Dimensions.font16),
-                                  hintText: 'Enter price of product')),
-                        ),
-                      ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Dimensions.width30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.black26,
+                                width: Dimensions.width10 / 10))),
+                    height: Dimensions.height20 * 4,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: Dimensions.width10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.monetization_on,
+                                color: Colors.green,
+                                size: Dimensions.iconSize24,
+                              )
+                            ],
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                                controller: _priceController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    labelText: 'Price',
+                                    prefix: Text('GHC    '),
+                                    labelStyle: TextStyle(
+                                        fontSize: Dimensions.font16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                    hintStyle:
+                                        TextStyle(fontSize: Dimensions.font16),
+                                    hintText: 'Enter price of product')),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: Dimensions.height20,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(10)),
-                  height: Dimensions.height20 * 4,
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: Dimensions.width20 * 2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.monitor_weight_rounded,
-                              color: Color.fromARGB(255, 12, 4, 154),
-                              size: Dimensions.iconSize24,
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                              controller: _quantityController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  labelText: 'Quantity',
-                                  prefix: const Text('Kilogram(s)    '),
-                                  labelStyle: TextStyle(
-                                      fontSize: Dimensions.font16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                  hintStyle:
-                                      TextStyle(fontSize: Dimensions.font16),
-                                  hintText: '10')),
-                        ),
-                      ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Dimensions.width30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: Dimensions.width10 / 10))),
+                    height: Dimensions.height20 * 4,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: Dimensions.width10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.monitor_weight_rounded,
+                                color: Color.fromARGB(255, 12, 4, 154),
+                                size: Dimensions.iconSize24,
+                              )
+                            ],
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                                controller: _quantityController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    labelText: 'Quantity',
+                                    prefix: const Text('Kilogram(s)    '),
+                                    labelStyle: TextStyle(
+                                        fontSize: Dimensions.font16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                    hintStyle:
+                                        TextStyle(fontSize: Dimensions.font16),
+                                    hintText: '10')),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: Dimensions.height20,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(10)),
-                  height: Dimensions.height20 * 4,
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: Dimensions.width20 * 2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.warning_amber_rounded,
-                              color: Color.fromARGB(255, 236, 215, 25),
-                              size: Dimensions.iconSize24,
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                              controller: _lowStockController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  labelText: 'Low Stock',
-                                  prefix: Text('Kilogram(s)    '),
-                                  labelStyle: TextStyle(
-                                      fontSize: Dimensions.font16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                  hintStyle:
-                                      TextStyle(fontSize: Dimensions.font16),
-                                  hintText: '20')),
-                        ),
-                      ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Dimensions.width30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: Dimensions.width10 / 10))),
+                    height: Dimensions.height20 * 4,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: Dimensions.width10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.warning_amber_rounded,
+                                color: Color.fromARGB(255, 236, 215, 25),
+                                size: Dimensions.iconSize24,
+                              )
+                            ],
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                                controller: _lowStockController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    labelText: 'Low Stock',
+                                    prefix: Text('Kilogram(s)    '),
+                                    labelStyle: TextStyle(
+                                        fontSize: Dimensions.font16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                    hintStyle:
+                                        TextStyle(fontSize: Dimensions.font16),
+                                    hintText: '20')),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

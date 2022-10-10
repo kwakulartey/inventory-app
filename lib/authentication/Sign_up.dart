@@ -4,6 +4,7 @@ import 'package:inventory_1/authentication/login.dart';
 import 'package:inventory_1/managers/auth_manager.dart';
 import 'package:inventory_1/managers/client_model.dart';
 import 'package:inventory_1/models/client_model.dart';
+import 'package:inventory_1/utils/dimmension.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -32,35 +33,45 @@ class _SignUpState extends State<SignUp> {
           child: Form(
               key: _globalKey,
               child: ListView(
-                padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                padding: EdgeInsets.only(
+                    top: Dimensions.height30,
+                    left: Dimensions.width20,
+                    right: Dimensions.width20),
                 children: [
                   Center(
                       child: Text(
                     'Sign in to your account',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: Dimensions.font20 + 5,
                     ),
                   )),
                   SizedBox(
-                    height: 30,
+                    height: Dimensions.height45,
                   ),
                   TextFormField(
                       controller: _nameController,
                       keyboardType: TextInputType.visiblePassword,
                       textCapitalization: TextCapitalization.sentences,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.person),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person,
+                          size: Dimensions.iconSize24,
+                        ),
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelText: ('Name'),
-                        labelStyle: TextStyle(fontSize: 12),
+                        labelStyle: TextStyle(fontSize: Dimensions.font16),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: Dimensions.width10 / 10)),
                         hintText: 'Enter your full Name',
-                        hintStyle: TextStyle(fontSize: 12),
+                        hintStyle: TextStyle(fontSize: Dimensions.font16),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0))),
+                            borderSide: BorderSide(
+                                color: Colors.black,
+                                width: Dimensions.width10 / 10),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Dimensions.radius15 - 5))),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -69,25 +80,32 @@ class _SignUpState extends State<SignUp> {
                         return null;
                       }),
                   SizedBox(
-                    height: 15,
+                    height: Dimensions.height15,
                   ),
                   TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          size: Dimensions.iconSize24,
+                        ),
                         labelText: ('E-mail'),
-                        labelStyle: TextStyle(fontSize: 12),
+                        labelStyle: TextStyle(fontSize: Dimensions.font16),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: Dimensions.width10 / 10)),
                         hintText: 'Enter your E-mail',
-                        hintStyle: TextStyle(fontSize: 12),
+                        hintStyle: TextStyle(fontSize: Dimensions.font16),
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0))),
+                            borderSide: BorderSide(
+                                color: Colors.black,
+                                width: Dimensions.width10 / 10),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Dimensions.radius15 - 10))),
                       ),
                       validator: (value) {
                         if (!emailRegExp.hasMatch(value!)) {
@@ -99,7 +117,7 @@ class _SignUpState extends State<SignUp> {
                         }
                       }),
                   SizedBox(
-                    height: 15,
+                    height: Dimensions.height15,
                   ),
                   TextFormField(
                       controller: _passwordController,
@@ -108,18 +126,25 @@ class _SignUpState extends State<SignUp> {
                       keyboardType: TextInputType.visiblePassword,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          size: Dimensions.iconSize24,
+                        ),
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelText: ('Password'),
-                        labelStyle: TextStyle(fontSize: 12),
+                        labelStyle: TextStyle(fontSize: Dimensions.font16),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: Dimensions.width10 / 10)),
                         hintText: 'Enter your password',
-                        hintStyle: TextStyle(fontSize: 12),
+                        hintStyle: TextStyle(fontSize: Dimensions.font16),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0))),
+                            borderSide: BorderSide(
+                                color: Colors.black,
+                                width: Dimensions.width10 / 10),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Dimensions.radius15 - 10))),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -131,50 +156,64 @@ class _SignUpState extends State<SignUp> {
                         }
                       }),
                   SizedBox(
-                    height: 15,
+                    height: Dimensions.height15,
                   ),
                   TextFormField(
                       controller: _numberController,
                       keyboardType: TextInputType.visiblePassword,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.numbers),
+                        prefixIcon: Icon(
+                          Icons.numbers,
+                          size: Dimensions.iconSize24,
+                        ),
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelText: ('Mobile Number'),
-                        labelStyle: TextStyle(fontSize: 12),
+                        labelStyle: TextStyle(fontSize: Dimensions.font16),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: Dimensions.width10 / 10)),
                         hintText: 'Enter your Mobile Number',
-                        hintStyle: TextStyle(fontSize: 12),
+                        hintStyle: TextStyle(fontSize: Dimensions.font16),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0))),
+                            borderSide: BorderSide(
+                                color: Colors.black,
+                                width: Dimensions.width10 / 10),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(Dimensions.radius15 - 10))),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter your name';
+                          return 'Enter your Mobile Number';
                         }
                         return null;
                       }),
                   SizedBox(
-                    height: 15,
+                    height: Dimensions.height15,
                   ),
                   TextFormField(
                       controller: _companynameController,
                       keyboardType: TextInputType.visiblePassword,
                       textCapitalization: TextCapitalization.sentences,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.work),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.work,
+                          size: Dimensions.iconSize24,
+                        ),
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelText: ('Company name'),
-                        labelStyle: TextStyle(fontSize: 12),
+                        labelStyle: TextStyle(fontSize: Dimensions.font16),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                            borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: Dimensions.width10 / 10)),
                         hintText: 'Enter your Company Name',
-                        hintStyle: TextStyle(fontSize: 12),
+                        hintStyle: TextStyle(fontSize: Dimensions.font16),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
+                            borderSide: BorderSide(
+                                color: Colors.black,
+                                width: Dimensions.width10 / 10),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(4.0))),
                       ),
@@ -185,12 +224,13 @@ class _SignUpState extends State<SignUp> {
                         return null;
                       }),
                   SizedBox(
-                    height: 30,
+                    height: Dimensions.height30,
                   ),
                   Container(
                       decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 13, 70, 117),
-                          borderRadius: BorderRadius.circular(10)),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius15 - 5)),
                       child: _authManager.isLoading
                           ? const Center(
                               child: CircularProgressIndicator.adaptive(),

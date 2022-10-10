@@ -32,16 +32,16 @@ class _DashboardState extends State<Dashboard> {
           centerTitle: true,
           title: Text(
             'Dashboard',
-            style: TextStyle(fontSize: Dimensions.font20, color: Colors.white),
+            style: TextStyle(fontSize: Dimensions.font20),
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding: EdgeInsets.only(right: Dimensions.width10),
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return More();
+                    return const More();
                   }));
                 },
                 icon: Icon(
@@ -83,7 +83,7 @@ class _DashboardState extends State<Dashboard> {
                       'Stats',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: Dimensions.font20),
+                          fontSize: Dimensions.font26),
                     ),
                     SizedBox(
                       height: Dimensions.height20,
@@ -262,13 +262,16 @@ class _DashboardState extends State<Dashboard> {
                             height: Dimensions.height20 * 2,
                             width: Dimensions.width30 * 5,
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              child: Text(
-                                '+New Item',
-                                style: TextStyle(
-                                    fontSize: Dimensions.font16,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.white),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: Dimensions.height10),
+                              child: Center(
+                                child: Text(
+                                  ' +NEW ITEM',
+                                  style: TextStyle(
+                                      fontSize: Dimensions.font16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
                               ),
                             ),
                           ),

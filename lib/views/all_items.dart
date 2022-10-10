@@ -17,7 +17,10 @@ class AllItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('All Items'),
+          title: Text(
+            'All Items',
+            style: TextStyle(fontSize: Dimensions.font20),
+          ),
           centerTitle: true,
         ),
         body: SafeArea(

@@ -41,8 +41,9 @@ class _LoginState extends State<Login> {
                     child: Text(
                   'Welcome',
                   style: TextStyle(
-                      fontSize: Dimensions.font20 * 2,
-                      fontWeight: FontWeight.bold),
+                    fontSize: Dimensions.font20 * 2,
+                    fontWeight: FontWeight.bold,
+                  ),
                 )),
                 SizedBox(
                   height: Dimensions.height45,
@@ -63,11 +64,14 @@ class _LoginState extends State<Login> {
                               color: Colors.grey,
                               width: Dimensions.width10 / 10)),
                       hintText: 'Enter your E-mail',
-                      hintStyle: TextStyle(fontSize: 12),
+                      hintStyle: TextStyle(fontSize: Dimensions.font16),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                          borderSide: BorderSide(
+                              color: Colors.black,
+                              width: Dimensions.width10 / 10),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Dimensions.radius15 - 10))),
                     ),
                     validator: (value) {
                       if (!emailRegExp.hasMatch(value!)) {
@@ -79,7 +83,7 @@ class _LoginState extends State<Login> {
                       }
                     }),
                 SizedBox(
-                  height: 10,
+                  height: Dimensions.height15,
                 ),
                 TextFormField(
                     controller: _passwordController,
@@ -87,18 +91,26 @@ class _LoginState extends State<Login> {
                     obscuringCharacter: '*',
                     keyboardType: TextInputType.visiblePassword,
                     textCapitalization: TextCapitalization.sentences,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.lock),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        size: Dimensions.iconSize24,
+                      ),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       labelText: ('Password'),
-                      labelStyle: TextStyle(fontSize: 12),
+                      labelStyle: TextStyle(fontSize: Dimensions.font16),
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
+                          borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: Dimensions.width10 / 10)),
                       hintText: 'Enter your password',
-                      hintStyle: TextStyle(fontSize: 12),
+                      hintStyle: TextStyle(fontSize: Dimensions.font16),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                          borderSide: BorderSide(
+                              color: Colors.black,
+                              width: Dimensions.width10 / 10),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Dimensions.radius15 - 10))),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -110,7 +122,7 @@ class _LoginState extends State<Login> {
                       }
                     }),
                 SizedBox(
-                  height: 10,
+                  height: Dimensions.height15,
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -124,14 +136,14 @@ class _LoginState extends State<Login> {
                       child: Text(
                         'Forgot password?',
                         style: TextStyle(
-                            color: Color.fromARGB(255, 4, 82, 146),
-                            fontSize: 16),
+                            color: const Color.fromARGB(255, 4, 82, 146),
+                            fontSize: Dimensions.font16),
                         textAlign: TextAlign.right,
                       )),
                 ),
                 Container(
                     decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: const Color.fromARGB(255, 4, 82, 146),
                         borderRadius: BorderRadius.circular(10)),
                     child: _authManager.isLoading
                         ? const Center(
@@ -218,17 +230,19 @@ class _LoginState extends State<Login> {
                             },
                             child: Text(
                               'Login',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: Dimensions.font20,
+                                  color: Colors.white),
                             ))),
                 SizedBox(
-                  height: 15,
+                  height: Dimensions.height20,
                 ),
                 Row(
                   children: [
                     Text(
                       'Dont have an account?',
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      style: TextStyle(
+                          fontSize: Dimensions.font16, color: Colors.black),
                     ),
                     TextButton(
                         onPressed: () {
@@ -240,8 +254,8 @@ class _LoginState extends State<Login> {
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 4, 82, 146),
-                            fontSize: 16,
+                            color: const Color.fromARGB(255, 4, 82, 146),
+                            fontSize: Dimensions.font16,
                           ),
                         ))
                   ],
