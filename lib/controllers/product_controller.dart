@@ -24,19 +24,7 @@ class ProductController extends GetxController {
   int _inCartItem = 0;
   int get inCartItem => _inCartItem;
 
-  Future<void> getProductList() async {
-    // var response =
-    //     (productManager.getAllProducts());
-    // print(response);
-    // if (response.isNotEmpty) {
-    //   print('got products');
-    //   _productsList = [];
-    //   _productsList.addAll(ProductModel.fromJson(response).products);
-    //   _isLoaded = true;
-    //   update();
-    // } else {
-    //   print('Failed to get products');
-    // }
+  Future<List<Product>> getProductList() async {
     try {
       final productRef = FirebaseFirestore.instance
           .collection("products")
@@ -45,13 +33,20 @@ class ProductController extends GetxController {
                   Product.fromJson(snapshot.data()!),
               toFirestore: (product, _) => product.toJson());
       QuerySnapshot<Product> productDoc;
+
       productDoc = await productRef.get();
-      _productsList = productDoc.docs.map((e) => e.data()).toList();
+
+      // _productsList = productDoc.docs.map((e) => e.data()).toList();
+
       // productDoc.docs.map((e) {
+      //   _productsList = [];
       //   _productsList = e.data() as List;
       //   // _productsList.addAll(ProductModel.fromJson(e.data()).products);
       // });
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
+    return [];
   }
 
   static Future<List<Product>> getProducts(List<String>? ids) async {
