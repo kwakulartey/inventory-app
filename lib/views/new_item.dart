@@ -26,17 +26,131 @@ class _NewItemState extends State<NewItem> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   bool isLoading = false;
 
-  List<String> chickenData = [
+  List<String> cowData = [
     'Select option',
-    'Legs',
-    'wings',
-    'Gizzard',
+    'Beef',
+    'Feet',
+    'Tripe',
+    'Minerva',
   ];
-  List<String> fishData = [
+  List<String> chickenhardData = [
     'Select option',
-    'Salmon',
-    'Kpanla',
-    'Tuna',
+    'Thigh',
+    'Back',
+    'Wings',
+    'Full',
+  ];
+  List<String> chickensoftData = [
+    'Select option',
+    'Thigh',
+    'Drum sticks',
+    'Back',
+    'Wings',
+    'Gizzard',
+    'Sausage',
+  ];
+  List<String> mackerelData = [
+    'Select option',
+    'Any',
+  ];
+  List<String> kpanlaData = [
+    'Select option',
+    'Any',
+  ];
+  List<String> tilapiaData = [
+    'Select option',
+    'Eco',
+    'Size 1',
+    'Size 2',
+    'Size 3',
+    'Size 4',
+  ];
+  List<String> redfishData = [
+    'Select option',
+    'Red fish',
+  ];
+  List<String> samosaData = [
+    'Select option',
+    'Samosa',
+  ];
+  List<String> springrollData = [
+    'Select option',
+    'Spring roll',
+  ];
+  List<String> potatochipsData = [
+    'Select option',
+    'Potato chips',
+  ];
+  List<String> tomatopastettData = [
+    'Select option',
+    '2.2kg',
+    '1.1kg',
+    '400g (sachet)',
+    '400g (can)',
+    '210g (sachet)',
+    '210g (can)',
+    '60g'
+  ];
+  List<String> tomatosaucetjData = [
+    'Select option',
+    '210g',
+    '60g',
+  ];
+  List<String> tomatosaucekData = [
+    'Select option',
+    '2.2kg',
+    '1.1kg',
+    '400g',
+  ];
+  List<String> tomatopasteothersData = [
+    'Select option',
+    '2.2kg',
+  ];
+  List<String> frytolData = [
+    'Select option',
+    '10 litres',
+    '4.5 litres',
+    '0.9 litres bottle',
+    '0.9 litres sachet',
+    '0.45 litres'
+        '0.2 litres',
+  ];
+  List<String> tomatoketchupData = [
+    'Select option',
+    'Tomato ketchup',
+  ];
+  List<String> vinegarData = [
+    'Select option',
+    'White',
+    'Apple cider',
+  ];
+  List<String> mayonnaiseData = [
+    'Select option',
+    'Mayonnaise',
+  ];
+  List<String> saladcreamData = [
+    'Select option',
+    'Salad cream',
+  ];
+  List<String> bakedbeansData = [
+    'Select option',
+    'Baked beans',
+  ];
+  List<String> soysauceData = [
+    'Select option',
+    '0.9 litres',
+  ];
+  List<String> maggiesauceData = [
+    'Select option',
+    'Maggie sauce',
+  ];
+  List<String> gardenpeasData = [
+    'Select option',
+    'Garden peas',
+  ];
+  List<String> sweetcornData = [
+    'Select option',
+    'Sweet corn',
   ];
 
   @override
@@ -92,10 +206,29 @@ class _NewItemState extends State<NewItem> {
                             color: Colors.black, fontSize: Dimensions.font20),
                         items: <String>[
                           'Select option',
-                          'Meat',
-                          'Fish',
-                          'chicken',
-                          'Sausage',
+                          'Cow',
+                          'Chicken hard',
+                          'Chicken Soft',
+                          'Mackerel',
+                          'Kpanla',
+                          'Red fish',
+                          'Samosa',
+                          'Spring roll',
+                          'Potato chips',
+                          'Tomato paste (tasty tom)',
+                          'Tomato sauce (Tasty jollof)',
+                          'Tomato sauce (kivo)',
+                          'Tomato paste (others)',
+                          'Frytol',
+                          'Tomato ketchup',
+                          'Vinegar',
+                          'Mayonnaise',
+                          'Salad cream',
+                          'Baked beans',
+                          'Soy sauce',
+                          'Maggie sauce',
+                          'Garden Peas',
+                          'Sweet corn',
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -150,19 +283,20 @@ class _NewItemState extends State<NewItem> {
                         elevation: 16,
                         style: TextStyle(
                             color: Colors.black, fontSize: Dimensions.font20),
-                        items: dropdownValueItem == "Fish"
-                            ? fishData
+                        items: dropdownValueItem == "Cow"
+                            ? cowData
                                 .map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(
                                     value,
-                                    style: TextStyle(fontSize: 16),
+                                    style:
+                                        TextStyle(fontSize: Dimensions.font16),
                                   ),
                                 );
                               }).toList()
-                            : dropdownValueItem == "chicken"
-                                ? chickenData.map<DropdownMenuItem<String>>(
+                            : dropdownValueItem == "Chicken hard"
+                                ? chickenhardData.map<DropdownMenuItem<String>>(
                                     (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
@@ -173,7 +307,256 @@ class _NewItemState extends State<NewItem> {
                                       ),
                                     );
                                   }).toList()
-                                : null,
+                                : dropdownValueItem == "Chicken Soft"
+                                    ? chickensoftData.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(
+                                            value,
+                                            style: TextStyle(
+                                                fontSize: Dimensions.font16),
+                                          ),
+                                        );
+                                      }).toList()
+                                    : dropdownValueItem == "Mackerel"
+                                        ? mackerelData.map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(
+                                                value,
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        Dimensions.font16),
+                                              ),
+                                            );
+                                          }).toList()
+                                        : dropdownValueItem == "Kpanla"
+                                            ? kpanlaData
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            Dimensions.font16),
+                                                  ),
+                                                );
+                                              }).toList()
+                                            : dropdownValueItem == "Red fish"
+                                                ? redfishData
+                                                    .map<DropdownMenuItem<String>>(
+                                                        (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        style: TextStyle(
+                                                            fontSize: Dimensions
+                                                                .font16),
+                                                      ),
+                                                    );
+                                                  }).toList()
+                                                : dropdownValueItem == "Samosa"
+                                                    ? samosaData
+                                                        .map<DropdownMenuItem<String>>(
+                                                            (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: Text(
+                                                            value,
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    Dimensions
+                                                                        .font16),
+                                                          ),
+                                                        );
+                                                      }).toList()
+                                                    : dropdownValueItem ==
+                                                            "Spring roll"
+                                                        ? springrollData
+                                                            .map<DropdownMenuItem<String>>(
+                                                                (String value) {
+                                                            return DropdownMenuItem<
+                                                                String>(
+                                                              value: value,
+                                                              child: Text(
+                                                                value,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        Dimensions
+                                                                            .font16),
+                                                              ),
+                                                            );
+                                                          }).toList()
+                                                        : dropdownValueItem == "Potato chips"
+                                                            ? potatochipsData.map<DropdownMenuItem<String>>((String value) {
+                                                                return DropdownMenuItem<
+                                                                    String>(
+                                                                  value: value,
+                                                                  child: Text(
+                                                                    value,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            Dimensions.font16),
+                                                                  ),
+                                                                );
+                                                              }).toList()
+                                                            : dropdownValueItem == "Tomato paste (tasty tom)"
+                                                                ? tomatopastettData.map<DropdownMenuItem<String>>((String value) {
+                                                                    return DropdownMenuItem<
+                                                                        String>(
+                                                                      value:
+                                                                          value,
+                                                                      child:
+                                                                          Text(
+                                                                        value,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                Dimensions.font16),
+                                                                      ),
+                                                                    );
+                                                                  }).toList()
+                                                                : dropdownValueItem == "Tomato sauce (Tasty jollof)"
+                                                                    ? tomatosaucetjData.map<DropdownMenuItem<String>>((String value) {
+                                                                        return DropdownMenuItem<
+                                                                            String>(
+                                                                          value:
+                                                                              value,
+                                                                          child:
+                                                                              Text(
+                                                                            value,
+                                                                            style:
+                                                                                TextStyle(fontSize: Dimensions.font16),
+                                                                          ),
+                                                                        );
+                                                                      }).toList()
+                                                                    : dropdownValueItem == "Tomato sauce (kivo)"
+                                                                        ? tomatosaucekData.map<DropdownMenuItem<String>>((String value) {
+                                                                            return DropdownMenuItem<String>(
+                                                                              value: value,
+                                                                              child: Text(
+                                                                                value,
+                                                                                style: TextStyle(fontSize: Dimensions.font16),
+                                                                              ),
+                                                                            );
+                                                                          }).toList()
+                                                                        : dropdownValueItem == "Tomato paste (others)"
+                                                                            ? tomatopasteothersData.map<DropdownMenuItem<String>>((String value) {
+                                                                                return DropdownMenuItem<String>(
+                                                                                  value: value,
+                                                                                  child: Text(
+                                                                                    value,
+                                                                                    style: TextStyle(fontSize: Dimensions.font16),
+                                                                                  ),
+                                                                                );
+                                                                              }).toList()
+                                                                            : dropdownValueItem == "Frytol"
+                                                                                ? frytolData.map<DropdownMenuItem<String>>((String value) {
+                                                                                    return DropdownMenuItem<String>(
+                                                                                      value: value,
+                                                                                      child: Text(
+                                                                                        value,
+                                                                                        style: TextStyle(fontSize: Dimensions.font16),
+                                                                                      ),
+                                                                                    );
+                                                                                  }).toList()
+                                                                                : dropdownValueItem == "Tomato ketchup"
+                                                                                    ? tomatoketchupData.map<DropdownMenuItem<String>>((String value) {
+                                                                                        return DropdownMenuItem<String>(
+                                                                                          value: value,
+                                                                                          child: Text(
+                                                                                            value,
+                                                                                            style: TextStyle(fontSize: Dimensions.font16),
+                                                                                          ),
+                                                                                        );
+                                                                                      }).toList()
+                                                                                    : dropdownValueItem == "Vinegar"
+                                                                                        ? vinegarData.map<DropdownMenuItem<String>>((String value) {
+                                                                                            return DropdownMenuItem<String>(
+                                                                                              value: value,
+                                                                                              child: Text(
+                                                                                                value,
+                                                                                                style: TextStyle(fontSize: Dimensions.font16),
+                                                                                              ),
+                                                                                            );
+                                                                                          }).toList()
+                                                                                        : dropdownValueItem == "Mayonnaise"
+                                                                                            ? mayonnaiseData.map<DropdownMenuItem<String>>((String value) {
+                                                                                                return DropdownMenuItem<String>(
+                                                                                                  value: value,
+                                                                                                  child: Text(
+                                                                                                    value,
+                                                                                                    style: TextStyle(fontSize: Dimensions.font16),
+                                                                                                  ),
+                                                                                                );
+                                                                                              }).toList()
+                                                                                            : dropdownValueItem == "Salad cream"
+                                                                                                ? saladcreamData.map<DropdownMenuItem<String>>((String value) {
+                                                                                                    return DropdownMenuItem<String>(
+                                                                                                      value: value,
+                                                                                                      child: Text(
+                                                                                                        value,
+                                                                                                        style: TextStyle(fontSize: Dimensions.font16),
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  }).toList()
+                                                                                                : dropdownValueItem == "Baked beans"
+                                                                                                    ? bakedbeansData.map<DropdownMenuItem<String>>((String value) {
+                                                                                                        return DropdownMenuItem<String>(
+                                                                                                          value: value,
+                                                                                                          child: Text(
+                                                                                                            value,
+                                                                                                            style: TextStyle(fontSize: Dimensions.font16),
+                                                                                                          ),
+                                                                                                        );
+                                                                                                      }).toList()
+                                                                                                    : dropdownValueItem == "Soy beans"
+                                                                                                        ? soysauceData.map<DropdownMenuItem<String>>((String value) {
+                                                                                                            return DropdownMenuItem<String>(
+                                                                                                              value: value,
+                                                                                                              child: Text(
+                                                                                                                value,
+                                                                                                                style: TextStyle(fontSize: Dimensions.font16),
+                                                                                                              ),
+                                                                                                            );
+                                                                                                          }).toList()
+                                                                                                        : dropdownValueItem == "Maggie sauce"
+                                                                                                            ? maggiesauceData.map<DropdownMenuItem<String>>((String value) {
+                                                                                                                return DropdownMenuItem<String>(
+                                                                                                                  value: value,
+                                                                                                                  child: Text(
+                                                                                                                    value,
+                                                                                                                    style: TextStyle(fontSize: Dimensions.font16),
+                                                                                                                  ),
+                                                                                                                );
+                                                                                                              }).toList()
+                                                                                                            : dropdownValueItem == "Garden Peas"
+                                                                                                                ? gardenpeasData.map<DropdownMenuItem<String>>((String value) {
+                                                                                                                    return DropdownMenuItem<String>(
+                                                                                                                      value: value,
+                                                                                                                      child: Text(
+                                                                                                                        value,
+                                                                                                                        style: TextStyle(fontSize: Dimensions.font16),
+                                                                                                                      ),
+                                                                                                                    );
+                                                                                                                  }).toList()
+                                                                                                                : dropdownValueItem == "Sweet corn"
+                                                                                                                    ? sweetcornData.map<DropdownMenuItem<String>>((String value) {
+                                                                                                                        return DropdownMenuItem<String>(
+                                                                                                                          value: value,
+                                                                                                                          child: Text(
+                                                                                                                            value,
+                                                                                                                            style: TextStyle(fontSize: Dimensions.font16),
+                                                                                                                          ),
+                                                                                                                        );
+                                                                                                                      }).toList()
+                                                                                                                    : null,
                         onChanged: (String? newValue) {
                           setState(() {
                             dropdownValueType = newValue!;

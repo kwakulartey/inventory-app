@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
   final ClientManager _clientManager = ClientManager();
   final GlobalKey<FormState> _globalKey = GlobalKey();
   bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,15 +142,15 @@ class _LoginState extends State<Login> {
                         textAlign: TextAlign.right,
                       )),
                 ),
-                Container(
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 4, 82, 146),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: _authManager.isLoading
-                        ? const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          )
-                        : TextButton(
+                _authManager.isLoading == true
+                    ? Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 4, 82, 146),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: TextButton(
                             onPressed: () async {
                               if (_globalKey.currentState!.validate()) {
                                 setState(() {
@@ -213,6 +214,9 @@ class _LoginState extends State<Login> {
                                       backgroundColor: Colors.red,
                                       textColor: Colors.white,
                                       fontSize: 16.0);
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
                                 }
                               } else {
                                 setState(() {
@@ -237,29 +241,6 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: Dimensions.height20,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      'Dont have an account?',
-                      style: TextStyle(
-                          fontSize: Dimensions.font16, color: Colors.black),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) {
-                            return const SignUp();
-                          }), (route) => false);
-                        },
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 4, 82, 146),
-                            fontSize: Dimensions.font16,
-                          ),
-                        ))
-                  ],
-                )
               ],
             )),
       ),

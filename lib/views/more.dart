@@ -27,34 +27,34 @@ class _MoreState extends State<More> {
             vertical: Dimensions.height10, horizontal: Dimensions.width10),
         child: Column(
           children: [
-            Container(
-              color: Colors.white,
-              height: Dimensions.height20 * 10,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Center(
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/Profile_avatar.png'),
-                      radius: Dimensions.radius20 * 4,
-                    ),
-                  ),
-                  Positioned(
-                      bottom: Dimensions.height20,
-                      left: Dimensions.width20 * 5,
-                      right: Dimensions.width20,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.photo_camera,
-                          size: Dimensions.radius30 + 5,
-                        ),
-                      ))
-                ],
-              ),
-            ),
+            // Container(
+            //   color: Colors.white,
+            //   height: Dimensions.height20 * 10,
+            //   width: double.infinity,
+            //   child: Stack(
+            //     children: [
+            //       Center(
+            //         child: CircleAvatar(
+            //           backgroundImage: AssetImage('assets/Profile_avatar.png'),
+            //           radius: Dimensions.radius20 * 4,
+            //         ),
+            //       ),
+            //       Positioned(
+            //           bottom: Dimensions.height20,
+            //           left: Dimensions.width20 * 5,
+            //           right: Dimensions.width20,
+            //           child: GestureDetector(
+            //             onTap: () {},
+            //             child: Icon(
+            //               Icons.photo_camera,
+            //               size: Dimensions.radius30 + 5,
+            //             ),
+            //           ))
+            //     ],
+            //   ),
+            // ),
             SizedBox(
-              height: Dimensions.height30,
+              height: Dimensions.height45,
             ),
             Container(
               child: Column(
@@ -113,8 +113,31 @@ class _MoreState extends State<More> {
                       style: TextStyle(
                           fontSize: Dimensions.font16,
                           fontWeight: FontWeight.w400),
-                    )
+                    ),
                   ]),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: Dimensions.height20,
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radius15 - 5)),
+                width: Dimensions.width20 * 5,
+                height: Dimensions.height20 * 2,
+                child: Center(
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(
+                        fontSize: Dimensions.font20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.red),
+                  ),
                 ),
               ),
             )

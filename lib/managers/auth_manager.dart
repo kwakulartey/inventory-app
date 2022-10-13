@@ -67,6 +67,8 @@ class AuthManager with ChangeNotifier {
         isSuccessful = true;
       } else {
         isSuccessful = false;
+        setIsLoading(false);
+        _isloading = false;
       }
     }).catchError((onError) {
       setMesage('$onError');

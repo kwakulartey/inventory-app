@@ -9,6 +9,8 @@ import 'package:inventory_1/views/SalesPerson/dash.dart';
 import 'package:inventory_1/views/SalesPerson/dashbord_sales.dart';
 import 'package:inventory_1/views/dashboard.dart';
 import 'package:inventory_1/helpers/dependencies.dart' as dep;
+import 'package:inventory_1/views/more.dart';
+import 'package:inventory_1/views/new_item.dart';
 
 import 'authentication/login.dart';
 
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
                 TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
         primarySwatch: Colors.blue,
       ),
-      home: const Login(),
+      home: Login(),
     );
   }
 }

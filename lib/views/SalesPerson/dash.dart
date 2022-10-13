@@ -36,6 +36,15 @@ class _DashState extends State<Dash> {
           'Dashboard',
           style: TextStyle(fontSize: Dimensions.font26 - 2),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.logout_rounded,
+                size: Dimensions.iconSize24,
+                color: Colors.red,
+              ))
+        ],
         centerTitle: true,
       ),
       body: GetBuilder<ProductController>(builder: (product) {
