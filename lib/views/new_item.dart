@@ -40,7 +40,7 @@ class _NewItemState extends State<NewItem> {
     'Wings',
     'Full',
   ];
-  List<String> chickensoftData = [
+  List<String> softchickenData = [
     'Select option',
     'Thigh',
     'Drum sticks',
@@ -51,11 +51,11 @@ class _NewItemState extends State<NewItem> {
   ];
   List<String> mackerelData = [
     'Select option',
-    'Any',
+    '',
   ];
   List<String> kpanlaData = [
     'Select option',
-    'Any',
+    '',
   ];
   List<String> tilapiaData = [
     'Select option',
@@ -67,19 +67,19 @@ class _NewItemState extends State<NewItem> {
   ];
   List<String> redfishData = [
     'Select option',
-    'Red fish',
+    '',
   ];
   List<String> samosaData = [
     'Select option',
-    'Samosa',
+    '',
   ];
   List<String> springrollData = [
     'Select option',
-    'Spring roll',
+    '',
   ];
   List<String> potatochipsData = [
     'Select option',
-    'Potato chips',
+    '',
   ];
   List<String> tomatopastettData = [
     'Select option',
@@ -126,15 +126,15 @@ class _NewItemState extends State<NewItem> {
   ];
   List<String> mayonnaiseData = [
     'Select option',
-    'Mayonnaise',
+    '',
   ];
   List<String> saladcreamData = [
     'Select option',
-    'Salad cream',
+    '',
   ];
   List<String> bakedbeansData = [
     'Select option',
-    'Baked beans',
+    '',
   ];
   List<String> soysauceData = [
     'Select option',
@@ -142,15 +142,15 @@ class _NewItemState extends State<NewItem> {
   ];
   List<String> maggiesauceData = [
     'Select option',
-    'Maggie sauce',
+    '',
   ];
   List<String> gardenpeasData = [
     'Select option',
-    'Garden peas',
+    '',
   ];
   List<String> sweetcornData = [
     'Select option',
-    'Sweet corn',
+    '',
   ];
 
   @override
@@ -208,7 +208,7 @@ class _NewItemState extends State<NewItem> {
                           'Select option',
                           'Cow',
                           'Chicken hard',
-                          'Chicken Soft',
+                          'Chicken soft',
                           'Mackerel',
                           'Kpanla',
                           'Red fish',
@@ -307,8 +307,8 @@ class _NewItemState extends State<NewItem> {
                                       ),
                                     );
                                   }).toList()
-                                : dropdownValueItem == "Chicken Soft"
-                                    ? chickensoftData.map<DropdownMenuItem<String>>(
+                                : dropdownValueItem == "Chicken soft"
+                                    ? softchickenData.map<DropdownMenuItem<String>>(
                                         (String value) {
                                         return DropdownMenuItem<String>(
                                           value: value,
