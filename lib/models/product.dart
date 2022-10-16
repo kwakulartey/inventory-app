@@ -57,6 +57,8 @@
 //       };
 // }
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProductModel {
   late List<ProductModel> _products;
   List<ProductModel> get products => _products;
@@ -81,7 +83,7 @@ class Product {
   String? type;
   double? price;
   int? quantity;
-  String? createdAt;
+  Timestamp? createdAt;
   int? productId;
   int? lowOnStock;
 
@@ -95,13 +97,13 @@ class Product {
       this.productId,
       this.lowOnStock});
 
-  Product.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
+  Product.fromMap(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
     type = json['type'];
-    price = double.parse("${json['costPrice']}");
+    price = double.parse("${json['price']}");
     quantity = json['quantity'];
-    createdAt = json['created_at'];
+    createdAt = json['createdAt'];
     productId = json['productId'];
   }
 

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:inventory_1/utils/dimmension.dart';
 import 'package:inventory_1/views/all_items.dart';
 import 'package:inventory_1/managers/product_manager.dart';
@@ -64,15 +65,15 @@ class _DashboardState extends State<Dashboard> {
                       child: CircularProgressIndicator.adaptive());
                 }
 
-                for (var element in snapshot.data!.docs) {
-                  print('wow');
-                  print(element.data()!['qauntity']);
-                }
+                // for (var element in snapshot.data!.docs) {
+                //   print('wow');
+                //   print(element.data()!['qauntity']);
+                // }
 
-                for (int i = 1; i < snapshot.data!.docs.length; i++) {
-                  // quantitys = element[i].data()!['quantity'];
-                  print(snapshot.data!.docs[i].data()!['quantity']);
-                }
+                // for (int i = 1; i < snapshot.data!.docs.length; i++) {
+                //   // quantitys = element[i].data()!['quantity'];
+                //   print(snapshot.data!.docs[i].data()!['quantity']);
+                // }
                 // quantitys = element.data()!['quantity'];
                 // lowInStock = element.data()!['lowOnStock'];
 
@@ -93,7 +94,6 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              print(quantitys);
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
                                 return AllItems();
@@ -155,8 +155,6 @@ class _DashboardState extends State<Dashboard> {
 
                                 return GestureDetector(
                                   onTap: () {
-                                    print('tapped');
-
                                     Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) {
                                       return LowOnStock(
@@ -281,9 +279,16 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       height: Dimensions.height15,
                     ),
-                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: null,
+                    StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
+                        stream: _productManager.getRecent(),
                         builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                                  ConnectionState.waiting &&
+                              snapshot.data == null) {
+                            const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            );
+                          }
                           return ListView.separated(
                               scrollDirection: Axis.vertical,
                               physics: const ScrollPhysics(
@@ -294,8 +299,23 @@ class _DashboardState extends State<Dashboard> {
                                   (BuildContext context, int index) {
                                 return SizedBox(height: Dimensions.height10);
                               },
-                              itemCount: 5,
+                              itemCount: snapshot.data == null
+                                  ? 0
+                                  : snapshot.data!.docs.length,
                               itemBuilder: ((BuildContext context, int index) {
+                                var name =
+                                    snapshot.data!.docs[index].data()!['name'];
+                                var type =
+                                    snapshot.data!.docs[index].data()!['type'];
+                                var date = snapshot.data!.docs[index]
+                                    .data()!['createdAt']
+                                    .toDate();
+                                var stocks = snapshot.data!.docs[index]
+                                    .data()!['quantity'];
+                                var id = snapshot.data!.docs[index].id;
+                                var newDate =
+                                    DateFormat.yMEd().add_jm().format(date);
+
                                 return Container(
                                   height: Dimensions.height20 * 5,
                                   decoration: BoxDecoration(
@@ -314,7 +334,7 @@ class _DashboardState extends State<Dashboard> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              'Cow Meat',
+                                              '$name $type',
                                               style: TextStyle(
                                                   fontSize: Dimensions.font16,
                                                   fontWeight: FontWeight.w500),
@@ -322,14 +342,18 @@ class _DashboardState extends State<Dashboard> {
                                             SizedBox(
                                               width: Dimensions.width10,
                                             ),
-                                            Text('23:40;32'),
+                                            Text(newDate),
                                             SizedBox(
                                               width: Dimensions.width10,
                                             ),
                                             Icon(
                                               Icons.warning_amber_rounded,
                                               size: Dimensions.iconSize24,
-                                              color: Colors.red,
+                                              color: stocks <= 20 && stocks > 0
+                                                  ? Colors.yellow
+                                                  : stocks == 0
+                                                      ? Colors.red
+                                                      : Colors.green,
                                             )
                                           ],
                                         ),
@@ -341,7 +365,7 @@ class _DashboardState extends State<Dashboard> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              '0 in Stock',
+                                              '$stocks in Stock',
                                               style: TextStyle(
                                                   fontSize: Dimensions.font16,
                                                   fontWeight: FontWeight.w500),
@@ -354,7 +378,7 @@ class _DashboardState extends State<Dashboard> {
                                                       context: context,
                                                       builder: (context) {
                                                         return alertdialog(
-                                                          docId: '',
+                                                          docId: id,
                                                           text: 'Edit Item',
                                                           text1: 'Delete Item',
                                                           icon: Icons

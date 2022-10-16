@@ -6,8 +6,8 @@ class Client {
     required this.name,
     required this.phone,
     this.profilePicture,
-    required this.role,
-    required this.company,
+     this.role,
+     this.company,
      this.userId,
   });
 
@@ -15,8 +15,8 @@ class Client {
   String name;
   String phone;
   String? profilePicture;
-  String role;
-  String company;
+  String? role;
+  String? company;
   String? userId;
 
   //factory Client.fromJson(String str) => Client.fromMap(json.decode(str));

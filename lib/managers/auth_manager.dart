@@ -11,6 +11,8 @@ class AuthManager with ChangeNotifier {
   final FileUploadService _fileUploadService = FileUploadService();
 
   CollectionReference userCollection = _firebaseFirestore.collection('users');
+  final CollectionReference<Map<String, dynamic>> _userCollection =
+      _firebaseFirestore.collection("users");
 
   String _message = '';
   bool _isloading = false;
@@ -56,6 +58,35 @@ class AuthManager with ChangeNotifier {
     return isCreated;
   }
 
+  Future<bool> createSalesAgent(
+      {required Client client, required String password}) async {
+    setIsLoading(true);
+    bool isCreated = false;
+    await _firebaseAuth
+        .createUserWithEmailAndPassword(email: client.email, password: password)
+        .then((userCredential) async {
+      // String? profileImage = await _fileUploadService.uploadFile(file: client.profilePicture, uid: uid)
+      userCollection.doc(userCredential.user!.uid).set({
+        "name": client.name,
+        "email": client.email,
+        "phonenumber": client.phone,
+        "role": "user",
+        "user_id": userCredential.user!.uid
+      });
+      isCreated = true;
+    }).catchError((onError) {
+      setMesage('Failed: $onError');
+      isCreated = false;
+      setIsLoading(false);
+    }).timeout(const Duration(seconds: 60), onTimeout: () {
+      setMesage("Please check your internet connection");
+      isCreated = false;
+      setIsLoading(false);
+    });
+    setIsLoading(false);
+    return isCreated;
+  }
+
   Future<bool> loginUser(
       {required String email, required String password}) async {
     bool isSuccessful = false;
@@ -78,5 +109,30 @@ class AuthManager with ChangeNotifier {
       setIsLoading(false);
     });
     return isSuccessful;
+  }
+
+  //READ USERS
+  Stream<QuerySnapshot<Map<String, dynamic>?>>? getUsers() {
+    return _userCollection.snapshots();
+  }
+
+  //DELETE USER
+  Future<bool> deletedUser({required String userId}) async {
+    bool isDeleted = false;
+    await _userCollection.doc(userId).delete().then((value) {
+      isDeleted = true;
+      setMesage("Employee deleted succefully");
+    }).catchError((onError) {
+      setMesage("Failed to delete person: $onError");
+      setIsLoading(false);
+      isDeleted = false;
+    });
+    return isDeleted;
+  }
+
+  //READ A USER
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getUser(
+      {required String userId}) {
+    return _userCollection.doc(userId).snapshots();
   }
 }

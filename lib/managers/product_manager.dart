@@ -100,6 +100,7 @@ class ProductManager with ChangeNotifier {
   Stream<QuerySnapshot<Map<String, dynamic>?>> getRecent() {
     return _productCollection
         .orderBy("createdAt", descending: true)
+        .limit(3)
         .snapshots();
   }
 

@@ -142,102 +142,99 @@ class _LoginState extends State<Login> {
                         textAlign: TextAlign.right,
                       )),
                 ),
-                _authManager.isLoading == true
-                    ? Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      )
-                    : Container(
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 4, 82, 146),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextButton(
-                            onPressed: () async {
-                              if (_globalKey.currentState!.validate()) {
-                                setState(() {
-                                  _isLoading = true;
-                                });
+                Container(
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 4, 82, 146),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextButton(
+                        onPressed: () async {
+                          if (_globalKey.currentState!.validate()) {
+                            setState(() {
+                              _isLoading = true;
+                            });
 
-                                bool isSuccessfull =
-                                    await _authManager.loginUser(
-                                        email: _emailController.text.trim(),
-                                        password: _passwordController.text);
+                            bool isSuccessfull = await _authManager.loginUser(
+                                email: _emailController.text.trim(),
+                                password: _passwordController.text);
 
-                                if (isSuccessfull) {
-                                  String uid =
-                                      FirebaseAuth.instance.currentUser!.uid;
-                                  _clientManager
-                                      .getClientInfo(uid)
-                                      .then((value) {
-                                    if (value!.role == "user") {
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(builder: (context) {
-                                        return Dash();
-                                      }), (route) => false);
+                            if (isSuccessfull) {
+                              String uid =
+                                  FirebaseAuth.instance.currentUser!.uid;
+                              _clientManager.getClientInfo(uid).then((value) {
+                                if (value!.role == "user") {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) {
+                                    return Dash();
+                                  }), (route) => false);
 
-                                      Fluttertoast.showToast(
-                                          msg: "Welcome Back",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    } else if (value.role == "admin") {
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(builder: (context) {
-                                        return Dashboard();
-                                      }), (route) => false);
-
-                                      Fluttertoast.showToast(
-                                          msg: "You are not an Admin",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    }
-                                  });
-                                } else {
                                   Fluttertoast.showToast(
-                                      msg: _authManager.message,
+                                      msg: "Welcome Back",
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.CENTER,
                                       timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: Colors.green,
                                       textColor: Colors.white,
                                       fontSize: 16.0);
+
                                   setState(() {
                                     _isLoading = false;
                                   });
+                                } else if (value.role == "admin") {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) {
+                                    return Dashboard();
+                                  }), (route) => false);
+
+                                  Fluttertoast.showToast(
+                                      msg: "You are not an Admin",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
                                 }
-                              } else {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                                Fluttertoast.showToast(
-                                    msg: "All fields are required!",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                              }
-                            },
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                  fontSize: Dimensions.font20,
-                                  color: Colors.white),
-                            ))),
+                              });
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: _authManager.message,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                              setState(() {
+                                _isLoading = false;
+                              });
+                            }
+                          } else {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            Fluttertoast.showToast(
+                                msg: "All fields are required!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          }
+                        },
+                        child: Center(
+                          child: _isLoading
+                              ? CircularProgressIndicator.adaptive()
+                              : Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      fontSize: Dimensions.font20,
+                                      color: Colors.white),
+                                ),
+                        ))),
                 SizedBox(
                   height: Dimensions.height20,
                 ),

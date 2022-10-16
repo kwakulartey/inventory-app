@@ -12,7 +12,7 @@ class ProductController extends GetxController {
   final ProductManager productManager;
   ProductController({required this.productManager});
 
-  List<dynamic> _productsList = [];
+  List<dynamic> _productsList = [1, 2, 3];
   List<dynamic> get productList => _productsList;
   late CartController _cart;
 
@@ -29,33 +29,48 @@ class ProductController extends GetxController {
       final productRef = FirebaseFirestore.instance
           .collection("products")
           .withConverter<Product>(
-              fromFirestore: (snapshot, _) =>
-                  Product.fromJson(snapshot.data()!),
+              fromFirestore: (snapshot, _) => Product.fromMap(snapshot.data()!),
               toFirestore: (product, _) => product.toJson());
       QuerySnapshot<Product> productDoc;
 
       productDoc = await productRef.get();
 
-      // _productsList = productDoc.docs.map((e) => e.data()).toList();
-
-      // productDoc.docs.map((e) {
-      //   _productsList = [];
-      //   _productsList = e.data() as List;
-      //   // _productsList.addAll(ProductModel.fromJson(e.data()).products);
-      // });
+      productDoc.docs.map((e) {
+        _productsList = [];
+        // _productsList = e.data() as List;
+        // _productsList.addAll(ProductModel.fromJson());
+        // _productsList.addAll(e.data() as List);
+      });
+      update();
     } catch (e) {
       print(e);
     }
     return [];
   }
 
+  // Stream<List<Product>> getAll() =>
+  //    FirebaseFirestore.instance.collection('products').snapshots().map(
+  //       (event) => event.docs.map((e) => Product.fromMap(e.data())).toList());
+
+  // Stream<QuerySnapshot<Map<String, dynamic>?>> getAllProducts() {
+  //   return FirebaseFirestore.instance
+  //       .collection('products')
+  //       .snapshots()
+  //       .map((event) {
+  //     return event.docs.toList();
+  //   });
+  // }
+
+  // Stream<List<ProductModel>> getAllProducts() =>
+  //     firebaseFirestore.collection(collection).snapshots().map((query) =>
+  //         query.docs.map((item) => ProductModel.fromMap(item.data())).toList());
+
   static Future<List<Product>> getProducts(List<String>? ids) async {
     try {
       final producRef = FirebaseFirestore.instance
           .collection("products")
           .withConverter<Product>(
-              fromFirestore: (snapshot, _) =>
-                  Product.fromJson(snapshot.data()!),
+              fromFirestore: (snapshot, _) => Product.fromMap(snapshot.data()!),
               toFirestore: (product, _) => product.toJson());
       QuerySnapshot<Product> productDoc;
       if (ids != null && ids.isNotEmpty) {
