@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../models/basket_model.dart';
 import '../models/product.dart';
 
 class ProductManager with ChangeNotifier {
@@ -13,8 +14,8 @@ class ProductManager with ChangeNotifier {
 
   final CollectionReference<Map<String, dynamic>> _productCollection =
       _firebaseFirestore.collection("products");
-  final CollectionReference<Map<String, dynamic>> _transactionCollection =
-      _firebaseFirestore.collection("transaction");
+  final CollectionReference<Map<String, dynamic>> _ordersCollection =
+      _firebaseFirestore.collection("orders");
 
   String _message = '';
   bool _isLoading = false;
@@ -47,6 +48,31 @@ class ProductManager with ChangeNotifier {
     }).then((_) {
       result = true;
       setMessage('Product added successfully');
+    }).catchError((onError) {
+      setMessage('#####' + onError.toString());
+      result = false;
+      setIsLoading(false);
+    }).timeout(const Duration(seconds: 10), onTimeout: () {
+      setMessage('Timeout');
+      setIsLoading(false);
+    });
+    return result;
+  }
+
+  //CREATE PRODUCT
+  Future<bool> addOrder(
+      Map<String, BasketItem> basket, double? total, int? quantity) async {
+    bool result = false;
+    setIsLoading(true);
+
+    await _ordersCollection.doc().set({
+      "orderQuantity": quantity,
+      "orderDetails": basket,
+      "total": total,
+      "createdAt": FieldValue.serverTimestamp()
+    }).then((_) {
+      result = true;
+      setMessage('added successfully');
     }).catchError((onError) {
       setMessage('#####' + onError.toString());
       result = false;

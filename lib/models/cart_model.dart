@@ -82,7 +82,7 @@ class CartModel {
     return {
       "id": this.id,
       "name": this.name,
-      "type" : this.type,
+      "type": this.type,
       "price": this.price,
       "quantity": this.quantity,
       "isExist": this.isExit,

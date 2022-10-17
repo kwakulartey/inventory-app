@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:inventory_1/controllers/basket_controller.dart';
 import 'package:inventory_1/controllers/cart_controller.dart';
 import 'package:inventory_1/controllers/product_controller.dart';
 import 'package:inventory_1/managers/cart_repo.dart';
@@ -14,6 +15,7 @@ Future<void> init() async {
 
   Get.lazyPut(() => CartRepo());
   Get.lazyPut(() => ProductManager());
+  Get.lazyPut(() => BasketController());
 
   //load controllers
   Get.lazyPut(() => ProductController(productManager: Get.find()));

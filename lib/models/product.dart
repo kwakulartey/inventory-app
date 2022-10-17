@@ -98,10 +98,11 @@ class Product {
       this.lowOnStock});
 
   Product.fromMap(Map<String, dynamic> json) {
+    print(json);
     id = json['id'];
     name = json['name'];
     type = json['type'];
-    price = double.parse("${json['price']}");
+    price = json['price'];
     quantity = json['quantity'];
     createdAt = json['createdAt'];
     productId = json['productId'];
