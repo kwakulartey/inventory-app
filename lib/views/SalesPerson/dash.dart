@@ -51,7 +51,7 @@ class _DashState extends State<Dash> {
               );
             }
             return GetBuilder<ProductController>(builder: (product) {
-              print(product.productList.length);
+              print(snapshot.data?.docs.length);
 
               return ListView.separated(
                   padding: EdgeInsets.symmetric(
@@ -260,7 +260,7 @@ class _DashState extends State<Dash> {
                                                                     .width10,
                                                               ),
                                                               Text(
-                                                                'GHC ${total}',
+                                                                'GHC $total',
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         Dimensions
@@ -271,32 +271,38 @@ class _DashState extends State<Dash> {
                                                               ),
                                                             ],
                                                           ),
-                                                          Container(
-                                                            height: Dimensions
-                                                                    .height20 *
-                                                                2,
-                                                            width: Dimensions
-                                                                    .width30 *
-                                                                5,
-                                                            decoration: BoxDecoration(
-                                                                color:
-                                                                    Colors.blue,
-                                                                borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        Dimensions.radius15 -
-                                                                            5)),
-                                                            child: Center(
-                                                              child: Text(
-                                                                'ADD TO ORDER',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        Dimensions
-                                                                            .font16,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
+                                                          GestureDetector(
+                                                            onTap: () =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop(),
+                                                            child: Container(
+                                                              height: Dimensions
+                                                                      .height20 *
+                                                                  2,
+                                                              width: Dimensions
+                                                                      .width30 *
+                                                                  5,
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .blue,
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          Dimensions.radius15 -
+                                                                              5)),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  'ADD TO ORDER',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          Dimensions
+                                                                              .font16,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
                                                               ),
                                                             ),
                                                           )
@@ -348,7 +354,7 @@ class _DashState extends State<Dash> {
                       height: Dimensions.height10,
                     );
                   },
-                  itemCount: product.productList.length);
+                  itemCount: snapshot.data?.docs.length ?? 0);
             });
           }),
       bottomNavigationBar: Padding(

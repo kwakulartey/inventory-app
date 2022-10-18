@@ -168,14 +168,20 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                 ],
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   basketController.basket.forEach((key, value) {
+                    double total = value.quantity * (value.product.price ?? 0);
+                    print(value.quantity);
                     productManager.updateProduct(
                         docID: key,
                         price: value.product.price,
                         quantity:
                             (value.product.quantity ?? 0) - value.quantity);
                   });
+                  Map<String, BasketItem> basket = {};
+                  print(basket);
+                  // productManager.addOrder(
+                  //     basket, total, value.quantity);
                 },
                 child: Container(
                   height: Dimensions.height20 * 2.5,

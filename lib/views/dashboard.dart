@@ -179,8 +179,8 @@ class _DashboardState extends State<Dashboard> {
                             //   }));
                             // },
                             child: CardDash(
-                              icon: Icons.warning_amber_rounded,
-                              text: 'Reminders',
+                              icon: Icons.add,
+                              text: 'Add Product',
                               color: Color.fromARGB(255, 16, 79, 131),
                               number: '0',
                             ),
