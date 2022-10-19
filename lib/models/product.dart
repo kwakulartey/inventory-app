@@ -82,7 +82,7 @@ class Product {
   String? name;
   String? type;
   double? price;
-  int? quantity;
+  double? quantity;
   Timestamp? createdAt;
   int? productId;
   int? lowOnStock;

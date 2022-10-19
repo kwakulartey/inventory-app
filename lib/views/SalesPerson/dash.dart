@@ -93,12 +93,16 @@ class _DashState extends State<Dash> {
                                         );
                                       }
                                       return Obx(() {
-                                        int quantity = basketController
+                                        double quantity = basketController
                                                 .basket[docID]?.quantity ??
-                                            0;
+                                            0.0;
                                         int availQuantity = snapshot.data
                                                 ?.data()?['quantity'] ??
                                             0;
+                                        var unit =
+                                            snapshot.data?.data()?['unit'] ??
+                                                "";
+
                                         double unitPrice =
                                             snapshot.data?.data()?['price'] ??
                                                 0;
@@ -185,10 +189,20 @@ class _DashState extends State<Dash> {
                                                                       ),
                                                                       onPressed:
                                                                           () {
+                                                                        var _unit =
+                                                                            0.0;
+                                                                        if (unit ==
+                                                                            "kilos") {
+                                                                          _unit =
+                                                                              0.5;
+                                                                        } else {
+                                                                          _unit =
+                                                                              1;
+                                                                        }
                                                                         if (quantity >
                                                                             1) {
                                                                           quantity -=
-                                                                              1;
+                                                                              _unit;
                                                                           basketItem.quantity =
                                                                               quantity;
                                                                           basketController.basket[docID ?? ''] =

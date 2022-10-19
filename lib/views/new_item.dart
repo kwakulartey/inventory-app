@@ -842,7 +842,7 @@ class _NewItemState extends State<NewItem> {
         name: dropdownValueItem.toString(),
         type: dropdownValueType.toString(),
         price: double.parse(_priceController.text),
-        quantity: int.parse(_quantityController.text),
+        quantity: double.parse(_quantityController.text),
         productId: generateProductId(),
         lowOnStock: int.parse(_lowStockController.text)));
 

@@ -61,7 +61,7 @@ class ProductManager with ChangeNotifier {
 
   //CREATE ORDER
   Future<bool> addOrder(List basket, double? totalAmount,
-      int? quantity) async {
+      double? quantity) async {
     bool result = false;
     setIsLoading(true);
 
@@ -133,7 +133,7 @@ class ProductManager with ChangeNotifier {
 
 //UPDATE PRODUCT
   Future<bool> updateProduct(
-      {required String docID, double? price, int? quantity}) async {
+      {required String docID, double? price, double? quantity}) async {
     Map<String, dynamic> data = <String, dynamic>{
       "price": price,
       "quantity": quantity
