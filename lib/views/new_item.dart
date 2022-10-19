@@ -622,111 +622,106 @@ class _NewItemState extends State<NewItem> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: Dimensions.width30),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom:
-                                BorderSide(width: Dimensions.width10 / 10))),
-                    height: Dimensions.height20 * 4,
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: Dimensions.width10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: Dimensions.width10 / 10))),
+                        height: Dimensions.height20 * 4,
+                        width: Dimensions.width30 * 5,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(left: Dimensions.width10 - 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Icon(
-                                Icons.monitor_weight_rounded,
-                                color: Color.fromARGB(255, 12, 4, 154),
-                                size: Dimensions.iconSize24,
-                              )
+                              Expanded(
+                                child: TextFormField(
+                                    controller: _quantityController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.never,
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        labelText: 'Quantity',
+                                        prefix: const Text('Kilogram(s) '),
+                                        labelStyle: TextStyle(
+                                            fontSize: Dimensions.font16,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                        hintStyle: TextStyle(
+                                            fontSize: Dimensions.font16),
+                                        hintText: '10')),
+                              ),
                             ],
                           ),
-                          Expanded(
-                            child: TextFormField(
-                                controller: _quantityController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    labelText: 'Quantity',
-                                    prefix: const Text('Kilogram(s)    '),
-                                    labelStyle: TextStyle(
-                                        fontSize: Dimensions.font16,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                    hintStyle:
-                                        TextStyle(fontSize: Dimensions.font16),
-                                    hintText: '10')),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10)),
-                              height: Dimensions.height20 * 4,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: Dimensions.width30,
-                                    right: Dimensions.width30),
-                                child: DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                        labelText: 'Items',
-                                        labelStyle: TextStyle(
-                                            fontSize: Dimensions.font20,
-                                            fontWeight: FontWeight.w600),
-                                        prefixIcon: Icon(
-                                          Icons.type_specimen,
-                                          color: Colors.red,
-                                          size: Dimensions.iconSize24,
-                                        )),
-                                    dropdownColor: Colors.white,
-                                    validator: (value) {
-                                      if (value == 'Select option') {
-                                        return 'Please select an option';
-                                      }
-                                      return null;
-                                    },
-                                    value: dropdownValueItem,
-                                    icon: Icon(
-                                      Icons.arrow_drop_down,
-                                      size: Dimensions.iconSize24,
-                                    ),
-                                    elevation: 16,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: Dimensions.font20),
-                                    items: <String>[
-                                      'Select option',
-                                      'Cow',
-                                      'Chicken hard',
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(
-                                          value,
-                                          style: TextStyle(
-                                              fontSize: Dimensions.font16,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        dropdownValueItem = newValue!;
-                                      });
-                                    }),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)),
+                          height: Dimensions.height20 * 4,
+                          width: Dimensions.width30,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: Dimensions.height10,
+                                left: Dimensions.width30,
+                                right: Dimensions.width30),
+                            child: DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                  labelText: 'Units',
+                                  labelStyle: TextStyle(
+                                      fontSize: Dimensions.font20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                dropdownColor: Colors.white,
+                                validator: (value) {
+                                  if (value == 'Select option') {
+                                    return 'Please select an option';
+                                  }
+                                  return null;
+                                },
+                                value: dropdownValueItem,
+                                icon: Icon(
+                                  Icons.arrow_drop_down,
+                                  size: Dimensions.iconSize24,
+                                ),
+                                elevation: 16,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: Dimensions.font20),
+                                items: <String>[
+                                  'Select option',
+                                  'kilos',
+                                  'Others',
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          fontSize: Dimensions.font16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownValueItem = newValue!;
+                                  });
+                                }),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
