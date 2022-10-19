@@ -42,6 +42,7 @@ class ProductManager with ChangeNotifier {
       "type": product.type,
       "price": product.price,
       "quantity": product.quantity,
+      "unit":product.unit,
       "lowOnStock": product.lowOnStock,
       "productId": product.productId,
       "createdAt": FieldValue.serverTimestamp()
@@ -49,7 +50,7 @@ class ProductManager with ChangeNotifier {
       result = true;
       setMessage('Product added successfully');
     }).catchError((onError) {
-      setMessage('#####' + onError.toString());
+      setMessage('#####$onError');
       result = false;
       setIsLoading(false);
     }).timeout(const Duration(seconds: 10), onTimeout: () {
@@ -61,7 +62,7 @@ class ProductManager with ChangeNotifier {
 
   //CREATE ORDER
   Future<bool> addOrder(List basket, double? totalAmount,
-      double? quantity) async {
+      int? quantity) async {
     bool result = false;
     setIsLoading(true);
 
@@ -133,7 +134,7 @@ class ProductManager with ChangeNotifier {
 
 //UPDATE PRODUCT
   Future<bool> updateProduct(
-      {required String docID, double? price, double? quantity}) async {
+      {required String docID, double? price, int? quantity}) async {
     Map<String, dynamic> data = <String, dynamic>{
       "price": price,
       "quantity": quantity
@@ -154,7 +155,7 @@ class ProductManager with ChangeNotifier {
     return isUpdated;
   }
 
-  //DELETE ROOMS
+  //DELETE ITEM
   Future<bool> deletedProduct({required String docId}) async {
     bool isDeleted = false;
     await _productCollection.doc(docId).delete().then((value) {

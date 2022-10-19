@@ -82,7 +82,8 @@ class Product {
   String? name;
   String? type;
   double? price;
-  double? quantity;
+  int? quantity;
+  String? unit;
   Timestamp? createdAt;
   int? productId;
   int? lowOnStock;
@@ -93,12 +94,12 @@ class Product {
       this.type,
       this.price,
       this.quantity,
+      this.unit,
       this.createdAt,
       this.productId,
       this.lowOnStock});
 
   Product.fromMap(Map<String, dynamic> json) {
-    print(json);
     id = json['id'];
     name = json['name'];
     type = json['type'];
@@ -115,6 +116,7 @@ class Product {
       "type": this.type,
       "price": this.price,
       "quantity": this.quantity,
+      "unit":unit,
       "createdAt": this.createdAt,
       "productId": this.productId
     };

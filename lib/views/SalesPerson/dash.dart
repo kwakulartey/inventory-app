@@ -142,7 +142,7 @@ class _DashState extends State<Dash> {
                                                     );
                                                   }
                                                   return Obx(() {
-                                                    double quantity =
+                                                    int quantity =
                                                         basketController
                                                                 .basket[docID]
                                                                 ?.quantity ??

@@ -69,10 +69,10 @@ class _ItemSpecificState extends State<ItemSpecific> {
                     }
                     var name = snapshot.data!.data()!['name'];
                     var type = snapshot.data!.data()!['type'];
-                    var quantity = snapshot.data!.data()!['quantity'];
+                    int quantity = snapshot.data!.data()!['quantity'];
                     var price = snapshot.data!.data()!['price'];
-                    _priceController.text = price.toString();
-
+                    var newPrice = price.toString();
+                    newPrice = _priceController.text;
                     return Form(
                       key: _globalKey,
                       child: Column(
@@ -242,6 +242,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                           height: Dimensions.height20 * 3,
                                           width: Dimensions.width20 * 5,
                                           child: TextFormField(
+                                            // initialValue: price.toString(),
                                             decoration: InputDecoration(
                                               floatingLabelBehavior:
                                                   FloatingLabelBehavior.never,
@@ -376,18 +377,19 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                               setState(() {
                                                 _isLoading = true;
                                               });
-
-                                              bool
-                                                  isUpdated =
+                                              int newQuantity = (int.parse(
+                                                      _quantityController
+                                                          .text) +
+                                                  quantity);
+                                              bool isUpdated =
                                                   await _productManager
                                                       .updateProduct(
                                                           docID: widget.docId,
                                                           price: double.parse(
                                                               _priceController
                                                                   .text),
-                                                          quantity: double.parse(
-                                                              _quantityController
-                                                                  .text));
+                                                          quantity:
+                                                              newQuantity);
                                               if (isUpdated) {
                                                 //     Navigator.of(context).pop(isUpdated);
                                                 //     Fluttertoast.showToast(
@@ -398,7 +400,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                                 // backgroundColor: Colors.green,
                                                 // textColor: Colors.white,
                                                 // fontSize: 16.0);
-
+                                                _quantityController.text = "";
                                                 setState(() {
                                                   _isLoading = false;
                                                 });

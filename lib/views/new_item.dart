@@ -19,6 +19,7 @@ class NewItem extends StatefulWidget {
 class _NewItemState extends State<NewItem> {
   String dropdownValueItem = 'Select option';
   String dropdownValueType = 'Select option';
+  String dropdownValueUnit = 'Select option';
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _lowStockController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
@@ -191,7 +192,7 @@ class _NewItemState extends State<NewItem> {
                             )),
                         dropdownColor: Colors.white,
                         validator: (value) {
-                          if (value == 'Select option') {
+                          if (value == 'Select option' ) {
                             return 'Please select an option';
                           }
                           return null;
@@ -689,7 +690,7 @@ class _NewItemState extends State<NewItem> {
                                   }
                                   return null;
                                 },
-                                value: dropdownValueItem,
+                                value: dropdownValueUnit,
                                 icon: Icon(
                                   Icons.arrow_drop_down,
                                   size: Dimensions.iconSize24,
@@ -715,7 +716,7 @@ class _NewItemState extends State<NewItem> {
                                 }).toList(),
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                    dropdownValueItem = newValue!;
+                                    dropdownValueUnit = newValue!;
                                   });
                                 }),
                           ),
@@ -837,7 +838,8 @@ class _NewItemState extends State<NewItem> {
         name: dropdownValueItem.toString(),
         type: dropdownValueType.toString(),
         price: double.parse(_priceController.text),
-        quantity: double.parse(_quantityController.text),
+        quantity: int.parse(_quantityController.text),
+        unit: dropdownValueUnit.toString(),
         productId: generateProductId(),
         lowOnStock: int.parse(_lowStockController.text)));
 

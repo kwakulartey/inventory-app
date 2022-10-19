@@ -52,7 +52,7 @@ class CartModel {
   String? name;
   String? type;
   double? price;
-  double? quantity;
+  int? quantity;
   bool? isExit;
   String? time;
   Product? product;
