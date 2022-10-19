@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                 TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      home: Dash(),
     );
   }
 }
