@@ -385,7 +385,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                                           price: double.parse(
                                                               _priceController
                                                                   .text),
-                                                          quantity: int.parse(
+                                                          quantity: double.parse(
                                                               _quantityController
                                                                   .text));
                                               if (isUpdated) {

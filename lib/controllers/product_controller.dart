@@ -119,14 +119,14 @@ class ProductController extends GetxController {
     exist = _cart.existInCart(product);
 
     if (exist) {
-      _inCartItem = _cart.getQuantity(product);
+      _inCartItem = _cart.getQuantity(product) as int;
     }
   }
 
   void addItem(Product product) {
     _cart.addItem(product, _quantity);
     _quantity = 0;
-    _inCartItem = _cart.getQuantity(product);
+    _inCartItem = _cart.getQuantity(product) as int;
     _cart.items.forEach((key, value) {
       print('the id is ' +
           value.id.toString() +

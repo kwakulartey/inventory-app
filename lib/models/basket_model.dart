@@ -2,7 +2,7 @@ import 'package:inventory_1/models/product.dart';
 
 class BasketItem {
   Product product;
-  int quantity;
+  double quantity;
 
   BasketItem({required this.product, required this.quantity});
 
