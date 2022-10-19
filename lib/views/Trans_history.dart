@@ -46,7 +46,7 @@ class TransHistory extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Items',
+                                'Item(s)',
                                 style: TextStyle(
                                     fontSize: Dimensions.font16,
                                     fontWeight: FontWeight.w600),
@@ -55,6 +55,13 @@ class TransHistory extends StatelessWidget {
                                 'Chicken thigh',
                                 style: TextStyle(fontSize: Dimensions.font16),
                               ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: Dimensions.height10),
+                                child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.arrow_drop_down_rounded)),
+                              )
                             ],
                           )),
                     ),
