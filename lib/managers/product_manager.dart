@@ -60,7 +60,7 @@ class ProductManager with ChangeNotifier {
   }
 
   //CREATE ORDER
-  Future<bool> addOrder(Map<String, BasketItem> basket, double? totalAmount,
+  Future<bool> addOrder(List basket, double? totalAmount,
       int? quantity) async {
     bool result = false;
     setIsLoading(true);
@@ -75,7 +75,7 @@ class ProductManager with ChangeNotifier {
       setMessage('added successfully');
       setIsLoading(false);
     }).catchError((onError) {
-      setMessage('#####' + onError.toString());
+      setMessage('#####$onError');
       result = false;
       setIsLoading(false);
     }).timeout(const Duration(seconds: 30), onTimeout: () {

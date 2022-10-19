@@ -4,6 +4,7 @@ import 'package:inventory_1/controllers/basket_controller.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/models/basket_model.dart';
 import 'package:inventory_1/utils/dimmension.dart';
+import 'package:inventory_1/views/SalesPerson/dash.dart';
 
 class ConfirmOrder extends StatefulWidget {
   const ConfirmOrder({super.key});
@@ -169,19 +170,29 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
               ),
               GestureDetector(
                 onTap: () async {
-                  basketController.basket.forEach((key, value) {
+                  double finalTotal = 0.0;
+                  int quantity = 0;
+
+                  basketController.basket.forEach((key, value) async {
                     double total = value.quantity * (value.product.price ?? 0);
-                    print(value.quantity);
-                    productManager.updateProduct(
+                    finalTotal = total;
+                    quantity = value.quantity;
+                    await productManager.updateProduct(
                         docID: key,
                         price: value.product.price,
                         quantity:
                             (value.product.quantity ?? 0) - value.quantity);
                   });
-                  Map<String, BasketItem> basket = {};
-                  print(basket);
-                  // productManager.addOrder(
-                  //     basket, total, value.quantity);
+                  var m = basketController.basket.entries
+                      .map((e) => e.value.toJson())
+                      .toList();
+
+                  bool order =
+                      await productManager.addOrder(m, finalTotal, quantity);
+                  if (order) {
+                    Get.snackbar("Success", "Product has been purchased");
+                    basketController.basket.clear();
+                  }
                 },
                 child: Container(
                   height: Dimensions.height20 * 2.5,

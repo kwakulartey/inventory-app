@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/controllers/basket_controller.dart';
@@ -21,6 +22,7 @@ class Dash extends StatefulWidget {
 class _DashState extends State<Dash> {
   final ProductManager _productManager = ProductManager();
   final BasketController basketController = Get.find<BasketController>();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,9 @@ class _DashState extends State<Dash> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                _firebaseAuth.signOut();
+              },
               icon: Icon(
                 Icons.logout_rounded,
                 size: Dimensions.iconSize24,
