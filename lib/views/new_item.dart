@@ -664,6 +664,66 @@ class _NewItemState extends State<NewItem> {
                                         TextStyle(fontSize: Dimensions.font16),
                                     hintText: '10')),
                           ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10)),
+                              height: Dimensions.height20 * 4,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: Dimensions.width30,
+                                    right: Dimensions.width30),
+                                child: DropdownButtonFormField(
+                                    decoration: InputDecoration(
+                                        labelText: 'Items',
+                                        labelStyle: TextStyle(
+                                            fontSize: Dimensions.font20,
+                                            fontWeight: FontWeight.w600),
+                                        prefixIcon: Icon(
+                                          Icons.type_specimen,
+                                          color: Colors.red,
+                                          size: Dimensions.iconSize24,
+                                        )),
+                                    dropdownColor: Colors.white,
+                                    validator: (value) {
+                                      if (value == 'Select option') {
+                                        return 'Please select an option';
+                                      }
+                                      return null;
+                                    },
+                                    value: dropdownValueItem,
+                                    icon: Icon(
+                                      Icons.arrow_drop_down,
+                                      size: Dimensions.iconSize24,
+                                    ),
+                                    elevation: 16,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: Dimensions.font20),
+                                    items: <String>[
+                                      'Select option',
+                                      'Cow',
+                                      'Chicken hard',
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(
+                                          value,
+                                          style: TextStyle(
+                                              fontSize: Dimensions.font16,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        dropdownValueItem = newValue!;
+                                      });
+                                    }),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

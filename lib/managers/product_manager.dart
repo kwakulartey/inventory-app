@@ -59,25 +59,26 @@ class ProductManager with ChangeNotifier {
     return result;
   }
 
-  //CREATE PRODUCT
-  Future<bool> addOrder(
-      Map<String, BasketItem> basket, double? total, int? quantity) async {
+  //CREATE ORDER
+  Future<bool> addOrder(List basket, double? totalAmount,
+      int? quantity) async {
     bool result = false;
     setIsLoading(true);
 
     await _ordersCollection.doc().set({
       "orderQuantity": quantity,
       "orderDetails": basket,
-      "total": total,
+      "total": totalAmount,
       "createdAt": FieldValue.serverTimestamp()
     }).then((_) {
       result = true;
       setMessage('added successfully');
+      setIsLoading(false);
     }).catchError((onError) {
-      setMessage('#####' + onError.toString());
+      setMessage('#####$onError');
       result = false;
       setIsLoading(false);
-    }).timeout(const Duration(seconds: 10), onTimeout: () {
+    }).timeout(const Duration(seconds: 30), onTimeout: () {
       setMessage('Timeout');
       setIsLoading(false);
     });
