@@ -16,6 +16,8 @@ class ProductManager with ChangeNotifier {
       _firebaseFirestore.collection("products");
   final CollectionReference<Map<String, dynamic>> _ordersCollection =
       _firebaseFirestore.collection("orders");
+  final CollectionReference<Map<String, dynamic>> _itemsCollection =
+      _firebaseFirestore.collection("items");
 
   String _message = '';
   bool _isLoading = false;
@@ -42,7 +44,7 @@ class ProductManager with ChangeNotifier {
       "type": product.type,
       "price": product.price,
       "quantity": product.quantity,
-      "unit":product.unit,
+      "unit": product.unit,
       "lowOnStock": product.lowOnStock,
       "productId": product.productId,
       "createdAt": FieldValue.serverTimestamp()
@@ -60,9 +62,28 @@ class ProductManager with ChangeNotifier {
     return result;
   }
 
+//CREATE ITEM
+  Future<bool> addItem({required String name, required String type}) async {
+    bool result = false;
+    setIsLoading(true);
+
+    await _itemsCollection.doc().set({"name": name, "type": type}).then((_) {
+      result = true;
+      setMessage('Item Created successfully');
+    }).catchError((onError) {
+      setMessage('#####$onError');
+      result = false;
+      setIsLoading(false);
+    }).timeout(const Duration(seconds: 30), onTimeout: () {
+      setMessage('Timeout');
+      setIsLoading(false);
+    });
+    return result;
+  }
+
   //CREATE ORDER
-  Future<bool> addOrder(List basket, double? totalAmount,
-      int? quantity) async {
+  Future<bool> addOrder(
+      List basket, double? totalAmount, double? quantity) async {
     bool result = false;
     setIsLoading(true);
 
@@ -86,9 +107,19 @@ class ProductManager with ChangeNotifier {
     return result;
   }
 
+  //READ TRANSACTIONS
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getTransaction() {
+    return _ordersCollection.orderBy('createdAt', descending: true).snapshots();
+  }
+
   //READ ALL PRODUCTS
   Stream<QuerySnapshot<Map<String, dynamic>?>> getAllProducts() {
     return _productCollection.snapshots();
+  }
+
+  //READ ALL PRODUCTS
+  Stream<QuerySnapshot<Map<String, dynamic>?>> getAllSalesProducts() {
+    return _productCollection.where('quantity', isGreaterThan: 0).snapshots();
   }
 
   // Future<QuerySnapshot<Map<String, dynamic>>> getTotal() {
@@ -134,7 +165,7 @@ class ProductManager with ChangeNotifier {
 
 //UPDATE PRODUCT
   Future<bool> updateProduct(
-      {required String docID, double? price, int? quantity}) async {
+      {required String docID, double? price, double? quantity}) async {
     Map<String, dynamic> data = <String, dynamic>{
       "price": price,
       "quantity": quantity

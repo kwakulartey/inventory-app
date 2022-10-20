@@ -377,7 +377,7 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                               setState(() {
                                                 _isLoading = true;
                                               });
-                                              int newQuantity = (int.parse(
+                                              double newQuantity = (double.parse(
                                                       _quantityController
                                                           .text) +
                                                   quantity);

@@ -76,15 +76,7 @@ class AllItems extends StatelessWidget {
                                       '$name $type',
                                       style: TextStyle(
                                           fontSize: Dimensions.font16,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    SizedBox(
-                                      width: Dimensions.width10,
-                                    ),
-                                    Text(
-                                      '23:40;32',
-                                      style: TextStyle(
-                                          fontSize: Dimensions.font16),
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(
                                       width: Dimensions.width10,

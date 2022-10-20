@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_1/authentication/login.dart';
@@ -9,6 +8,7 @@ import 'package:inventory_1/utils/dimmension.dart';
 import 'package:inventory_1/views/all_items.dart';
 import 'package:inventory_1/managers/product_manager.dart';
 import 'package:inventory_1/views/low_in_stock.dart';
+import 'package:inventory_1/views/out_of_Stock.dart';
 import 'package:inventory_1/widget/alertdialog.dart';
 import 'package:inventory_1/widget/card_dash.dart';
 
@@ -39,7 +39,8 @@ class _DashboardState extends State<Dashboard> {
   isUserAuth() {
     _firebaseAuth.authStateChanges().listen((user) {
       if (user == null) {
-        Get.to(() => Login());
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (_) => Login()), (route) => false);
       }
       if (user != null) {}
     });
@@ -94,10 +95,11 @@ class _DashboardState extends State<Dashboard> {
                     //   print(element.data()!['qauntity']);
                     // }
 
-                    // for (int i = 1; i < snapshot.data!.docs.length; i++) {
-                    //   // quantitys = element[i].data()!['quantity'];
-                    //   print(snapshot.data!.docs[i].data()!['quantity']);
-                    // }
+                    for (int i = 1; i < snapshot.data!.docs.length; i++) {
+                      // quantitys = element[i].data()!['quantity'];
+                      lowInStock = snapshot.data!.docs[i].data()!['lowOnStock'];
+                      print(lowInStock);
+                    }
                     // quantitys = element.data()!['quantity'];
                     // lowInStock = element.data()!['lowOnStock'];
 
@@ -145,7 +147,7 @@ class _DashboardState extends State<Dashboard> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) {
-                                          return AllItems();
+                                          return OutOfStock();
                                         }));
                                       },
                                       child: CardDash(
@@ -171,7 +173,7 @@ class _DashboardState extends State<Dashboard> {
                               StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>?>>(
                                   stream: _productManager.getLowStock(
-                                      lowInStock: 20),
+                                      lowInStock: lowInStock),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                             ConnectionState.waiting &&
@@ -187,7 +189,7 @@ class _DashboardState extends State<Dashboard> {
                                             MaterialPageRoute(
                                                 builder: (context) {
                                           return LowOnStock(
-                                            lowOnStock: 20,
+                                            lowOnStock: lowInStock,
                                           );
                                         }));
                                       },
@@ -337,16 +339,19 @@ class _DashboardState extends State<Dashboard> {
                                       ((BuildContext context, int index) {
                                     var name = snapshot.data!.docs[index]
                                         .data()!['name'];
-                                    var type = snapshot.data!.docs[index]
-                                        .data()!['type'];
-                                    var date = snapshot.data!.docs[index]
-                                        .data()!['createdAt']
-                                        .toDate();
+                                    var type = snapshot.data?.docs[index]
+                                        .data()?['type'];
+                                  
+
                                     var stocks = snapshot.data!.docs[index]
-                                        .data()!['quantity'];
+                                        .data()?['quantity'];
                                     var id = snapshot.data!.docs[index].id;
-                                    var newDate =
-                                        DateFormat.yMEd().add_jm().format(date);
+
+                                    // var newDat = date.toDate();
+
+                                    // var newDate = DateFormat.yMEd()
+                                    //     .add_jm()
+                                    //     .format(newDat);
 
                                     return Container(
                                       height: Dimensions.height20 * 5,
@@ -375,10 +380,10 @@ class _DashboardState extends State<Dashboard> {
                                                       fontWeight:
                                                           FontWeight.w500),
                                                 ),
-                                                SizedBox(
-                                                  width: Dimensions.width10,
-                                                ),
-                                                Text(newDate),
+                                                // SizedBox(
+                                                //   width: Dimensions.width10,
+                                                // ),
+                                                // Text(newDate),
                                                 SizedBox(
                                                   width: Dimensions.width10,
                                                 ),

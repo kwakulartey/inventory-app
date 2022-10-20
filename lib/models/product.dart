@@ -59,30 +59,30 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProductModel {
-  late List<ProductModel> _products;
-  List<ProductModel> get products => _products;
+// class ProductModel {
+//   late List<ProductModel> _products;
+//   List<ProductModel> get products => _products;
 
-  Product({required products}) {
-    this._products = products;
-  }
+//   Product({required products}) {
+//     this._products = products;
+//   }
 
-  ProductModel.fromJson(Map<String, dynamic> json) {
-    if (json['products'] != null) {
-      _products = <ProductModel>[];
-      json['products'].forEach((v) {
-        products.add(ProductModel.fromJson(v));
-      });
-    }
-  }
-}
+//   ProductModel.fromJson(Map<String, dynamic> json) {
+//     if (json['products'] != null) {
+//       _products = <ProductModel>[];
+//       json['products'].forEach((v) {
+//         products.add(ProductModel.fromJson(v));
+//       });
+//     }
+//   }
+// }
 
 class Product {
   String? id;
   String? name;
   String? type;
   double? price;
-  int? quantity;
+  double? quantity;
   String? unit;
   Timestamp? createdAt;
   int? productId;
@@ -116,7 +116,7 @@ class Product {
       "type": this.type,
       "price": this.price,
       "quantity": this.quantity,
-      "unit":unit,
+      "unit": unit,
       "createdAt": this.createdAt,
       "productId": this.productId
     };

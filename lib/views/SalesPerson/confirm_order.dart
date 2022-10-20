@@ -171,12 +171,12 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
               GestureDetector(
                 onTap: () async {
                   double finalTotal = 0.0;
-                  int quantity = 0;
+                  double quantity = 0;
 
                   basketController.basket.forEach((key, value) async {
                     double total = value.quantity * (value.product.price ?? 0);
-                    finalTotal = total;
-                    quantity = value.quantity;
+                    finalTotal += total;
+                    quantity += value.quantity;
                     await productManager.updateProduct(
                         docID: key,
                         price: value.product.price,

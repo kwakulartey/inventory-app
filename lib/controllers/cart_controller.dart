@@ -38,7 +38,7 @@ class CartController extends GetxController {
               id: product.productId,
               name: product.name,
               price: product.price,
-              quantity: product.quantity,
+              quantity:int.parse("${product.quantity}"),
               isExit: true,
               time: DateTime.now().toString(),
               product: product);

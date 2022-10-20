@@ -192,7 +192,7 @@ class _NewItemState extends State<NewItem> {
                             )),
                         dropdownColor: Colors.white,
                         validator: (value) {
-                          if (value == 'Select option' ) {
+                          if (value == 'Select option') {
                             return 'Please select an option';
                           }
                           return null;
@@ -594,24 +594,30 @@ class _NewItemState extends State<NewItem> {
                           ),
                           Expanded(
                             child: TextFormField(
-                                controller: _priceController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.never,
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    labelText: 'Price',
-                                    prefix: Text('GHC    '),
-                                    labelStyle: TextStyle(
-                                        fontSize: Dimensions.font16,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                    hintStyle:
-                                        TextStyle(fontSize: Dimensions.font16),
-                                    hintText: 'Enter price of product')),
+                              controller: _priceController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  labelText: 'Price',
+                                  prefix: Text('GHC    '),
+                                  labelStyle: TextStyle(
+                                      fontSize: Dimensions.font16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                  hintStyle:
+                                      TextStyle(fontSize: Dimensions.font16),
+                                  hintText: 'Enter price of product'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please set price for product';
+                                }
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -641,25 +647,30 @@ class _NewItemState extends State<NewItem> {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                    controller: _quantityController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.never,
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        labelText: 'Quantity',
-                                        prefix: const Text('Kilogram(s) '),
-                                        labelStyle: TextStyle(
-                                            fontSize: Dimensions.font16,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                        hintStyle: TextStyle(
-                                            fontSize: Dimensions.font16),
-                                        hintText: '10')),
+                                  controller: _quantityController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.never,
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      labelText: 'Quantity',
+                                      prefix: const Text('Kilogram(s) '),
+                                      labelStyle: TextStyle(
+                                          fontSize: Dimensions.font16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                      hintStyle: TextStyle(
+                                          fontSize: Dimensions.font16),
+                                      hintText: '10'),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please set quantity';
+                                    }
+                                  },
+                                ),
                               ),
                             ],
                           ),
@@ -770,7 +781,12 @@ class _NewItemState extends State<NewItem> {
                                         fontWeight: FontWeight.bold),
                                     hintStyle:
                                         TextStyle(fontSize: Dimensions.font16),
-                                    hintText: '20')),
+                                    hintText: '20'),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please set low on stock';
+                                  }
+                                }),
                           ),
                         ],
                       ),
@@ -803,7 +819,18 @@ class _NewItemState extends State<NewItem> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        addItem();
+                        if (_formKey.currentState!.validate()) {
+                          addItem();
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "All fields are required",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }
                       },
                       child: Container(
                         height: Dimensions.height10 * 5,
@@ -838,7 +865,7 @@ class _NewItemState extends State<NewItem> {
         name: dropdownValueItem.toString(),
         type: dropdownValueType.toString(),
         price: double.parse(_priceController.text),
-        quantity: int.parse(_quantityController.text),
+        quantity: double.parse(_quantityController.text),
         unit: dropdownValueUnit.toString(),
         productId: generateProductId(),
         lowOnStock: int.parse(_lowStockController.text)));
