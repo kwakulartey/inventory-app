@@ -69,9 +69,10 @@ class _ItemSpecificState extends State<ItemSpecific> {
                     }
                     var name = snapshot.data!.data()!['name'];
                     var type = snapshot.data!.data()!['type'];
-                    int quantity = snapshot.data!.data()!['quantity'];
-                    var price = snapshot.data!.data()!['price'];
-                    var newPrice = price.toString();
+                    double quantity = snapshot.data!.data()!['quantity'];
+                    double price = snapshot.data!.data()!['price'];
+                    String newPrice = price.toString();
+                    print(newPrice);
                     newPrice = _priceController.text;
                     return Form(
                       key: _globalKey,
@@ -377,10 +378,11 @@ class _ItemSpecificState extends State<ItemSpecific> {
                                               setState(() {
                                                 _isLoading = true;
                                               });
-                                              double newQuantity = (double.parse(
-                                                      _quantityController
-                                                          .text) +
-                                                  quantity);
+                                              double newQuantity =
+                                                  (double.parse(
+                                                          _quantityController
+                                                              .text) +
+                                                      quantity);
                                               bool isUpdated =
                                                   await _productManager
                                                       .updateProduct(
