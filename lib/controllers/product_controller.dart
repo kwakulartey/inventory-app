@@ -29,7 +29,8 @@ class ProductController extends GetxController {
       final productRef = FirebaseFirestore.instance
           .collection("products")
           .withConverter<Product>(
-              fromFirestore: (snapshot, _) => Product.fromMap(snapshot.data()!),
+              fromFirestore: (snapshot, _) =>
+                  Product.fromJson(snapshot.data()!),
               toFirestore: (product, _) => product.toJson());
       QuerySnapshot<Product> productDoc;
 
@@ -70,7 +71,8 @@ class ProductController extends GetxController {
       final producRef = FirebaseFirestore.instance
           .collection("products")
           .withConverter<Product>(
-              fromFirestore: (snapshot, _) => Product.fromMap(snapshot.data()!),
+              fromFirestore: (snapshot, _) =>
+                  Product.fromJson(snapshot.data()!),
               toFirestore: (product, _) => product.toJson());
       QuerySnapshot<Product> productDoc;
       if (ids != null && ids.isNotEmpty) {

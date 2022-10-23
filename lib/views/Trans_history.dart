@@ -54,7 +54,7 @@ class _TransHistoryState extends State<TransHistory> {
                                 showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
-                                        firstDate: DateTime.now(),
+                                        firstDate: DateTime(2021),
                                         lastDate: DateTime.now()
                                             .add(const Duration(days: 365)))
                                     .then((value) {
@@ -64,6 +64,8 @@ class _TransHistoryState extends State<TransHistory> {
                                   });
                                 });
                               },
+                              keyboardType: TextInputType.none,
+                              showCursor: false,
                               controller: _datefromController,
                               textCapitalization: TextCapitalization.sentences,
                               maxLines: 1,
@@ -99,7 +101,7 @@ class _TransHistoryState extends State<TransHistory> {
                                 showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
-                                        firstDate: DateTime.now(),
+                                        firstDate: DateTime(2021),
                                         lastDate: DateTime.now()
                                             .add(const Duration(days: 365)))
                                     .then((value) {
@@ -109,6 +111,8 @@ class _TransHistoryState extends State<TransHistory> {
                                   });
                                 });
                               },
+                              keyboardType: TextInputType.none,
+                              showCursor: false,
                               controller: _datetoController,
                               textCapitalization: TextCapitalization.sentences,
                               maxLines: 1,
@@ -129,12 +133,15 @@ class _TransHistoryState extends State<TransHistory> {
                                 if (value!.isEmpty) {
                                   return 'Please select a Date';
                                 }
-                                if (value ==
-                                    DateFormat.yMMMMd()
-                                        .format(DateTime.now())) {
-                                  return 'You selected today\'s date';
+                                if (value.isEmpty) {
+                                  return 'You selected an ended date';
                                 }
                               })),
+                      Expanded(
+                          child: TextButton(
+                        child: const Text("Search"),
+                        onPressed: () async {},
+                      ))
                     ],
                   ),
                   SizedBox(
@@ -149,6 +156,25 @@ class _TransHistoryState extends State<TransHistory> {
                         date.toDate();
                         var newDate =
                             DateFormat.yMEd().add_jm().format(date.toDate());
+
+                        // for (var i = 0;
+                        //     i <=
+                        //         snapshot.data?.docs[index]
+                        //             .data()?['orderDetails'];
+                        //     i++) {
+                        //   var productID = snapshot.data?.docs[index]
+                        //       .data()?['orderDetails'][i]['id'];
+                        //   print(productID);
+                        // }
+                        // var productID;
+
+                        // for (var element in snapshot.data?.docs[index]
+                        //     .data()?['orderDetails']) {
+                        //   for (var i = 0; i < element.length; i++) {
+                        //     productID = snapshot.data?.docs[index]
+                        //         .data()?['orderDetails'][i]['id'];
+                        //   }
+                        // }
 
                         return Container(
                           height: Dimensions.height20 * 10,
@@ -191,8 +217,9 @@ class _TransHistoryState extends State<TransHistory> {
                                                     return ListView.builder(
                                                         itemCount: 6,
                                                         itemBuilder:
-                                                            (BuildContext,
-                                                                int) {
+                                                            (BuildContext
+                                                                    context,
+                                                                int index) {
                                                           return ListTile(
                                                             title: Text(
                                                               'Chicken Thigh',

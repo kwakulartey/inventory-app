@@ -1,12 +1,17 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:inventory_1/models/product.dart';
 
-class BasketItem {
-  Product product;
-  double quantity;
+part 'basket_model.freezed.dart';
+part 'basket_model.g.dart';
 
-  BasketItem({required this.product, required this.quantity});
+@unfreezed
+class BasketItem with _$BasketItem {
+  factory BasketItem({
+    required Product product,
+    required double quantity,
+  }) = _BasketItem;
 
-  Map<String, dynamic> toJson() {
-    return {"id": product.id, "quantity": quantity};
-  }
+  factory BasketItem.fromJson(Map<String, dynamic> json) =>
+      _$BasketItemFromJson(json);
 }

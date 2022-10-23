@@ -173,8 +173,11 @@ class _DashState extends State<Dash> {
                                                   double total =
                                                       quantity * unitPrice;
 
+                                                  print(
+                                                      'Product.fromJson: ${snapshot.data?.data()}');
+
                                                   Product product =
-                                                      Product.fromMap({
+                                                      Product.fromJson({
                                                     ...snapshot.data?.data() ??
                                                         {},
                                                     'id': docID
@@ -259,7 +262,7 @@ class _DashState extends State<Dash> {
                                                                                 ),
                                                                                 onPressed: () {
                                                                                   if (quantity > 1) {
-                                                                                    quantity -= 1;
+                                                                                    quantity -= _unit;
                                                                                     basketItem.quantity = quantity;
                                                                                     basketController.basket[docID ?? ''] = basketItem;
                                                                                   } else {

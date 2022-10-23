@@ -1,49 +1,42 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
+part 'product.freezed.dart';
+part 'product.g.dart';
 
-class Product {
-  String? id;
-  String? name;
-  String? type;
-  double? price;
-  double? quantity;
-  String? unit;
-  Timestamp? createdAt;
-  int? productId;
-  int? lowOnStock;
+@freezed
+class Product with _$Product {
+  factory Product({
+    required String id,
+    required String name,
+    String? type,
+    required double price,
+    double? quantity,
+    String? unit,
+    // @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+    //     required Timestamp createdAt,
+    required double lowOnStock,
+  }) = _Product;
 
-  Product(
-      {this.id,
-      this.name,
-      this.type,
-      this.price,
-      this.quantity,
-      this.unit,
-      this.createdAt,
-      this.productId,
-      this.lowOnStock});
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+}
 
-  Product.fromMap(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    type = json['type'];
-    price = json['price'];
-    quantity = json['quantity'];
-    createdAt = json['createdAt'];
-    productId = json['productId'];
-  }
+Timestamp timestampFromJson(dynamic val) => Timestamp.fromDate(val);
+FieldValue timestampToJson(dynamic val) => FieldValue.serverTimestamp();
 
-  Map<String, dynamic> toJson() {
-    return {
-      "id": this.id,
-      "name": this.name,
-      "type": this.type,
-      "price": this.price,
-      "quantity": this.quantity,
-      "unit": unit,
-      "createdAt": this.createdAt,
-      "productId": this.productId
-    };
-  }
+@unfreezed
+class ProductDTO with _$ProductDTO {
+  factory ProductDTO({
+    required String name,
+    String? type,
+    required double price,
+    double? quantity,
+    String? unit,
+    required double lowOnStock,
+  }) = _ProductDTO;
+
+  factory ProductDTO.fromJson(Map<String, dynamic> json) =>
+      _$ProductDTOFromJson(json);
 }

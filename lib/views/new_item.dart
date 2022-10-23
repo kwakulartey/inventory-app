@@ -861,14 +861,13 @@ class _NewItemState extends State<NewItem> {
   }
 
   void addItem() async {
-    bool isCreated = await _productManager.addProduct(Product(
+    bool isCreated = await _productManager.addProduct(ProductDTO(
         name: dropdownValueItem.toString(),
         type: dropdownValueType.toString(),
         price: double.parse(_priceController.text),
         quantity: double.parse(_quantityController.text),
         unit: dropdownValueUnit.toString(),
-        productId: generateProductId(),
-        lowOnStock: int.parse(_lowStockController.text)));
+        lowOnStock: double.parse(_lowStockController.text)));
 
     if (isCreated) {
       Get.to(() => Dashboard());

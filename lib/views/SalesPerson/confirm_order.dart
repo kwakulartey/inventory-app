@@ -170,28 +170,42 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
               ),
               GestureDetector(
                 onTap: () async {
-                  double finalTotal = 0.0;
-                  double quantity = 0;
+                  if (basketController.basket.isNotEmpty) {
+                    double finalTotal = 0.0;
+                    double quantity = 0;
 
-                  basketController.basket.forEach((key, value) async {
-                    double total = value.quantity * (value.product.price ?? 0);
-                    finalTotal += total;
-                    quantity += value.quantity;
-                    await productManager.updateProduct(
-                        docID: key,
-                        price: value.product.price,
-                        quantity:
-                            (value.product.quantity ?? 0) - value.quantity);
-                  });
-                  var m = basketController.basket.entries
-                      .map((e) => e.value.toJson())
-                      .toList();
+                    basketController.basket.forEach((key, value) async {
+                      double total =
+                          value.quantity * (value.product.price ?? 0);
+                      finalTotal += total;
+                      quantity += value.quantity;
+                      await productManager.updateProduct(
+                          docID: key,
+                          price: value.product.price,
+                          quantity:
+                              (value.product.quantity ?? 0) - value.quantity);
+                    });
 
-                  bool order =
-                      await productManager.addOrder(m, finalTotal, quantity);
-                  if (order) {
-                    Get.snackbar("Success", "Product has been purchased");
-                    basketController.basket.clear();
+                    Map<String, dynamic> basket = {};
+
+                    for (var item in basketController.basket.entries) {
+                      basket[item.key] = item.value.toJson();
+                    }
+
+                    bool order = await productManager.addOrder(
+                        basket, finalTotal, quantity);
+
+                    if (order) {
+                      Get.snackbar("Success", "Product has been purchased");
+                      basketController.basket.clear();
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) {
+                        return Dash();
+                      }), (route) => false);
+                    }
+                  } else {
+                    Get.snackbar("Empt Cart", "Can't proceed with empty cart",
+                        backgroundColor: Colors.red, colorText: Colors.white);
                   }
                 },
                 child: Container(

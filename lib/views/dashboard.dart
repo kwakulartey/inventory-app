@@ -95,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
                     //   print(element.data()!['qauntity']);
                     // }
 
-                    for (int i = 1; i < snapshot.data!.docs.length; i++) {
+                    for (var i = 1; i < snapshot.data!.docs.length; i++) {
                       // quantitys = element[i].data()!['quantity'];
                       lowInStock = snapshot.data!.docs[i].data()!['lowOnStock'];
                       print(lowInStock);
@@ -203,15 +203,15 @@ class _DashboardState extends State<Dashboard> {
                                     );
                                   }),
                               GestureDetector(
-                                // onTap: () {
-                                //   Navigator.of(context)
-                                //       .push(MaterialPageRoute(builder: (context) {
-                                //     return AllItems();
-                                //   }));
-                                // },
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return TransHistory();
+                                  }));
+                                },
                                 child: CardDash(
                                   icon: Icons.add,
-                                  text: 'Add Product',
+                                  text: 'Daily Sales',
                                   color: Color.fromARGB(255, 16, 79, 131),
                                   number: '0',
                                 ),
@@ -341,7 +341,6 @@ class _DashboardState extends State<Dashboard> {
                                         .data()!['name'];
                                     var type = snapshot.data?.docs[index]
                                         .data()?['type'];
-                                  
 
                                     var stocks = snapshot.data!.docs[index]
                                         .data()?['quantity'];

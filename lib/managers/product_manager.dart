@@ -35,7 +35,7 @@ class ProductManager with ChangeNotifier {
   }
 
   //CREATE PRODUCT
-  Future<bool> addProduct(Product product) async {
+  Future<bool> addProduct(ProductDTO product) async {
     bool result = false;
     setIsLoading(true);
 
@@ -46,7 +46,6 @@ class ProductManager with ChangeNotifier {
       "quantity": product.quantity,
       "unit": product.unit,
       "lowOnStock": product.lowOnStock,
-      "productId": product.productId,
       "createdAt": FieldValue.serverTimestamp()
     }).then((_) {
       result = true;
@@ -82,8 +81,8 @@ class ProductManager with ChangeNotifier {
   }
 
   //CREATE ORDER
-  Future<bool> addOrder(
-      List basket, double? totalAmount, double? quantity) async {
+  Future<bool> addOrder(Map<String, dynamic> basket, double? totalAmount,
+      double? quantity) async {
     bool result = false;
     setIsLoading(true);
 
@@ -107,9 +106,33 @@ class ProductManager with ChangeNotifier {
     return result;
   }
 
+  //ORDER PRODUCT DETAILS
+  Future<Map<String, dynamic>?> getProductInfo(String productId) async {
+    Map<String, dynamic>? productData;
+    await _productCollection
+        .doc(productId)
+        .get()
+        .then((DocumentSnapshot<Map<String, dynamic>> product) {
+      if (product.exists) {
+        productData = product.data();
+      } else {
+        productData = null;
+      }
+    });
+    return productData;
+  }
+
   //READ TRANSACTIONS
   Stream<QuerySnapshot<Map<String, dynamic>?>> getTransaction() {
     return _ordersCollection.orderBy('createdAt', descending: true).snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSpecificTransactions(
+      DateTime start, DateTime end) {
+    return _ordersCollection
+        .where('createdAt', isGreaterThanOrEqualTo: start)
+        .where('createdAt', isLessThanOrEqualTo: end)
+        .snapshots();
   }
 
   //READ ALL PRODUCTS

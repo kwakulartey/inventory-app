@@ -48,7 +48,7 @@
 import 'package:inventory_1/models/product.dart';
 
 class CartModel {
-  int? id;
+  String? id;
   String? name;
   String? type;
   double? price;
@@ -75,7 +75,7 @@ class CartModel {
     quantity = json['quantity'];
     isExit = json['isExit'];
     time = json['time'];
-    product = Product.fromMap(json['product']);
+    product = Product.fromJson(json['product']);
   }
 
   Map<String, dynamic> toJson() {

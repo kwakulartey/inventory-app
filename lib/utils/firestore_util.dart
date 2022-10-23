@@ -14,7 +14,7 @@ class FirestoreUtil {
           .collection(productCollection)
           .withConverter<Product>(
               fromFirestore: (snapshot, _) =>
-                  Product.fromMap(snapshot.data()!),
+                  Product.fromJson(snapshot.data()!),
               toFirestore: (product, _) => product.toJson());
       QuerySnapshot<Product> productDoc;
       if (ids != null && ids.isNotEmpty) {

@@ -9,15 +9,15 @@ class CartController extends GetxController {
 
   CartController({required this.cartRepo});
 
-  Map<int, CartModel> _items = {};
+  Map<String, CartModel> _items = {};
 
-  Map<int, CartModel> get items => _items;
+  Map<String, CartModel> get items => _items;
   List<CartModel> storageItems = [];
 
   void addItem(Product product, int quantity) {
     var totalQuantity = 0;
-    if (_items.containsKey(product.productId)) {
-      _items.update(product.productId!, (value) {
+    if (_items.containsKey(product.id)) {
+      _items.update(product.id, (value) {
         totalQuantity = (value.quantity! + quantity) as int;
         return CartModel(
             id: value.id,
@@ -29,16 +29,16 @@ class CartController extends GetxController {
             product: product);
       });
       if (totalQuantity < 0) {
-        _items.remove(product.productId);
+        _items.remove(product.id);
       }
     } else {
       if (quantity >= 0) {
-        _items.putIfAbsent(product.productId!, () {
+        _items.putIfAbsent(product.id!, () {
           return CartModel(
-              id: product.productId,
+              id: product.id,
               name: product.name,
               price: product.price,
-              quantity:int.parse("${product.quantity}"),
+              quantity: int.parse("${product.quantity}"),
               isExit: true,
               time: DateTime.now().toString(),
               product: product);
@@ -53,7 +53,7 @@ class CartController extends GetxController {
   }
 
   bool existInCart(Product product) {
-    if (_items.containsKey(product.productId)) {
+    if (_items.containsKey(product.id)) {
       return true;
     }
     return false;
@@ -61,9 +61,9 @@ class CartController extends GetxController {
 
   int getQuantity(Product product) {
     var quantity = 0;
-    if (_items.containsKey(product.productId)) {
+    if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
-        if (key == product.productId) {
+        if (key == product.id) {
           quantity = value.quantity!;
         }
       });
@@ -101,8 +101,7 @@ class CartController extends GetxController {
   set setCart(List<CartModel> items) {
     storageItems = items;
     for (int i = 0; i < storageItems.length; i++) {
-      _items.putIfAbsent(
-          storageItems[i].product!.productId!, () => storageItems[i]);
+      _items.putIfAbsent(storageItems[i].product!.id, () => storageItems[i]);
     }
   }
 
