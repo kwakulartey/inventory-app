@@ -14,6 +14,6 @@ _$_BasketItem _$$_BasketItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_BasketItemToJson(_$_BasketItem instance) =>
     <String, dynamic>{
-      'product': instance.product,
+      'product': instance.product.toJson(),
       'quantity': instance.quantity,
     };
