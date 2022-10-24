@@ -116,301 +116,288 @@ class _DashState extends State<Dash> {
                     ),
                     Expanded(
                         child: ListView.separated(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Dimensions.width10,
-                                vertical: Dimensions.height10),
-                            itemBuilder: (context, index) {
-                              var docID = snapshot.data?.docs[index].id;
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Dimensions.width10,
+                          vertical: Dimensions.height10),
+                      itemCount: snapshot.data?.docs.length ?? 0,
+                      itemBuilder: (context, index) {
+                        var docID = snapshot.data?.docs[index].id;
+                        var data = snapshot.data?.docs[index].data();
+                        if (data != null) {
+                          // print(
+                          //     "*** 127: @index: $index Product.fromJson() $data");
+                          Product product =
+                              Product.fromJson({...data, 'id': docID});
 
-                              return GestureDetector(
-                                onTap: () {
-                                  showBarModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return StreamBuilder<
-                                                DocumentSnapshot<
-                                                    Map<String, dynamic>>>(
-                                            stream: _productManager.getProduct(
-                                                docID: docID ?? ''),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.connectionState ==
-                                                      ConnectionState.waiting &&
-                                                  snapshot.data == null) {
-                                                const Center(
-                                                  child:
-                                                      CircularProgressIndicator
-                                                          .adaptive(),
-                                                );
-                                              }
-                                              return StatefulBuilder(builder:
-                                                  ((context, setState) {
-                                                if (snapshot.connectionState ==
-                                                        ConnectionState
-                                                            .waiting &&
-                                                    snapshot.data == null) {
-                                                  const Center(
-                                                    child:
-                                                        CircularProgressIndicator
-                                                            .adaptive(),
-                                                  );
-                                                }
-                                                return Obx(() {
-                                                  var unit = snapshot.data
-                                                      ?.data()?['unit'];
-                                                  double quantity =
-                                                      basketController
-                                                              .basket[docID]
-                                                              ?.quantity ??
-                                                          0.0;
-                                                  double availQuantity =
-                                                      snapshot.data?.data()?[
-                                                              'quantity'] ??
-                                                          0;
-                                                  double unitPrice = snapshot
-                                                          .data
-                                                          ?.data()?['price'] ??
-                                                      0;
-                                                  double total =
-                                                      quantity * unitPrice;
+                          // print(
+                          //     "*** 133: @index: $index Product.toJson() ${product.toJson()}");
+                          return GestureDetector(
+                            onTap: () {
+                              showBarModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Obx(() {
+                                      double quantity = basketController
+                                              .basket[docID]?.quantity ??
+                                          0.0;
 
-                                                  print(
-                                                      'Product.fromJson: ${snapshot.data?.data()}');
+                                      double total = quantity * product.price;
 
-                                                  Product product =
-                                                      Product.fromJson({
-                                                    ...snapshot.data?.data() ??
-                                                        {},
-                                                    'id': docID
-                                                  });
-                                                  BasketItem basketItem =
-                                                      BasketItem(
-                                                          product: product,
-                                                          quantity: quantity);
-                                                  print(product.toJson());
-                                                  var _unit;
-                                                  if (unit == "kilos") {
-                                                    _unit = 0.5;
-                                                  } else {
-                                                    _unit = 1;
-                                                  }
+                                      BasketItem basketItem = BasketItem(
+                                          product: product, quantity: quantity);
 
-                                                  return Container(
-                                                      height:
-                                                          Dimensions.height30 *
-                                                              8,
-                                                      width: double.infinity,
-                                                      child: Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
+                                      var _unit;
+                                      if (product.unit == "kilos") {
+                                        _unit = 0.5;
+                                      } else {
+                                        _unit = 1;
+                                      }
+
+                                      return Container(
+                                          height: Dimensions.height30 * 8,
+                                          width: double.infinity,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Dimensions.width20,
+                                                vertical: Dimensions.height20),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height:
+                                                      Dimensions.height20 * 4,
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          bottom: BorderSide(
+                                                              width: Dimensions
+                                                                      .width10 /
+                                                                  10))),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        '${product.name} ${product.type}',
+                                                        style: TextStyle(
+                                                            fontSize: Dimensions
+                                                                .font16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            quantity.toString(),
+                                                            style: TextStyle(
+                                                                fontSize:
                                                                     Dimensions
-                                                                        .width20,
-                                                                vertical:
-                                                                    Dimensions
-                                                                        .height20),
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              height: Dimensions
-                                                                      .height20 *
-                                                                  4,
-                                                              decoration: BoxDecoration(
-                                                                  border: Border(
-                                                                      bottom: BorderSide(
-                                                                          width:
-                                                                              Dimensions.width10 / 10))),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Text(
-                                                                    '${snapshot.data?.data()?['name']} ${snapshot.data?.data()?['type']}',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            Dimensions
-                                                                                .font16,
-                                                                        fontWeight:
-                                                                            FontWeight.w600),
+                                                                        .font16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          SizedBox(
+                                                            width: Dimensions
+                                                                .width10,
+                                                          ),
+                                                          Container(
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .black12,
+                                                                borderRadius:
+                                                                    BorderRadius.circular(
+                                                                        Dimensions.radius15 -
+                                                                            5)),
+                                                            child: Row(
+                                                              children: [
+                                                                IconButton(
+                                                                    icon: Icon(
+                                                                      Icons
+                                                                          .remove,
+                                                                      size: Dimensions
+                                                                          .iconSize24,
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      if (quantity >
+                                                                          1) {
+                                                                        quantity -=
+                                                                            _unit;
+                                                                        basketItem.quantity =
+                                                                            quantity;
+                                                                        basketController.basket[docID ??
+                                                                                ''] =
+                                                                            basketItem;
+                                                                      } else {
+                                                                        basketController
+                                                                            .basket
+                                                                            .remove(docID);
+                                                                      }
+                                                                    }),
+                                                                IconButton(
+                                                                  icon: Icon(
+                                                                    Icons.add,
+                                                                    size: Dimensions
+                                                                        .iconSize24,
                                                                   ),
-                                                                  Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        quantity
-                                                                            .toString(),
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                Dimensions.font16,
-                                                                            fontWeight: FontWeight.bold),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: Dimensions
-                                                                            .width10,
-                                                                      ),
-                                                                      Container(
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                Colors.black12,
-                                                                            borderRadius: BorderRadius.circular(Dimensions.radius15 - 5)),
-                                                                        child:
-                                                                            Row(
-                                                                          children: [
-                                                                            IconButton(
-                                                                                icon: Icon(
-                                                                                  Icons.remove,
-                                                                                  size: Dimensions.iconSize24,
-                                                                                ),
-                                                                                onPressed: () {
-                                                                                  if (quantity > 1) {
-                                                                                    quantity -= _unit;
-                                                                                    basketItem.quantity = quantity;
-                                                                                    basketController.basket[docID ?? ''] = basketItem;
-                                                                                  } else {
-                                                                                    basketController.basket.remove(docID);
-                                                                                  }
-                                                                                }),
-                                                                            IconButton(
-                                                                              icon: Icon(
-                                                                                Icons.add,
-                                                                                size: Dimensions.iconSize24,
-                                                                              ),
-                                                                              onPressed: () {
-                                                                                if (quantity < availQuantity) {
-                                                                                  quantity += _unit;
-                                                                                  basketItem.quantity = quantity;
-                                                                                  basketController.basket[docID ?? ''] = basketItem;
-                                                                                }
-                                                                              },
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  )
-                                                                ],
-                                                              ),
+                                                                  onPressed:
+                                                                      () {
+                                                                    if (quantity <
+                                                                        (product.quantity ??
+                                                                            0)) {
+                                                                      quantity +=
+                                                                          _unit;
+                                                                      basketItem
+                                                                              .quantity =
+                                                                          quantity;
+                                                                      basketController
+                                                                              .basket[
+                                                                          docID ??
+                                                                              ''] = basketItem;
+                                                                    }
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: Dimensions.height20,
+                                                ),
+                                                Container(
+                                                  height:
+                                                      Dimensions.height20 * 4,
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          bottom: BorderSide(
+                                                              width: Dimensions
+                                                                      .width10 /
+                                                                  10))),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: Dimensions
+                                                                .height20),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              'Total',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                          .font16),
                                                             ),
                                                             SizedBox(
-                                                              height: Dimensions
-                                                                  .height20,
+                                                              width: Dimensions
+                                                                  .width10,
                                                             ),
-                                                            Container(
-                                                              height: Dimensions
-                                                                      .height20 *
-                                                                  4,
-                                                              decoration: BoxDecoration(
-                                                                  border: Border(
-                                                                      bottom: BorderSide(
-                                                                          width:
-                                                                              Dimensions.width10 / 10))),
-                                                              child: Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                        vertical:
-                                                                            Dimensions.height20),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Row(
-                                                                      children: [
-                                                                        Text(
-                                                                          'Total',
-                                                                          style:
-                                                                              TextStyle(fontSize: Dimensions.font16),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width:
-                                                                              Dimensions.width10,
-                                                                        ),
-                                                                        Text(
-                                                                          'GHC $total',
-                                                                          style: TextStyle(
-                                                                              fontSize: Dimensions.font16,
-                                                                              fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    GestureDetector(
-                                                                      onTap: () =>
-                                                                          Navigator.of(context)
-                                                                              .pop(),
-                                                                      child:
-                                                                          Container(
-                                                                        height:
-                                                                            Dimensions.height20 *
-                                                                                2,
-                                                                        width:
-                                                                            Dimensions.width30 *
-                                                                                5,
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                Colors.blue,
-                                                                            borderRadius: BorderRadius.circular(Dimensions.radius15 - 5)),
-                                                                        child:
-                                                                            Center(
-                                                                          child:
-                                                                              Text(
-                                                                            'ADD TO ORDER',
-                                                                            style: TextStyle(
-                                                                                fontSize: Dimensions.font16,
-                                                                                color: Colors.white,
-                                                                                fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            )
+                                                            Text(
+                                                              'GHC $total',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                          .font16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
                                                           ],
                                                         ),
-                                                      ));
-                                                });
-                                              }));
-                                            });
-                                      });
-                                },
-                                child: Container(
-                                  height: Dimensions.height20 * 4,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              width: Dimensions.width10 / 10,
-                                              color: Colors.grey))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          '${snapshot.data?.docs[index].data()?['name']} ${snapshot.data?.docs[index].data()?['type']} ',
-                                          style: TextStyle(
-                                              fontSize: Dimensions.font16,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          'GHC ${snapshot.data?.docs[index].data()?['price']} ',
-                                          style: TextStyle(
-                                              fontSize: Dimensions.font16,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
+                                                        GestureDetector(
+                                                          onTap: () =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(),
+                                                          child: Container(
+                                                            height: Dimensions
+                                                                    .height20 *
+                                                                2,
+                                                            width: Dimensions
+                                                                    .width30 *
+                                                                5,
+                                                            decoration: BoxDecoration(
+                                                                color:
+                                                                    Colors.blue,
+                                                                borderRadius:
+                                                                    BorderRadius.circular(
+                                                                        Dimensions.radius15 -
+                                                                            5)),
+                                                            child: Center(
+                                                              child: Text(
+                                                                'ADD TO ORDER',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        Dimensions
+                                                                            .font16,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ));
+                                    });
+                                  });
+                            },
+                            child: Container(
+                              height: Dimensions.height20 * 4,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          width: Dimensions.width10 / 10,
+                                          color: Colors.grey))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '${snapshot.data?.docs[index].data()?['name']} ${snapshot.data?.docs[index].data()?['type']} ',
+                                      style: TextStyle(
+                                          fontSize: Dimensions.font16,
+                                          fontWeight: FontWeight.w400),
                                     ),
-                                  ),
+                                    Text(
+                                      'GHC ${snapshot.data?.docs[index].data()?['price']} ',
+                                      style: TextStyle(
+                                          fontSize: Dimensions.font16,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
                                 ),
-                              );
-                            },
-                            separatorBuilder: (BuildContext int, index) {
-                              return Divider(
-                                height: Dimensions.height10,
-                              );
-                            },
-                            itemCount: snapshot.data?.docs.length ?? 0))
+                              ),
+                            ),
+                          );
+                        }
+                        return Text("Item doesn't exit for index $index");
+                      },
+                      separatorBuilder: (BuildContext int, index) {
+                        return Divider(
+                          height: Dimensions.height10,
+                        );
+                      },
+                    ))
                   ]);
             });
           }),
@@ -437,7 +424,7 @@ class _DashState extends State<Dash> {
                   double total = 0.0;
                   basketController.basket.forEach(
                     (key, value) {
-                      total += value.quantity * (value.product.price ?? 0);
+                      total += value.quantity * value.product.price;
                     },
                   );
                   return Text(
