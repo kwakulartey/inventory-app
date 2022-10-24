@@ -97,7 +97,7 @@ class _DashboardState extends State<Dashboard> {
 
                     for (var i = 1; i < snapshot.data!.docs.length; i++) {
                       // quantitys = element[i].data()!['quantity'];
-                      lowInStock = snapshot.data!.docs[i].data()!['lowOnStock'];
+                      // lowInStock = snapshot.data!.docs[i].data()!['lowOnStock'];
                       print(lowInStock);
                     }
                     // quantitys = element.data()!['quantity'];
@@ -173,7 +173,7 @@ class _DashboardState extends State<Dashboard> {
                               StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>?>>(
                                   stream: _productManager.getLowStock(
-                                      lowInStock: lowInStock),
+                                      lowInStock: 20),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                             ConnectionState.waiting &&
