@@ -156,7 +156,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                     double total = 0.0;
                     basketController.basket.forEach(
                       (key, value) {
-                        total += value.quantity * (value.product.price ?? 0);
+                        total += value.quantity * value.product.price;
                       },
                     );
                     return Text(
@@ -170,15 +170,16 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
               ),
               GestureDetector(
                 onTap: () async {
+                  print("confirm button has been presseed");
                   if (basketController.basket.isNotEmpty) {
                     double finalTotal = 0.0;
                     double quantity = 0;
 
                     basketController.basket.forEach((key, value) async {
-                      double total =
-                          value.quantity * (value.product.price ?? 0);
+                      double total = value.quantity * (value.product.price);
                       finalTotal += total;
                       quantity += value.quantity;
+
                       await productManager.updateProduct(
                           docID: key,
                           price: value.product.price,
@@ -204,7 +205,7 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                       }), (route) => false);
                     }
                   } else {
-                    Get.snackbar("Empt Cart", "Can't proceed with empty cart",
+                    Get.snackbar("Empty Cart", "Can't proceed with empty cart",
                         backgroundColor: Colors.red, colorText: Colors.white);
                   }
                 },
