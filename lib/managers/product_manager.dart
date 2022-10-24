@@ -83,6 +83,8 @@ class ProductManager with ChangeNotifier {
   //CREATE ORDER
   Future<bool> addOrder(Map<String, dynamic> basket, double? totalAmount,
       double? quantity) async {
+    // print(
+    //     "line 86 Adding to firebase...  basket: $basket, totalAmount: $totalAmount, quantity: $quantity ");
     bool result = false;
     setIsLoading(true);
 
@@ -96,6 +98,7 @@ class ProductManager with ChangeNotifier {
       setMessage('added successfully');
       setIsLoading(false);
     }).catchError((onError) {
+      print("firebase error: $onError");
       setMessage('#####$onError');
       result = false;
       setIsLoading(false);
