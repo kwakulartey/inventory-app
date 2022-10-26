@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:inventory_1/app/utils/helpers.dart';
+import 'package:inventory_1/app/utils/helpers.dart';
 
 part 'product.freezed.dart';
 part 'product.g.dart';
@@ -14,17 +16,14 @@ class Product with _$Product {
     required double price,
     double? quantity,
     String? unit,
-    // @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
-    //      Timestamp? createdAt,
+    @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+        Timestamp? createdAt,
     required double lowOnStock,
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 }
-
-Timestamp timestampFromJson(dynamic val) => Timestamp.fromDate(val);
-FieldValue timestampToJson(dynamic val) => FieldValue.serverTimestamp();
 
 @freezed
 class ProductDTO with _$ProductDTO {

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:inventory_1/app/data/models/order/order.dart';
 
 class TransactionHistoryController extends GetxController {
   final TextEditingController fromDateTextEditingController =
@@ -8,9 +10,9 @@ class TransactionHistoryController extends GetxController {
   final TextEditingController toDateTextEditingController =
       TextEditingController();
 
-  final RxList _getTransactionHistory = RxList([]);
-  List get getTransactionHistory => _getTransactionHistory.value;
-  set getTransactionHistory(List value) => _getTransactionHistory.value = value;
+  final RxList _filteredOrders = RxList([]);
+  List get filteredOrders => _filteredOrders.value;
+  set filteredOrders(List value) => _filteredOrders.value = value;
 
   final Rx<DateTime> _filterFromDate = Rx<DateTime>(DateTime.now());
   DateTime get filterFromDate => _filterFromDate.value;
@@ -23,6 +25,19 @@ class TransactionHistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    FirebaseFirestore.instance.collection('orders').snapshots().listen((event) {
+      final source = (event.metadata.hasPendingWrites) ? "Local" : "Server";
+
+      print("Orders History: ${event.docs}");
+
+      _filteredOrders(
+        event.docs.map((doc) {
+          Order order = Order.fromJson({...doc.data(), "id": doc.id});
+          print("Order: ${order.toJson()}");
+          return order;
+        }).toList(),
+      );
+    });
   }
 
   @override
@@ -44,17 +59,20 @@ class TransactionHistoryController extends GetxController {
         .then((value) {
       if (value != null) {
         if (setFromDate == true) {
-          fromDateTextEditingController.text = "$value";
+          fromDateTextEditingController.text =
+              DateFormat.yMMMMd().format(value);
           filterFromDate = value;
         } else {
-          toDateTextEditingController.text = "$value";
+          toDateTextEditingController.text = DateFormat.yMMMMd().format(value);
           filterToDate = value;
         }
       }
     });
   }
 
-  void validateDateFields() {
+  void filterOrders() {
+    print(
+        "Filtering from: ${fromDateTextEditingController.text} to: ${toDateTextEditingController.text}");
     // if (value!.isEmpty) {
     //   return 'Please select a Date';
     // }

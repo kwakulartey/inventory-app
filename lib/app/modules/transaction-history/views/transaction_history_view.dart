@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:inventory_1/app/data/models/basket/basket_model.dart';
 import 'package:inventory_1/app/data/models/order/order.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
+import 'package:inventory_1/app/utils/helpers.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../controllers/transaction_history_controller.dart';
 
@@ -28,101 +30,71 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                    child: TextFormField(
-                        onTap: () {
-                          controller.openDatePicker(setFromDate: true);
-                        },
-                        keyboardType: TextInputType.none,
-                        showCursor: false,
-                        controller: controller.fromDateTextEditingController,
-                        textCapitalization: TextCapitalization.sentences,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                            label: const Text('Set Date From'),
-                            labelStyle: TextStyle(fontSize: Dimensions.font16),
-                            hintText: 'Set Date From',
-                            hintStyle: TextStyle(fontSize: Dimensions.font16),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: Dimensions.width10 / 10))),
-                        validator: (value) {})),
+                  child: TextFormField(
+                    onTap: () {
+                      controller.openDatePicker(setFromDate: true);
+                    },
+                    keyboardType: TextInputType.none,
+                    showCursor: false,
+                    controller: controller.fromDateTextEditingController,
+                    textCapitalization: TextCapitalization.sentences,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                        label: const Text('Set Date From'),
+                        labelStyle: TextStyle(fontSize: Dimensions.font16),
+                        hintText: 'Set Date From',
+                        hintStyle: TextStyle(fontSize: Dimensions.font16),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.black,
+                                width: Dimensions.width10 / 10))),
+                  ),
+                ),
                 SizedBox(
                   width: Dimensions.width10,
                 ),
                 Expanded(
-                    child: TextFormField(
-                        onTap: () {
-                          controller.openDatePicker(setFromDate: false);
-                        },
-                        keyboardType: TextInputType.none,
-                        showCursor: false,
-                        controller: controller.toDateTextEditingController,
-                        textCapitalization: TextCapitalization.sentences,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                            label: const Text('Set Date To'),
-                            labelStyle: TextStyle(fontSize: Dimensions.font16),
-                            hintText: 'Set Date To',
-                            hintStyle: TextStyle(fontSize: Dimensions.font16),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: Dimensions.width10 / 10))),
-                        validator: (value) {
-                          controller.validateDateFields();
-                        })),
+                  child: TextFormField(
+                    onTap: () {
+                      controller.openDatePicker(setFromDate: false);
+                    },
+                    keyboardType: TextInputType.none,
+                    showCursor: false,
+                    controller: controller.toDateTextEditingController,
+                    textCapitalization: TextCapitalization.sentences,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      label: const Text('Set Date To'),
+                      labelStyle: TextStyle(fontSize: Dimensions.font16),
+                      hintText: 'Set Date To',
+                      hintStyle: TextStyle(fontSize: Dimensions.font16),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                          width: Dimensions.width10 / 10,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
                     child: TextButton(
                   child: const Text("Search"),
-                  onPressed: () async {},
+                  onPressed: controller.filterOrders,
                 ))
               ],
             ),
             SizedBox(
               height: Dimensions.height10,
             ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: controller.getTransactionHistory.length,
-                itemBuilder: (context, index) {
-                  // var date = snapshot.data?.docs[index].data()?['createdAt'];
-                  // date.toDate();
-                  // var newDate =
-                  //     DateFormat.yMEd().add_jm().format(date.toDate());
-
-                  // for (var i = 0;
-                  //     i <=
-                  //         snapshot.data?.docs[index]
-                  //             .data()?['orderDetails'];
-                  //     i++) {
-                  //   var productID = snapshot.data?.docs[index]
-                  //       .data()?['orderDetails'][i]['id'];
-                  //   print(productID);
-                  // }
-                  // var productID;
-
-                  // for (var element in snapshot.data?.docs[index]
-                  //     .data()?['orderDetails']) {
-                  //   for (var i = 0; i < element.length; i++) {
-                  //     productID = snapshot.data?.docs[index]
-                  //         .data()?['orderDetails'][i]['id'];
-                  //   }
-                  // }
-
-                  //TODO:get the right data from the controller
-                  var docID = controller.getTransactionHistory[index].id;
-                  var data = controller.getTransactionHistory[index];
-
-                  if (data != null) {
-                    // print(
-                    //     "*** 127: @index: $index Product.fromJson() $data");
-                    Order order = Order.fromJson({...data, 'id': docID});
-
-                    // print(
-                    //     "*** 133: @index: $index Product.toJson() ${product.toJson()}");
+            Obx(
+              () => Expanded(
+                child: ListView.separated(
+                  itemCount: controller.filteredOrders.length,
+                  itemBuilder: (context, index) {
+                    Order order = controller.filteredOrders[index];
 
                     return Container(
                       height: Dimensions.height20 * 10,
@@ -168,9 +140,12 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                                                     itemBuilder:
                                                         (BuildContext context,
                                                             int index) {
-                                                      var entry = order
-                                                          .orderDetails.entries
-                                                          .elementAt(index);
+                                                      MapEntry<String,
+                                                              BasketItem>
+                                                          entry = order
+                                                              .orderDetails
+                                                              .entries
+                                                              .elementAt(index);
 
                                                       return ListTile(
                                                         title: Text(
@@ -294,7 +269,7 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                    '',
+                                    parseTimestamp(order.createdAt),
                                     style:
                                         TextStyle(fontSize: Dimensions.font16),
                                   ),
@@ -310,14 +285,13 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                         ],
                       ),
                     );
-                  }
-                  return Text("");
-                },
-                separatorBuilder: ((context, index) {
-                  return SizedBox(
-                    height: Dimensions.height10,
-                  );
-                }),
+                  },
+                  separatorBuilder: ((context, index) {
+                    return SizedBox(
+                      height: Dimensions.height10,
+                    );
+                  }),
+                ),
               ),
             ),
           ],

@@ -13,6 +13,7 @@ _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
       price: (json['price'] as num).toDouble(),
       quantity: (json['quantity'] as num?)?.toDouble(),
       unit: json['unit'] as String?,
+      createdAt: timestampFromJson(json['createdAt']),
       lowOnStock: (json['lowOnStock'] as num).toDouble(),
     );
 
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$_ProductToJson(_$_Product instance) =>
       'price': instance.price,
       'quantity': instance.quantity,
       'unit': instance.unit,
+      'createdAt': timestampToJson(instance.createdAt),
       'lowOnStock': instance.lowOnStock,
     };
 

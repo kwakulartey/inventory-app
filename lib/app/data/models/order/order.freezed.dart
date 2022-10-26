@@ -21,10 +21,13 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Order {
 // TODO: Created at tiemstamp
+  String get id => throw _privateConstructorUsedError;
   Map<String, BasketItem> get orderDetails =>
       throw _privateConstructorUsedError;
   double get orderQuantity => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+  Timestamp? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,9 +40,12 @@ abstract class $OrderCopyWith<$Res> {
       _$OrderCopyWithImpl<$Res, Order>;
   @useResult
   $Res call(
-      {Map<String, BasketItem> orderDetails,
+      {String id,
+      Map<String, BasketItem> orderDetails,
       double orderQuantity,
-      double total});
+      double total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          Timestamp? createdAt});
 }
 
 /// @nodoc
@@ -55,11 +61,17 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? orderDetails = null,
     Object? orderQuantity = null,
     Object? total = null,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       orderDetails: null == orderDetails
           ? _value.orderDetails
           : orderDetails // ignore: cast_nullable_to_non_nullable
@@ -72,6 +84,10 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
     ) as $Val);
   }
 }
@@ -83,9 +99,12 @@ abstract class _$$_OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {Map<String, BasketItem> orderDetails,
+      {String id,
+      Map<String, BasketItem> orderDetails,
       double orderQuantity,
-      double total});
+      double total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          Timestamp? createdAt});
 }
 
 /// @nodoc
@@ -97,11 +116,17 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res, _$_Order>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? orderDetails = null,
     Object? orderQuantity = null,
     Object? total = null,
+    Object? createdAt = freezed,
   }) {
     return _then(_$_Order(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       orderDetails: null == orderDetails
           ? _value._orderDetails
           : orderDetails // ignore: cast_nullable_to_non_nullable
@@ -114,6 +139,10 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res, _$_Order>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
     ));
   }
 }
@@ -122,17 +151,21 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res, _$_Order>
 @JsonSerializable()
 class _$_Order implements _Order {
   _$_Order(
-      {required final Map<String, BasketItem> orderDetails,
+      {required this.id,
+      required final Map<String, BasketItem> orderDetails,
       required this.orderQuantity,
-      required this.total})
+      required this.total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          this.createdAt})
       : _orderDetails = orderDetails;
 
   factory _$_Order.fromJson(Map<String, dynamic> json) =>
       _$$_OrderFromJson(json);
 
 // TODO: Created at tiemstamp
+  @override
+  final String id;
   final Map<String, BasketItem> _orderDetails;
-// TODO: Created at tiemstamp
   @override
   Map<String, BasketItem> get orderDetails {
     // ignore: implicit_dynamic_type
@@ -143,10 +176,13 @@ class _$_Order implements _Order {
   final double orderQuantity;
   @override
   final double total;
+  @override
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+  final Timestamp? createdAt;
 
   @override
   String toString() {
-    return 'Order(orderDetails: $orderDetails, orderQuantity: $orderQuantity, total: $total)';
+    return 'Order(id: $id, orderDetails: $orderDetails, orderQuantity: $orderQuantity, total: $total, createdAt: $createdAt)';
   }
 
   @override
@@ -154,17 +190,25 @@ class _$_Order implements _Order {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Order &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality()
                 .equals(other._orderDetails, _orderDetails) &&
             (identical(other.orderQuantity, orderQuantity) ||
                 other.orderQuantity == orderQuantity) &&
-            (identical(other.total, total) || other.total == total));
+            (identical(other.total, total) || other.total == total) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_orderDetails), orderQuantity, total);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(_orderDetails),
+      orderQuantity,
+      total,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -182,18 +226,26 @@ class _$_Order implements _Order {
 
 abstract class _Order implements Order {
   factory _Order(
-      {required final Map<String, BasketItem> orderDetails,
+      {required final String id,
+      required final Map<String, BasketItem> orderDetails,
       required final double orderQuantity,
-      required final double total}) = _$_Order;
+      required final double total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          final Timestamp? createdAt}) = _$_Order;
 
   factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
 
   @override // TODO: Created at tiemstamp
+  String get id;
+  @override
   Map<String, BasketItem> get orderDetails;
   @override
   double get orderQuantity;
   @override
   double get total;
+  @override
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+  Timestamp? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_OrderCopyWith<_$_Order> get copyWith =>

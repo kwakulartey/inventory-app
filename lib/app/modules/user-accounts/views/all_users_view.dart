@@ -14,7 +14,7 @@ class AllUsersView extends GetView<AllUsersController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Manage Collatorators',
+          'All Users',
           style: TextStyle(fontSize: Dimensions.font20),
         ),
         centerTitle: true,
