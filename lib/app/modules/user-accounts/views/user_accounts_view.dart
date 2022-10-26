@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:inventory_1/app/modules/user-accounts/controllers/user_accounts_controller.dart';
+import 'package:inventory_1/app/routes/app_pages.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
 
 class UserAccountsView extends GetView<UserAccountsController> {
@@ -50,98 +51,100 @@ class UserAccountsView extends GetView<UserAccountsController> {
               SizedBox(
                 height: Dimensions.height45,
               ),
-              Container(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.person),
-                      title: Row(
-                        children: [
-                          Text(
-                            'Name',
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(
-                            width: Dimensions.width20,
-                          ),
-                          Text(
-                            controller.userProfile().name, 
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
+              Obx(
+                () => Container(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.person),
+                        title: Row(
+                          children: [
+                            Text(
+                              'Name',
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              width: Dimensions.width20,
+                            ),
+                            Text(
+                              controller.userProfile().name,
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.email),
-                      title: Row(
-                        children: [
-                          Text(
-                            'Email',
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(
-                            width: Dimensions.width20,
-                          ),
-                          Text(
-                            controller.userProfile().email, // TODO:
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
+                      ListTile(
+                        leading: Icon(Icons.email),
+                        title: Row(
+                          children: [
+                            Text(
+                              'Email',
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              width: Dimensions.width20,
+                            ),
+                            Text(
+                              controller.userProfile().email, // TODO:
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.numbers),
-                      title: Row(
-                        children: [
-                          Text(
-                            'Phone Number',
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(
-                            width: Dimensions.width20,
-                          ),
-                          Text(
-                            controller.userProfile().phonenumber, // TODO:
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
+                      ListTile(
+                        leading: Icon(Icons.numbers),
+                        title: Row(
+                          children: [
+                            Text(
+                              'Phone Number',
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              width: Dimensions.width20,
+                            ),
+                            Text(
+                              controller.userProfile().phonenumber, // TODO:
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.work),
-                      title: Row(
-                        children: [
-                          Text(
-                            'Company',
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(
-                            width: Dimensions.width20,
-                          ),
-                          Text(
-                            controller.userProfile().company,
-                            style: TextStyle(
-                                fontSize: Dimensions.font16,
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
+                      ListTile(
+                        leading: Icon(Icons.work),
+                        title: Row(
+                          children: [
+                            Text(
+                              'Company',
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              width: Dimensions.width20,
+                            ),
+                            Text(
+                              controller.userProfile().company,
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -149,10 +152,7 @@ class UserAccountsView extends GetView<UserAccountsController> {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.of(context)
-                  //     .push(MaterialPageRoute(builder: (context) {
-                  //   return Colla();
-                  // }));  // TODO:
+                  Get.toNamed(Routes.ALL_USERS);
                 },
                 child: Container(
                   height: Dimensions.height20 * 4,

@@ -28,6 +28,7 @@ class ProductActionModal extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
+                Get.back();
                 Get.toNamed(Routes.EDIT_PRODUCT, arguments: product);
               },
               child: Container(

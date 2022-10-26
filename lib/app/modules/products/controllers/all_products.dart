@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/product/product.dart';
+import 'package:inventory_1/app/modules/products/controllers/edit_product_controller.dart';
 import 'package:inventory_1/app/modules/products/widgets/product_action_modal.dart';
 
 class AllProductsController extends GetxController {
   //TODO: Implement AllItemsController
 
   final RxList<Product> allProducts = RxList<Product>([]);
+  final EditProductController editProductController =
+      Get.find<EditProductController>();
 
   @override
   void onInit() {
@@ -40,6 +43,7 @@ class AllProductsController extends GetxController {
   void deleteProduct(Product product) {}
 
   void showAlertDialog({required Product product}) {
+    editProductController.product = product;
     Get.dialog(ProductActionModal(product: product));
   }
   // void increment() => count.value++;

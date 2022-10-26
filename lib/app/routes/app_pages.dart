@@ -1,20 +1,26 @@
 import 'package:get/get.dart';
 
+import '../modules/auth/bindings/auth_binding.dart';
+import '../modules/auth/bindings/register_binding.dart';
+import '../modules/auth/views/register_view.dart';
+import '../modules/auth/views/auth_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/products/bindings/all_products_binding.dart';
 import '../modules/products/bindings/add_product_binding.dart';
+import '../modules/products/bindings/all_products_binding.dart';
 import '../modules/products/bindings/edit_product_binding.dart';
-import '../modules/products/views/all_products.dart';
 import '../modules/products/views/add_product_view.dart';
+import '../modules/products/views/all_products.dart';
 import '../modules/products/views/edit_product_view.dart';
 import '../modules/transaction-history/bindings/transaction_history_binding.dart';
 import '../modules/transaction-history/views/transaction_history_view.dart';
 import '../modules/user-accounts/bindings/add_user_binding.dart';
-import '../modules/user-accounts/views/add_user_view.dart';
+import '../modules/user-accounts/bindings/all_users_binding.dart';
 import '../modules/user-accounts/bindings/user_accounts_binding.dart';
+import '../modules/user-accounts/views/add_user_view.dart';
+import '../modules/user-accounts/views/all_users_view.dart';
 import '../modules/user-accounts/views/user_accounts_view.dart';
 
 part 'app_routes.dart';
@@ -45,6 +51,11 @@ class AppPages {
           page: () => const AddUserView(),
           binding: AddUserBinding(),
         ),
+        GetPage(
+          name: _Paths.ALL_USERS,
+          page: () => AllUsersView(),
+          binding: AllUsersBinding(),
+        ),
       ],
     ),
     GetPage(
@@ -66,6 +77,18 @@ class AppPages {
       name: _Paths.EDIT_PRODUCT,
       page: () => EditProductView(),
       binding: EditProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH,
+      page: () => const AuthView(),
+      binding: AuthBinding(),
+      children: [
+        GetPage(
+          name: _Paths.REGISTER,
+          page: () => const RegisterView(),
+          binding: RegisterBinding(),
+        ),
+      ],
     ),
   ];
 }

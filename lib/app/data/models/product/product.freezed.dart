@@ -298,17 +298,11 @@ ProductDTO _$ProductDTOFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ProductDTO {
   String get name => throw _privateConstructorUsedError;
-  set name(String value) => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
-  set type(String? value) => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
-  set price(double value) => throw _privateConstructorUsedError;
   double? get quantity => throw _privateConstructorUsedError;
-  set quantity(double? value) => throw _privateConstructorUsedError;
   String? get unit => throw _privateConstructorUsedError;
-  set unit(String? value) => throw _privateConstructorUsedError;
   double get lowOnStock => throw _privateConstructorUsedError;
-  set lowOnStock(double value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -459,17 +453,17 @@ class _$_ProductDTO with DiagnosticableTreeMixin implements _ProductDTO {
       _$$_ProductDTOFromJson(json);
 
   @override
-  String name;
+  final String name;
   @override
-  String? type;
+  final String? type;
   @override
-  double price;
+  final double price;
   @override
-  double? quantity;
+  final double? quantity;
   @override
-  String? unit;
+  final String? unit;
   @override
-  double lowOnStock;
+  final double lowOnStock;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -489,6 +483,26 @@ class _$_ProductDTO with DiagnosticableTreeMixin implements _ProductDTO {
       ..add(DiagnosticsProperty('lowOnStock', lowOnStock));
   }
 
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ProductDTO &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.unit, unit) || other.unit == unit) &&
+            (identical(other.lowOnStock, lowOnStock) ||
+                other.lowOnStock == lowOnStock));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, type, price, quantity, unit, lowOnStock);
+
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -505,34 +519,28 @@ class _$_ProductDTO with DiagnosticableTreeMixin implements _ProductDTO {
 
 abstract class _ProductDTO implements ProductDTO {
   factory _ProductDTO(
-      {required String name,
-      String? type,
-      required double price,
-      double? quantity,
-      String? unit,
-      required double lowOnStock}) = _$_ProductDTO;
+      {required final String name,
+      final String? type,
+      required final double price,
+      final double? quantity,
+      final String? unit,
+      required final double lowOnStock}) = _$_ProductDTO;
 
   factory _ProductDTO.fromJson(Map<String, dynamic> json) =
       _$_ProductDTO.fromJson;
 
   @override
   String get name;
-  set name(String value);
   @override
   String? get type;
-  set type(String? value);
   @override
   double get price;
-  set price(double value);
   @override
   double? get quantity;
-  set quantity(double? value);
   @override
   String? get unit;
-  set unit(String? value);
   @override
   double get lowOnStock;
-  set lowOnStock(double value);
   @override
   @JsonKey(ignore: true)
   _$$_ProductDTOCopyWith<_$_ProductDTO> get copyWith =>

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:inventory_1/app/data/models/product/product.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
 
 import '../controllers/edit_product_controller.dart';
 
 class EditProductView extends GetView<EditProductController> {
   EditProductView({Key? key}) : super(key: key);
-  final TextEditingController _quantityController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final GlobalKey<FormState> _globalKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +22,13 @@ class EditProductView extends GetView<EditProductController> {
       body: ListView(
         children: [
           SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Form(
-                  key: _globalKey,
+              child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Obx(() {
+              Product? product = controller.product;
+              if (product != null) {
+                return Form(
+                  key: controller.globalKey,
                   child: Column(
                     children: [
                       SizedBox(
@@ -53,7 +55,7 @@ class EditProductView extends GetView<EditProductController> {
                                           fontSize: Dimensions.font16),
                                     ),
                                     Text(
-                                      ' 0',
+                                      ' ${product.quantity}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: Dimensions.font16),
@@ -78,7 +80,7 @@ class EditProductView extends GetView<EditProductController> {
                                           fontSize: Dimensions.font16),
                                     ),
                                     Text(
-                                      ' GHC ${5 * 6}',
+                                      ' GHC ${product.price * (product.quantity ?? 0)}',
                                       style: TextStyle(
                                           fontSize: Dimensions.font16,
                                           fontWeight: FontWeight.bold),
@@ -125,7 +127,7 @@ class EditProductView extends GetView<EditProductController> {
                                           color: Colors.grey),
                                     ),
                                     Text(
-                                      'name type',
+                                      '${product.name} ${product.type}',
                                       style: TextStyle(
                                           fontSize: Dimensions.font16,
                                           fontWeight: FontWeight.bold),
@@ -158,7 +160,7 @@ class EditProductView extends GetView<EditProductController> {
                                           color: Colors.grey),
                                     ),
                                     Text(
-                                      '20',
+                                      '${product.quantity}',
                                       style: TextStyle(
                                           fontSize: Dimensions.font16,
                                           fontWeight: FontWeight.bold),
@@ -199,7 +201,7 @@ class EditProductView extends GetView<EditProductController> {
                                           floatingLabelBehavior:
                                               FloatingLabelBehavior.never,
                                           prefix: Text(
-                                            'GHC  ',
+                                            'GHC   ',
                                             style: TextStyle(
                                                 fontSize: Dimensions.font16),
                                           ),
@@ -210,7 +212,7 @@ class EditProductView extends GetView<EditProductController> {
                                           hintStyle: TextStyle(
                                               fontSize: Dimensions.font16),
                                         ),
-                                        controller: _priceController,
+                                        controller: controller.priceController,
                                         keyboardType: TextInputType.number,
                                         style: TextStyle(
                                             fontSize: Dimensions.font16,
@@ -274,7 +276,8 @@ class EditProductView extends GetView<EditProductController> {
                                                 fontSize: Dimensions.font16,
                                               ),
                                             ),
-                                            controller: _quantityController,
+                                            controller:
+                                                controller.quantityController,
                                             keyboardType: TextInputType.number,
                                             style: TextStyle(
                                                 fontSize: Dimensions.font16,
@@ -341,8 +344,11 @@ class EditProductView extends GetView<EditProductController> {
                       )
                     ],
                   ),
-                )),
-          )
+                );
+              }
+              return const Text('Product not found');
+            }),
+          ))
         ],
       ),
     );

@@ -1,11 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class TransactionHistoryController extends GetxController {
-  //TODO: Implement TransactionHistoryController
+  final TextEditingController fromDateTextEditingController =
+      TextEditingController();
+  final TextEditingController toDateTextEditingController =
+      TextEditingController();
 
   final RxList _getTransactionHistory = RxList([]);
   List get getTransactionHistory => _getTransactionHistory.value;
   set getTransactionHistory(List value) => _getTransactionHistory.value = value;
+
+  final Rx<DateTime> _filterFromDate = Rx<DateTime>(DateTime.now());
+  DateTime get filterFromDate => _filterFromDate.value;
+  set filterFromDate(DateTime value) => _filterFromDate.value = value;
+
+  final Rx<DateTime> _fitlrerToDate = Rx<DateTime>(DateTime.now());
+  DateTime get filterToDate => _fitlrerToDate.value;
+  set filterToDate(DateTime value) => _fitlrerToDate.value = value;
 
   @override
   void onInit() {
@@ -22,17 +35,23 @@ class TransactionHistoryController extends GetxController {
     super.onClose();
   }
 
-  void showDatePicker() {
-    // showDatePicker(
-    //         context: context,
-    //         initialDate: DateTime.now(),
-    //         firstDate: DateTime(2021),
-    //         lastDate: DateTime.now().add(const Duration(days: 365)))
-    //     .then((value) {
-    //   setState(() {
-    //     _datefromController.text = DateFormat.yMMMMd().format(value!);
-    //   });
-    // });
+  void openDatePicker({bool setFromDate = false}) {
+    showDatePicker(
+            context: Get.context!,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2021),
+            lastDate: DateTime.now().add(const Duration(days: 365 * 30)))
+        .then((value) {
+      if (value != null) {
+        if (setFromDate == true) {
+          fromDateTextEditingController.text = "$value";
+          filterFromDate = value;
+        } else {
+          toDateTextEditingController.text = "$value";
+          filterToDate = value;
+        }
+      }
+    });
   }
 
   void validateDateFields() {

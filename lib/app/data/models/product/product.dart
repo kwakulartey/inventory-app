@@ -26,7 +26,7 @@ class Product with _$Product {
 Timestamp timestampFromJson(dynamic val) => Timestamp.fromDate(val);
 FieldValue timestampToJson(dynamic val) => FieldValue.serverTimestamp();
 
-@unfreezed
+@freezed
 class ProductDTO with _$ProductDTO {
   factory ProductDTO({
     required String name,

@@ -9,8 +9,6 @@ import '../controllers/transaction_history_controller.dart';
 class TransactionHistoryView extends GetView<TransactionHistoryController> {
   TransactionHistoryView({Key? key}) : super(key: key);
 
-  final TextEditingController _datefromController = TextEditingController();
-  final TextEditingController _datetoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,11 +30,11 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                 Expanded(
                     child: TextFormField(
                         onTap: () {
-                          controller.showDatePicker();
+                          controller.openDatePicker(setFromDate: true);
                         },
                         keyboardType: TextInputType.none,
                         showCursor: false,
-                        controller: _datefromController,
+                        controller: controller.fromDateTextEditingController,
                         textCapitalization: TextCapitalization.sentences,
                         maxLines: 1,
                         decoration: InputDecoration(
@@ -56,11 +54,11 @@ class TransactionHistoryView extends GetView<TransactionHistoryController> {
                 Expanded(
                     child: TextFormField(
                         onTap: () {
-                          controller.showDatePicker();
+                          controller.openDatePicker(setFromDate: false);
                         },
                         keyboardType: TextInputType.none,
                         showCursor: false,
-                        controller: _datetoController,
+                        controller: controller.toDateTextEditingController,
                         textCapitalization: TextCapitalization.sentences,
                         maxLines: 1,
                         decoration: InputDecoration(

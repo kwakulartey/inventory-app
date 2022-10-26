@@ -11,6 +11,10 @@ abstract class Routes {
   static const NEW_PRODUCT = _Paths.NEW_PRODUCT;
   static const EDIT_PRODUCT = _Paths.EDIT_PRODUCT;
   static const ADD_USER = _Paths.USER_ACCOUNTS + _Paths.ADD_USER;
+  static const ALL_USERS = _Paths.USER_ACCOUNTS + _Paths.ALL_USERS;
+  static const AUTH = _Paths.AUTH;
+  static const REGISTER_VIEW = _Paths.AUTH + _Paths.REGISTER_VIEW;
+  static const REGISTER = _Paths.AUTH + _Paths.REGISTER;
 }
 
 abstract class _Paths {
@@ -23,4 +27,8 @@ abstract class _Paths {
   static const NEW_PRODUCT = '/products/new';
   static const EDIT_PRODUCT = '/products/edit';
   static const ADD_USER = '/add-user';
+  static const ALL_USERS = '/all-users';
+  static const AUTH = '/auth';
+  static const REGISTER_VIEW = '/register-view';
+  static const REGISTER = '/register';
 }
