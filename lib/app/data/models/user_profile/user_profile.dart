@@ -9,7 +9,7 @@ class UserProfile with _$UserProfile {
   factory UserProfile({
     required String name,
     required String email,
-    required String phoneNumber,
+    required String phonenumber,
     required String company,
   }) = _UserProfile;
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:inventory_1/app/modules/dashboard/widgets/card_dash.dart';
+import 'package:inventory_1/app/routes/app_pages.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
 
 import 'package:inventory_1/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -26,7 +27,7 @@ class DashboardView extends GetView<DashboardController> {
                   size: Dimensions.iconSize24,
                 ),
                 onPressed: () {
-                  controller.gotoAccountPage();
+                  Get.toNamed(Routes.USER_ACCOUNTS);
                 },
               ),
             )
@@ -46,39 +47,49 @@ class DashboardView extends GetView<DashboardController> {
                 SizedBox(
                   height: Dimensions.height20,
                 ),
-                Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    spacing: Dimensions.width20,
-                    runSpacing: Dimensions.width20,
-                    children: [
-                      StatCard(
-                          color: Colors.blue,
-                          icon: Icons.desk_rounded,
-                          label: 'Daily Sales',
-                          value: controller.dailySales,
-                          onTap: () {}),
-                      StatCard(
-                          icon: Icons.desk_rounded,
-                          label: 'Total Stock ',
-                          value: controller.totalProductCount,
-                          onTap: () {}),
-                      StatCard(
-                          icon: Icons.desk_rounded,
-                          label: 'Low on Stock ',
-                          value: controller.lowOnStockProductsCount,
-                          onTap: () {}),
-                      StatCard(
-                          icon: Icons.desk_rounded,
-                          label: 'Out Of Stock ',
-                          value: controller.outOfStockProductsCount,
-                          onTap: () {}),
-                    ]),
+                Obx(
+                  () => Wrap(
+                      alignment: WrapAlignment.spaceEvenly,
+                      spacing: Dimensions.width20,
+                      runSpacing: Dimensions.width20,
+                      children: [
+                        StatCard(
+                            color: Colors.blue,
+                            icon: Icons.desk_rounded,
+                            label: 'Daily Sales',
+                            value: controller.dashboardStats().dailySales,
+                            onTap: () {}),
+                        StatCard(
+                            icon: Icons.desk_rounded,
+                            label: 'Total Stock ',
+                            value:
+                                controller.dashboardStats().totalProductCount,
+                            onTap: () {
+                              print("tapped");
+                              Get.toNamed(Routes.ALL_PRODUCTS);
+                            }),
+                        StatCard(
+                            icon: Icons.desk_rounded,
+                            label: 'Low on Stock ',
+                            value: controller
+                                .dashboardStats()
+                                .lowOnStockProductsCount,
+                            onTap: () {}),
+                        StatCard(
+                            icon: Icons.desk_rounded,
+                            label: 'Out Of Stock ',
+                            value: controller
+                                .dashboardStats()
+                                .outOfStockProductsCount,
+                            onTap: () {}),
+                      ]),
+                ),
                 SizedBox(
                   height: Dimensions.height20,
                 ),
                 GestureDetector(
                   onTap: () {
-                    controller.gotoTransactionHistory();
+                    Get.toNamed(Routes.TRANSACTION_HISTORY);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -132,7 +143,7 @@ class DashboardView extends GetView<DashboardController> {
                     ),
                     GestureDetector(
                       onTap: (() {
-                        controller.gotoCreateNewItem();
+                        Get.toNamed(Routes.NEW_PRODUCT);
                       }),
                       child: Container(
                         decoration: BoxDecoration(

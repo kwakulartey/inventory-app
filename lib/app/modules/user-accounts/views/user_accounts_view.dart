@@ -67,7 +67,7 @@ class UserAccountsView extends GetView<UserAccountsController> {
                             width: Dimensions.width20,
                           ),
                           Text(
-                            "User Full Name", // TODO:
+                            controller.userProfile().name, 
                             style: TextStyle(
                                 fontSize: Dimensions.font16,
                                 fontWeight: FontWeight.w400),
@@ -89,7 +89,7 @@ class UserAccountsView extends GetView<UserAccountsController> {
                             width: Dimensions.width20,
                           ),
                           Text(
-                            "some@email.com", // TODO:
+                            controller.userProfile().email, // TODO:
                             style: TextStyle(
                                 fontSize: Dimensions.font16,
                                 fontWeight: FontWeight.w400),
@@ -111,7 +111,7 @@ class UserAccountsView extends GetView<UserAccountsController> {
                             width: Dimensions.width20,
                           ),
                           Text(
-                            "Some Phone Number", // TODO:
+                            controller.userProfile().phonenumber, // TODO:
                             style: TextStyle(
                                 fontSize: Dimensions.font16,
                                 fontWeight: FontWeight.w400),
@@ -133,7 +133,7 @@ class UserAccountsView extends GetView<UserAccountsController> {
                             width: Dimensions.width20,
                           ),
                           Text(
-                            "Some Company Name", // TODO:
+                            controller.userProfile().company,
                             style: TextStyle(
                                 fontSize: Dimensions.font16,
                                 fontWeight: FontWeight.w400),

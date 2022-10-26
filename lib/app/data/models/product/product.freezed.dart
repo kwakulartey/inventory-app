@@ -27,7 +27,7 @@ mixin _$Product {
   double? get quantity => throw _privateConstructorUsedError;
   String? get unit =>
       throw _privateConstructorUsedError; // @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
-//     required Timestamp createdAt,
+//      Timestamp? createdAt,
   double get lowOnStock => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -200,7 +200,7 @@ class _$_Product with DiagnosticableTreeMixin implements _Product {
   @override
   final String? unit;
 // @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
-//     required Timestamp createdAt,
+//      Timestamp? createdAt,
   @override
   final double lowOnStock;
 
@@ -283,7 +283,7 @@ abstract class _Product implements Product {
   @override
   String? get unit;
   @override // @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
-//     required Timestamp createdAt,
+//      Timestamp? createdAt,
   double get lowOnStock;
   @override
   @JsonKey(ignore: true)

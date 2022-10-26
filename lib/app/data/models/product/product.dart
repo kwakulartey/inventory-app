@@ -15,7 +15,7 @@ class Product with _$Product {
     double? quantity,
     String? unit,
     // @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
-    //     required Timestamp createdAt,
+    //      Timestamp? createdAt,
     required double lowOnStock,
   }) = _Product;
 
