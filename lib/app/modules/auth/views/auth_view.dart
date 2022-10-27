@@ -29,66 +29,60 @@ class AuthView extends GetView<AuthController> {
               height: Dimensions.height45,
             ),
             TextFormField(
-                // controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.email,
-                    size: Dimensions.iconSize24,
-                  ),
-                  labelText: ('E-mail'),
-                  labelStyle: TextStyle(fontSize: Dimensions.font16),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.grey, width: Dimensions.width10 / 10)),
-                  hintText: 'Enter your E-mail',
-                  hintStyle: TextStyle(fontSize: Dimensions.font16),
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.black, width: Dimensions.width10 / 10),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(Dimensions.radius15 - 10))),
+              // controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.email,
+                  size: Dimensions.iconSize24,
                 ),
-                validator: (value) {}),
+                labelText: ('E-mail'),
+                labelStyle: TextStyle(fontSize: Dimensions.font16),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.grey, width: Dimensions.width10 / 10)),
+                hintText: 'Enter your E-mail',
+                hintStyle: TextStyle(fontSize: Dimensions.font16),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.black, width: Dimensions.width10 / 10),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.radius15 - 10))),
+              ),
+              onChanged: (value) => controller.email = value,
+            ),
             SizedBox(
               height: Dimensions.height15,
             ),
             TextFormField(
-                // controller: _passwordController,
-                obscureText: true,
-                obscuringCharacter: '*',
-                keyboardType: TextInputType.visiblePassword,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    size: Dimensions.iconSize24,
-                  ),
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  labelText: ('Password'),
-                  labelStyle: TextStyle(fontSize: Dimensions.font16),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.grey, width: Dimensions.width10 / 10)),
-                  hintText: 'Enter your password',
-                  hintStyle: TextStyle(fontSize: Dimensions.font16),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.black, width: Dimensions.width10 / 10),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(Dimensions.radius15 - 10))),
+              // controller: _passwordController,
+              obscureText: true,
+              obscuringCharacter: '*',
+              keyboardType: TextInputType.visiblePassword,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.lock,
+                  size: Dimensions.iconSize24,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Enter a valid password';
-                  }
-
-                  if (value.length < 6) {
-                    return 'Password should not be less than 6 characters';
-                  }
-                }),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                labelText: ('Password'),
+                labelStyle: TextStyle(fontSize: Dimensions.font16),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.grey, width: Dimensions.width10 / 10)),
+                hintText: 'Enter your password',
+                hintStyle: TextStyle(fontSize: Dimensions.font16),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.black, width: Dimensions.width10 / 10),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.radius15 - 10))),
+              ),
+              onChanged: (value) => controller.password = value,
+            ),
             SizedBox(
               height: Dimensions.height15,
             ),

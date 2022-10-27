@@ -9,8 +9,6 @@ part 'order.g.dart';
 @freezed
 class Order with _$Order {
   factory Order({
-    // TODO: Created at tiemstamp
-
     required String id,
     required Map<String, BasketItem> orderDetails,
     required double orderQuantity,
@@ -20,4 +18,18 @@ class Order with _$Order {
   }) = _Order;
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+}
+
+@freezed
+class OrderDTO with _$OrderDTO {
+  factory OrderDTO({
+    required Map<String, BasketItem> orderDetails,
+    required double orderQuantity,
+    required double total,
+    @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+        Timestamp? createdAt,
+  }) = _OrderDTO;
+
+  factory OrderDTO.fromJson(Map<String, dynamic> json) =>
+      _$OrderDTOFromJson(json);
 }

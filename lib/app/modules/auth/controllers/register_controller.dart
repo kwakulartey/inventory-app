@@ -1,25 +1,68 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
+import 'package:inventory_1/app/utils/helpers.dart';
 
 class RegisterController extends GetxController {
   //TODO: Implement RegisterController
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  static final FirebaseFirestore _firebaseFirestore =
+      FirebaseFirestore.instance;
+
+  final CollectionReference<Map<String, dynamic>> _userCollection =
+      _firebaseFirestore.collection("products");
 
   final _validationMessages =
       RxMap<String, String?>({"name": "This field is required"});
   Map<String, String?> get validationMessages => _validationMessages;
 
-  final Rx<UserProfile> _userProfile = Rx<UserProfile>(
-      UserProfile(company: '', email: '', phonenumber: '', name: ''));
-  UserProfile get userProfile => _userProfile.value;
+  final Rx<UserProfileDTO> _userProfileDTO = Rx<UserProfileDTO>(UserProfileDTO(
+      company: '', email: '', phonenumber: '', name: '', password: ''));
+  UserProfileDTO get userProfileDTO => _userProfileDTO.value;
 
   void setUserName(String value) {
     if (value.isEmpty) {
       validationMessages.assign(
           "name", value.isEmpty ? 'This field is required' : null);
     } else {
-      _userProfile(userProfile.copyWith(name: value));
+      _userProfileDTO(userProfileDTO.copyWith(name: value));
+    }
+  }
+
+  void setEmail(String value) {
+    if (value.isEmpty) {
+      validationMessages.assign(
+          "email", value.isEmpty ? 'This field is required' : null);
+    } else {
+      _userProfileDTO(userProfileDTO.copyWith(email: value));
+    }
+  }
+
+  void setPhoneNumber(String value) {
+    if (value.isEmpty) {
+      validationMessages.assign(
+          "phonenumber", value.isEmpty ? 'This field is required' : null);
+    } else {
+      _userProfileDTO(userProfileDTO.copyWith(phonenumber: value));
+    }
+  }
+
+  void setPassword(String value) {
+    if (value.isEmpty) {
+      validationMessages.assign(
+          "password", value.isEmpty ? 'This field is required' : null);
+    } else {
+      _userProfileDTO(userProfileDTO.copyWith(password: value));
+    }
+  }
+
+  void setCompany(String value) {
+    if (value.isEmpty) {
+      validationMessages.assign(
+          "company", value.isEmpty ? 'This field is required' : null);
+    } else {
+      _userProfileDTO(userProfileDTO.copyWith(company: value));
     }
   }
 
@@ -38,61 +81,23 @@ class RegisterController extends GetxController {
     super.onClose();
   }
 
-  void createUser() {
-    // if (_globalKey.currentState!.validate()) {
-    //                               setState(() {
-    //                                 _isLoading = true;
-    //                               });
+  void createUser() async {
+    if (formKey.currentState!.validate()) {
+      showSnackBar(message: 'Processing Data...please wait');
 
-    //                               bool isCreated =
-    //                                   await _authManager.ceateNewUser(
-    //                                       client: Client(
-    //                                         email: _emailController.text.trim(),
-    //                                         name: _nameController.text,
-    //                                         phone: _numberController.text,
-    //                                         role: "user",
-    //                                         company:
-    //                                             _companynameController.text,
-    //                                       ),
-    //                                       password:
-    //                                           _passwordController.text.trim());
-
-    //                               if (isCreated) {
-    //                                 setState(() {
-    //                                   _isLoading = false;
-    //                                 });
-
-    //                                 Navigator.of(context).pushAndRemoveUntil(
-    //                                     MaterialPageRoute(builder: (context) {
-    //                                   return Login();
-    //                                 }), (route) => false);
-    //                                 Fluttertoast.showToast(
-    //                                     msg: "Please Login Now",
-    //                                     toastLength: Toast.LENGTH_SHORT,
-    //                                     gravity: ToastGravity.CENTER,
-    //                                     timeInSecForIosWeb: 1,
-    //                                     backgroundColor: Colors.green,
-    //                                     textColor: Colors.white,
-    //                                     fontSize: 16.0);
-    //                               } else {
-    //                                 Fluttertoast.showToast(
-    //                                     msg: _authManager.message,
-    //                                     toastLength: Toast.LENGTH_SHORT,
-    //                                     gravity: ToastGravity.CENTER,
-    //                                     timeInSecForIosWeb: 1,
-    //                                     backgroundColor: Colors.red,
-    //                                     textColor: Colors.white,
-    //                                     fontSize: 16.0);
-    //                               }
-    //                             } else {
-    //                               Fluttertoast.showToast(
-    //                                   msg: "Please fill required fields!",
-    //                                   toastLength: Toast.LENGTH_SHORT,
-    //                                   gravity: ToastGravity.CENTER,
-    //                                   timeInSecForIosWeb: 1,
-    //                                   backgroundColor: Colors.red,
-    //                                   textColor: Colors.white,
-    //                                   fontSize: 16.0);
-    //                             }
-  }
+      await _userCollection.doc().set({
+        ...userProfileDTO.toJson(),
+        "createdAt": FieldValue.serverTimestamp()
+      }).then((_) {
+        showSnackBar(message: "User added successfully");
+        Get.back();
+      }).catchError((onError) {
+        showSnackBar(message: "Something went wrong... $onError");
+      }).timeout(const Duration(seconds: 10), onTimeout: () {
+        showSnackBar(
+            message: "Please check your internet connection and try again");
+      });
+    }
+    showSnackBar(message: "Please fill in the required fields");
+  } //                             }
 }

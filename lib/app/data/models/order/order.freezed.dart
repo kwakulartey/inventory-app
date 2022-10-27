@@ -20,7 +20,6 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Order {
-// TODO: Created at tiemstamp
   String get id => throw _privateConstructorUsedError;
   Map<String, BasketItem> get orderDetails =>
       throw _privateConstructorUsedError;
@@ -162,7 +161,6 @@ class _$_Order implements _Order {
   factory _$_Order.fromJson(Map<String, dynamic> json) =>
       _$$_OrderFromJson(json);
 
-// TODO: Created at tiemstamp
   @override
   final String id;
   final Map<String, BasketItem> _orderDetails;
@@ -235,7 +233,7 @@ abstract class _Order implements Order {
 
   factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
 
-  @override // TODO: Created at tiemstamp
+  @override
   String get id;
   @override
   Map<String, BasketItem> get orderDetails;
@@ -249,5 +247,224 @@ abstract class _Order implements Order {
   @override
   @JsonKey(ignore: true)
   _$$_OrderCopyWith<_$_Order> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OrderDTO _$OrderDTOFromJson(Map<String, dynamic> json) {
+  return _OrderDTO.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OrderDTO {
+  Map<String, BasketItem> get orderDetails =>
+      throw _privateConstructorUsedError;
+  double get orderQuantity => throw _privateConstructorUsedError;
+  double get total => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+  Timestamp? get createdAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OrderDTOCopyWith<OrderDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OrderDTOCopyWith<$Res> {
+  factory $OrderDTOCopyWith(OrderDTO value, $Res Function(OrderDTO) then) =
+      _$OrderDTOCopyWithImpl<$Res, OrderDTO>;
+  @useResult
+  $Res call(
+      {Map<String, BasketItem> orderDetails,
+      double orderQuantity,
+      double total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          Timestamp? createdAt});
+}
+
+/// @nodoc
+class _$OrderDTOCopyWithImpl<$Res, $Val extends OrderDTO>
+    implements $OrderDTOCopyWith<$Res> {
+  _$OrderDTOCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? orderDetails = null,
+    Object? orderQuantity = null,
+    Object? total = null,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      orderDetails: null == orderDetails
+          ? _value.orderDetails
+          : orderDetails // ignore: cast_nullable_to_non_nullable
+              as Map<String, BasketItem>,
+      orderQuantity: null == orderQuantity
+          ? _value.orderQuantity
+          : orderQuantity // ignore: cast_nullable_to_non_nullable
+              as double,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as double,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_OrderDTOCopyWith<$Res> implements $OrderDTOCopyWith<$Res> {
+  factory _$$_OrderDTOCopyWith(
+          _$_OrderDTO value, $Res Function(_$_OrderDTO) then) =
+      __$$_OrderDTOCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {Map<String, BasketItem> orderDetails,
+      double orderQuantity,
+      double total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          Timestamp? createdAt});
+}
+
+/// @nodoc
+class __$$_OrderDTOCopyWithImpl<$Res>
+    extends _$OrderDTOCopyWithImpl<$Res, _$_OrderDTO>
+    implements _$$_OrderDTOCopyWith<$Res> {
+  __$$_OrderDTOCopyWithImpl(
+      _$_OrderDTO _value, $Res Function(_$_OrderDTO) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? orderDetails = null,
+    Object? orderQuantity = null,
+    Object? total = null,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_$_OrderDTO(
+      orderDetails: null == orderDetails
+          ? _value._orderDetails
+          : orderDetails // ignore: cast_nullable_to_non_nullable
+              as Map<String, BasketItem>,
+      orderQuantity: null == orderQuantity
+          ? _value.orderQuantity
+          : orderQuantity // ignore: cast_nullable_to_non_nullable
+              as double,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as double,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OrderDTO implements _OrderDTO {
+  _$_OrderDTO(
+      {required final Map<String, BasketItem> orderDetails,
+      required this.orderQuantity,
+      required this.total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          this.createdAt})
+      : _orderDetails = orderDetails;
+
+  factory _$_OrderDTO.fromJson(Map<String, dynamic> json) =>
+      _$$_OrderDTOFromJson(json);
+
+  final Map<String, BasketItem> _orderDetails;
+  @override
+  Map<String, BasketItem> get orderDetails {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_orderDetails);
+  }
+
+  @override
+  final double orderQuantity;
+  @override
+  final double total;
+  @override
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+  final Timestamp? createdAt;
+
+  @override
+  String toString() {
+    return 'OrderDTO(orderDetails: $orderDetails, orderQuantity: $orderQuantity, total: $total, createdAt: $createdAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OrderDTO &&
+            const DeepCollectionEquality()
+                .equals(other._orderDetails, _orderDetails) &&
+            (identical(other.orderQuantity, orderQuantity) ||
+                other.orderQuantity == orderQuantity) &&
+            (identical(other.total, total) || other.total == total) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_orderDetails),
+      orderQuantity,
+      total,
+      createdAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OrderDTOCopyWith<_$_OrderDTO> get copyWith =>
+      __$$_OrderDTOCopyWithImpl<_$_OrderDTO>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OrderDTOToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OrderDTO implements OrderDTO {
+  factory _OrderDTO(
+      {required final Map<String, BasketItem> orderDetails,
+      required final double orderQuantity,
+      required final double total,
+      @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+          final Timestamp? createdAt}) = _$_OrderDTO;
+
+  factory _OrderDTO.fromJson(Map<String, dynamic> json) = _$_OrderDTO.fromJson;
+
+  @override
+  Map<String, BasketItem> get orderDetails;
+  @override
+  double get orderQuantity;
+  @override
+  double get total;
+  @override
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+  Timestamp? get createdAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OrderDTOCopyWith<_$_OrderDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }

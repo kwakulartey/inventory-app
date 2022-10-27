@@ -9,6 +9,13 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Register User',
+          style: TextStyle(fontSize: Dimensions.font20),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
           child: Form(
               key: controller.formKey,
@@ -18,46 +25,33 @@ class RegisterView extends GetView<RegisterController> {
                     left: Dimensions.width20,
                     right: Dimensions.width20),
                 children: [
-                  Center(
-                      child: Text(
-                    'Create User',
-                    style: TextStyle(
-                      fontSize: Dimensions.font20 + 5,
-                    ),
-                  )),
-                  SizedBox(
-                    height: Dimensions.height45,
-                  ),
                   TextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.person,
-                          size: Dimensions.iconSize24,
-                        ),
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        labelText: ('Name'),
-                        labelStyle: TextStyle(fontSize: Dimensions.font16),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: Dimensions.width10 / 10)),
-                        hintText: 'Enter your full Name',
-                        hintStyle: TextStyle(fontSize: Dimensions.font16),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.black,
-                                width: Dimensions.width10 / 10),
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(Dimensions.radius15 - 5))),
+                    keyboardType: TextInputType.visiblePassword,
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.person,
+                        size: Dimensions.iconSize24,
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your name';
-                        }
-                        return null;
-                      }),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      labelText: ('Name'),
+                      labelStyle: TextStyle(fontSize: Dimensions.font16),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: Dimensions.width10 / 10)),
+                      hintText: 'Enter your full Name',
+                      hintStyle: TextStyle(fontSize: Dimensions.font16),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.black,
+                              width: Dimensions.width10 / 10),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Dimensions.radius15 - 5))),
+                    ),
+                    onChanged: controller.setUserName,
+                    validator: (_) => controller.validationMessages["name"],
+                  ),
                   SizedBox(
                     height: Dimensions.height15,
                   ),
@@ -85,7 +79,10 @@ class RegisterView extends GetView<RegisterController> {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Dimensions.radius15 - 10))),
                       ),
-                      validator: (value) {}),
+                      onChanged: controller.setEmail,
+                      validator: (_) {
+                        controller.validationMessages['email'];
+                      }),
                   SizedBox(
                     height: Dimensions.height15,
                   ),
@@ -115,14 +112,9 @@ class RegisterView extends GetView<RegisterController> {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Dimensions.radius15 - 10))),
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter a valid password';
-                        }
-
-                        if (value.length < 6) {
-                          return 'Password should not be less than 6 characters';
-                        }
+                      onChanged: controller.setPassword,
+                      validator: (_) {
+                        controller.validationMessages['password'];
                       }),
                   SizedBox(
                     height: Dimensions.height15,
@@ -151,11 +143,9 @@ class RegisterView extends GetView<RegisterController> {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(Dimensions.radius15 - 10))),
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your Mobile Number';
-                        }
-                        return null;
+                      onChanged: controller.setPhoneNumber,
+                      validator: (_) {
+                        controller.validationMessages['phonenumber'];
                       }),
                   SizedBox(
                     height: Dimensions.height15,
@@ -184,11 +174,9 @@ class RegisterView extends GetView<RegisterController> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(4.0))),
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter your Company Name';
-                        }
-                        return null;
+                      onChanged: controller.setCompany,
+                      validator: (_) {
+                        controller.validationMessages['company'];
                       }),
                   SizedBox(
                     height: Dimensions.height30,
@@ -200,7 +188,7 @@ class RegisterView extends GetView<RegisterController> {
                               BorderRadius.circular(Dimensions.radius15 - 5)),
                       child: TextButton(
                           onPressed: () async {
-                            controller.createUser;
+                            controller.createUser();
                           },
                           child: Text(
                             'Create Account',

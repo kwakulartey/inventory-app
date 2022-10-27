@@ -7,6 +7,7 @@ part 'user_profile.g.dart';
 @freezed
 class UserProfile with _$UserProfile {
   factory UserProfile({
+    required String id,
     required String name,
     required String email,
     required String phonenumber,
@@ -15,4 +16,18 @@ class UserProfile with _$UserProfile {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);
+}
+
+@freezed
+class UserProfileDTO with _$UserProfileDTO {
+  factory UserProfileDTO({
+    required String name,
+    required String email,
+    required String password,
+    required String phonenumber,
+    String? company,
+  }) = _UserProfileDTO;
+
+  factory UserProfileDTO.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileDTOFromJson(json);
 }

@@ -11,7 +11,7 @@ void showSnackBar({required String message}) {
 
 Timestamp? timestampFromJson(dynamic val) =>
     val == null ? null : val as Timestamp?;
-DateTime? timestampToJson(Timestamp? val) => val?.toDate();
+FieldValue timestampToJson(Timestamp? val) => FieldValue.serverTimestamp();
 
 String parseTimestamp(Timestamp? val) {
   if (val != null) {
