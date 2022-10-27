@@ -1,20 +1,58 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
+import 'package:repromedics_healthcare_app/app/data/providers/nhost_auth_provider.dart';
+import 'package:repromedics_healthcare_app/app/routes/app_router.dart';
+import 'package:repromedics_healthcare_app/app/widgets/buttons.dart';
+import 'package:nhost_sdk/nhost_sdk.dart';
+import 'package:qlevar_router/qlevar_router.dart';
 
 class AuthController extends GetxController {
-  //TODO: Implement AuthController
-//TODO: (Parables login form validation )
+  final NhostAuthProvider _nhostAuthProvider = Get.find<NhostAuthProvider>();
+  final SubmitButtonController _submitButtonController =
+      Get.find<SubmitButtonController>();
 
-// _authManager.isLoading
-//                           ? const Center(
-//                               child: CircularProgressIndicator.adaptive(),
-//                             )
-//                           :
+  final _username = ''.obs;
+  String get username => _username.value;
+  set username(String value) => _username.value = value;
+
+  final _email = ''.obs;
+  String get email => _email.value;
+  set email(String value) => _email.value = value;
+
+  final _password = ''.obs;
+  String get password => _password.value;
+  set password(String value) => _password.value = value;
+
+  final _obscureText = false.obs;
+  bool get obscureText => _obscureText.value;
+  set obscureText(bool value) => _obscureText.value = value;
+
+  late Worker _worker;
+  late GlobalKey<FormState> signUpFormKey;
+  late GlobalKey<FormState> signInFormKey;
+  late TextEditingController usernameTextEditingController;
+  late TextEditingController emailTextEditingController;
+  late TextEditingController passwordTextEditingController;
 
   @override
   void onInit() {
     super.onInit();
+
+    signUpFormKey = GlobalKey<FormState>();
+    signInFormKey = GlobalKey<FormState>();
+    usernameTextEditingController = TextEditingController(text: username);
+    emailTextEditingController = TextEditingController(text: email);
+    passwordTextEditingController = TextEditingController(text: password);
+
+    _worker = everAll([_username, _email, _password], (_) {
+      if (QR.isCurrentName(AppRouter.signIn)) {
+        _submitButtonController.isFormValid =
+            signInFormKey.currentState!.validate();
+      } else if (QR.isCurrentName(AppRouter.signUp)) {
+        _submitButtonController.isFormValid =
+            signUpFormKey.currentState!.validate();
+      }
+    });
   }
 
   @override
@@ -23,93 +61,32 @@ class AuthController extends GetxController {
   }
 
   @override
-  void onClose() {
-    super.onClose();
+  void onClose() {}
+
+  signUp() async {
+    print("Signing new user");
+    AuthResponse? authResponse = await _nhostAuthProvider.signUp(
+      email: email,
+      password: password,
+      displayName: username,
+    );
+    if (authResponse?.session != null) {
+      QR.toName(AppRouter.home);
+      print(authResponse?.session?.user?.id);
+    }
   }
 
-  void login() {
-    // if (_globalKey.currentState!.validate()) {
-    //   setState(() {
-    //     _isLoading = true;
-    //   });
-
-    //   bool isSuccessfull = await _authManager.loginUser(
-    //       email: _emailController.text.trim(),
-    //       password: _passwordController.text);
-
-    //   if (isSuccessfull) {
-    //     String uid =
-    //         FirebaseAuth.instance.currentUser!.uid;
-    //     _clientManager.getClientInfo(uid).then((value) {
-    //       if (value!.role == "user") {
-    //         Navigator.of(context).pushAndRemoveUntil(
-    //             MaterialPageRoute(builder: (context) {
-    //           return Dash();
-    //         }), (route) => false);
-
-    //         Fluttertoast.showToast(
-    //             msg: "Welcome Back",
-    //             toastLength: Toast.LENGTH_SHORT,
-    //             gravity: ToastGravity.CENTER,
-    //             timeInSecForIosWeb: 1,
-    //             backgroundColor: Colors.green,
-    //             textColor: Colors.white,
-    //             fontSize: 16.0);
-
-    //         setState(() {
-    //           _isLoading = false;
-    //         });
-    //       } else if (value.role == "admin") {
-    //         setState(() {
-    //           _isLoading = false;
-    //         });
-    //         Navigator.of(context).pushAndRemoveUntil(
-    //             MaterialPageRoute(builder: (context) {
-    //           return Dashboard();
-    //         }), (route) => false);
-
-    //         Fluttertoast.showToast(
-    //             msg: "You are not an Admin",
-    //             toastLength: Toast.LENGTH_SHORT,
-    //             gravity: ToastGravity.CENTER,
-    //             timeInSecForIosWeb: 1,
-    //             backgroundColor: Colors.green,
-    //             textColor: Colors.white,
-    //             fontSize: 16.0);
-    //       }
-    //     });
-    //   } else {
-    //     Fluttertoast.showToast(
-    //         msg: _authManager.message,
-    //         toastLength: Toast.LENGTH_SHORT,
-    //         gravity: ToastGravity.CENTER,
-    //         timeInSecForIosWeb: 1,
-    //         backgroundColor: Colors.red,
-    //         textColor: Colors.white,
-    //         fontSize: 16.0);
-    //     setState(() {
-    //       _isLoading = false;
-    //     });
-    //   }
-    // } else {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    //   Fluttertoast.showToast(
-    //       msg: "All fields are required!",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.CENTER,
-    //       timeInSecForIosWeb: 1,
-    //       backgroundColor: Colors.red,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    // }
+  signIn() async {
+    print("welcome back old user");
+    AuthResponse? authResponse = await _nhostAuthProvider.signInEmailPassword(
+      email: email,
+      password: password,
+    );
+    if (authResponse?.session != null) {
+      QR.toName(AppRouter.home);
+      print(authResponse?.session?.user?.id);
+    }
   }
 
-  void forgotPassword() {
-    // Navigator.of(context)
-    //                           .push(MaterialPageRoute(builder: (context) {
-    //                         return const ForgotPassword();
-    //                       }));
-  }
+  toggleObscureText() => _obscureText.toggle();
 }
