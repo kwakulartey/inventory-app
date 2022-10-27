@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:inventory_1/app/widgets/buttons.dart';
 import 'package:repromedics_healthcare_app/app/data/providers/nhost_auth_provider.dart';
 import 'package:repromedics_healthcare_app/app/routes/app_router.dart';
 import 'package:repromedics_healthcare_app/app/widgets/buttons.dart';
