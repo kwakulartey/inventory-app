@@ -113,12 +113,12 @@ class _NewItemState extends State<NewItem> {
     '4.5 litres',
     '0.9 litres bottle',
     '0.9 litres sachet',
-    '0.45 litres'
-        '0.2 litres',
+    '0.45 litres',
+    '0.2 litres',
   ];
   List<String> tomatoketchupData = [
     'Select option',
-    'Tomato ketchup',
+    '',
   ];
   List<String> vinegarData = [
     'Select option',
@@ -517,7 +517,7 @@ class _NewItemState extends State<NewItem> {
                                                                                                           ),
                                                                                                         );
                                                                                                       }).toList()
-                                                                                                    : dropdownValueItem == "Soy beans"
+                                                                                                    : dropdownValueItem == "Soy sauce"
                                                                                                         ? soysauceData.map<DropdownMenuItem<String>>((String value) {
                                                                                                             return DropdownMenuItem<String>(
                                                                                                               value: value,

@@ -6,9 +6,9 @@ class Client {
     required this.name,
     required this.phone,
     this.profilePicture,
-     this.role,
-     this.company,
-     this.userId,
+    this.role,
+    this.company,
+    this.userId,
   });
 
   String email;
@@ -28,11 +28,11 @@ class Client {
       Client(
         email: doc.data()!["email"],
         name: doc.data()!["name"],
-        phone: doc.data()!["phonenumber"],
+        phone: doc.data()!["phoneNumber"],
         profilePicture: doc.data()!["profile_picture"],
         role: doc.data()!["role"],
         company: doc.data()!["company"],
-        userId: doc.data()!["user_id"],
+        userId: doc.data()!["userId"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -41,7 +41,7 @@ class Client {
         "phone": phone,
         "profile_picture": profilePicture,
         "role": role,
-        "company":company,
+        "company": company,
         "user_id": userId,
       };
 }
