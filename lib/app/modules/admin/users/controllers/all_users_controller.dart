@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
+import 'package:inventory_1/app/modules/admin/users/controllers/edit_user_controller.dart';
 
 class AllUsersController extends GetxController {
   //TODO: Implement AllUsersController
+  final EditUserController editUserController = Get.find<EditUserController>();
+
   RxList<UserProfile> allUsers = RxList<UserProfile>([]);
 
   @override
@@ -30,5 +33,7 @@ class AllUsersController extends GetxController {
     super.onClose();
   }
 
-  void showCreateUserModal() {}
+  showEditUserPage({required UserProfile user}) {
+    editUserController.user = user;
+  }
 }

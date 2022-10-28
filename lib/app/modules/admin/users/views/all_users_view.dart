@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
+import 'package:inventory_1/app/modules/admin/users/controllers/edit_user_controller.dart';
 import 'package:inventory_1/app/routes/app_pages.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -57,7 +58,8 @@ class AllUsersView extends GetView<AllUsersController> {
                       children: [
                         IconButton(
                             onPressed: (() {
-                              Get.toNamed(Routes.EDIT_USER, arguments: user);
+                              //TODO:
+                              Get.to(controller.showEditUserPage(user: user));
                             }),
                             // (() =>
                             //     showMaterialModalBottomSheet(

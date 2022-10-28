@@ -1,12 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
 
 class EditUserController extends GetxController {
   //TODO: Implement AddUserController
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final Rx<UserProfile?> _user = Rx<UserProfile?>(null);
+  UserProfile? get user => _user.value;
+  set user(UserProfile? value) => _user.value = value;
+
+  late Worker _worker;
   @override
   void onInit() {
     super.onInit();
-    print(Get.arguments());
+    _worker = ever<UserProfile?>(_user, (user) {
+      if (user != null) {}
+    });
   }
 
   @override
@@ -17,6 +27,9 @@ class EditUserController extends GetxController {
 
   @override
   void onClose() {
+    _worker.dispose();
     super.onClose();
   }
+
+  void setUsername(String value) {}
 }
