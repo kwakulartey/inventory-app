@@ -20,10 +20,11 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserProfile {
-  String get id => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get phonenumber => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  String? get role => throw _privateConstructorUsedError;
   String get company => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,10 +40,11 @@ abstract class $UserProfileCopyWith<$Res> {
       _$UserProfileCopyWithImpl<$Res, UserProfile>;
   @useResult
   $Res call(
-      {String id,
+      {String userId,
       String name,
       String email,
-      String phonenumber,
+      String phoneNumber,
+      String? role,
       String company});
 }
 
@@ -59,16 +61,17 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? userId = null,
     Object? name = null,
     Object? email = null,
-    Object? phonenumber = null,
+    Object? phoneNumber = null,
+    Object? role = freezed,
     Object? company = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -78,10 +81,14 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
@@ -99,10 +106,11 @@ abstract class _$$_UserProfileCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {String userId,
       String name,
       String email,
-      String phonenumber,
+      String phoneNumber,
+      String? role,
       String company});
 }
 
@@ -117,16 +125,17 @@ class __$$_UserProfileCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? userId = null,
     Object? name = null,
     Object? email = null,
-    Object? phonenumber = null,
+    Object? phoneNumber = null,
+    Object? role = freezed,
     Object? company = null,
   }) {
     return _then(_$_UserProfile(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -136,10 +145,14 @@ class __$$_UserProfileCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
@@ -152,29 +165,33 @@ class __$$_UserProfileCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
   _$_UserProfile(
-      {required this.id,
+      {required this.userId,
       required this.name,
       required this.email,
-      required this.phonenumber,
+      required this.phoneNumber,
+      this.role = 'user',
       required this.company});
 
   factory _$_UserProfile.fromJson(Map<String, dynamic> json) =>
       _$$_UserProfileFromJson(json);
 
   @override
-  final String id;
+  final String userId;
   @override
   final String name;
   @override
   final String email;
   @override
-  final String phonenumber;
+  final String phoneNumber;
+  @override
+  @JsonKey()
+  final String? role;
   @override
   final String company;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserProfile(id: $id, name: $name, email: $email, phonenumber: $phonenumber, company: $company)';
+    return 'UserProfile(userId: $userId, name: $name, email: $email, phoneNumber: $phoneNumber, role: $role, company: $company)';
   }
 
   @override
@@ -182,10 +199,11 @@ class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'UserProfile'))
-      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('phonenumber', phonenumber))
+      ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('role', role))
       ..add(DiagnosticsProperty('company', company));
   }
 
@@ -194,18 +212,19 @@ class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserProfile &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.phonenumber, phonenumber) ||
-                other.phonenumber == phonenumber) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.company, company) || other.company == company));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, email, phonenumber, company);
+      Object.hash(runtimeType, userId, name, email, phoneNumber, role, company);
 
   @JsonKey(ignore: true)
   @override
@@ -223,23 +242,26 @@ class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
 
 abstract class _UserProfile implements UserProfile {
   factory _UserProfile(
-      {required final String id,
+      {required final String userId,
       required final String name,
       required final String email,
-      required final String phonenumber,
+      required final String phoneNumber,
+      final String? role,
       required final String company}) = _$_UserProfile;
 
   factory _UserProfile.fromJson(Map<String, dynamic> json) =
       _$_UserProfile.fromJson;
 
   @override
-  String get id;
+  String get userId;
   @override
   String get name;
   @override
   String get email;
   @override
-  String get phonenumber;
+  String get phoneNumber;
+  @override
+  String? get role;
   @override
   String get company;
   @override
@@ -257,7 +279,8 @@ mixin _$UserProfileDTO {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  String get phonenumber => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  String? get role => throw _privateConstructorUsedError;
   String? get company => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -276,7 +299,8 @@ abstract class $UserProfileDTOCopyWith<$Res> {
       {String name,
       String email,
       String password,
-      String phonenumber,
+      String phoneNumber,
+      String? role,
       String? company});
 }
 
@@ -296,7 +320,8 @@ class _$UserProfileDTOCopyWithImpl<$Res, $Val extends UserProfileDTO>
     Object? name = null,
     Object? email = null,
     Object? password = null,
-    Object? phonenumber = null,
+    Object? phoneNumber = null,
+    Object? role = freezed,
     Object? company = freezed,
   }) {
     return _then(_value.copyWith(
@@ -312,10 +337,14 @@ class _$UserProfileDTOCopyWithImpl<$Res, $Val extends UserProfileDTO>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       company: freezed == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
@@ -336,7 +365,8 @@ abstract class _$$_UserProfileDTOCopyWith<$Res>
       {String name,
       String email,
       String password,
-      String phonenumber,
+      String phoneNumber,
+      String? role,
       String? company});
 }
 
@@ -354,7 +384,8 @@ class __$$_UserProfileDTOCopyWithImpl<$Res>
     Object? name = null,
     Object? email = null,
     Object? password = null,
-    Object? phonenumber = null,
+    Object? phoneNumber = null,
+    Object? role = freezed,
     Object? company = freezed,
   }) {
     return _then(_$_UserProfileDTO(
@@ -370,10 +401,14 @@ class __$$_UserProfileDTOCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       company: freezed == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
@@ -391,7 +426,8 @@ class _$_UserProfileDTO
       {required this.name,
       required this.email,
       required this.password,
-      required this.phonenumber,
+      required this.phoneNumber,
+      this.role = 'user',
       this.company});
 
   factory _$_UserProfileDTO.fromJson(Map<String, dynamic> json) =>
@@ -404,13 +440,16 @@ class _$_UserProfileDTO
   @override
   final String password;
   @override
-  final String phonenumber;
+  final String phoneNumber;
+  @override
+  @JsonKey()
+  final String? role;
   @override
   final String? company;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserProfileDTO(name: $name, email: $email, password: $password, phonenumber: $phonenumber, company: $company)';
+    return 'UserProfileDTO(name: $name, email: $email, password: $password, phoneNumber: $phoneNumber, role: $role, company: $company)';
   }
 
   @override
@@ -421,7 +460,8 @@ class _$_UserProfileDTO
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('password', password))
-      ..add(DiagnosticsProperty('phonenumber', phonenumber))
+      ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('role', role))
       ..add(DiagnosticsProperty('company', company));
   }
 
@@ -434,15 +474,16 @@ class _$_UserProfileDTO
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
-            (identical(other.phonenumber, phonenumber) ||
-                other.phonenumber == phonenumber) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.company, company) || other.company == company));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, email, password, phonenumber, company);
+  int get hashCode => Object.hash(
+      runtimeType, name, email, password, phoneNumber, role, company);
 
   @JsonKey(ignore: true)
   @override
@@ -463,7 +504,8 @@ abstract class _UserProfileDTO implements UserProfileDTO {
       {required final String name,
       required final String email,
       required final String password,
-      required final String phonenumber,
+      required final String phoneNumber,
+      final String? role,
       final String? company}) = _$_UserProfileDTO;
 
   factory _UserProfileDTO.fromJson(Map<String, dynamic> json) =
@@ -476,7 +518,9 @@ abstract class _UserProfileDTO implements UserProfileDTO {
   @override
   String get password;
   @override
-  String get phonenumber;
+  String get phoneNumber;
+  @override
+  String? get role;
   @override
   String? get company;
   @override

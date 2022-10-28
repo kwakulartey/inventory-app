@@ -14,7 +14,7 @@ class Product with _$Product {
     required String name,
     String? type,
     required double price,
-    double? quantity,
+    @Default(0) double quantity,
     String? unit,
     @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
         Timestamp? createdAt,
@@ -31,7 +31,7 @@ class ProductDTO with _$ProductDTO {
     required String name,
     String? type,
     required double price,
-    double? quantity,
+    @Default(0) double quantity,
     String? unit,
     required double lowOnStock,
   }) = _ProductDTO;

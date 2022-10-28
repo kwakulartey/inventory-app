@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:inventory_1/app/data/models/product/product.dart';
+import 'package:inventory_1/app/modules/admin/products/widgets/confirm_product_delete_alert.dart';
 import 'package:inventory_1/app/routes/app_pages.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
 
@@ -18,8 +19,6 @@ class ProductActionModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("ProductActionModal: $product");
-
     return AlertDialog(
       elevation: 30,
       content: Container(
@@ -66,56 +65,7 @@ class ProductActionModal extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () async {
-                //TODO: Refactor this into theproduct/all_prodct_controller
-                /*   showDialog(
-                    context: context,
-                    builder: ((context) {
-                      return AlertDialog(
-                        title: const Icon(Icons.warning_amber_rounded,
-                            color: Colors.red),
-                        content:
-                            Text('Are you sure you want to delete product?'),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('No')),
-                          TextButton(
-                              onPressed: () async {
-                                bool isDeleted = await _productManager
-                                    .deletedProduct(docId: docId);
-                                if (isDeleted) {
-                                  Navigator.pop(context);
-                                  Fluttertoast.showToast(
-                                      msg: "Product Deleted",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.green,
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg: _productManager.message,
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
-                                }
-                              },
-                              child: Text(
-                                'Yes',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: Dimensions.font16),
-                              ))
-                        ],
-                      );
-                    }));
-              */
+                Get.dialog(ConfirmProductDeleteAlertDialog(product: product));
               },
               child: Container(
                 height: 40,

@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/dashboard_start/dashboard_stats.dart';
+import 'package:inventory_1/app/routes/app_pages.dart';
 
 class DashboardController extends GetxController {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final dashboardStats = Rx<DashboardStats>(
     DashboardStats(
       totalProductCount: 0, // add or delete a product
@@ -34,6 +37,11 @@ class DashboardController extends GetxController {
       },
       onError: (error) => print("Listen failed: $error"),
     );
+  }
+
+  void handleSignOut() async {
+    await _firebaseAuth.signOut();
+    Get.off(Routes.LOGIN);
   }
 
   void showProductActionModal() {

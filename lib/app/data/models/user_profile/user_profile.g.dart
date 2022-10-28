@@ -8,19 +8,21 @@ part of 'user_profile.dart';
 
 _$_UserProfile _$$_UserProfileFromJson(Map<String, dynamic> json) =>
     _$_UserProfile(
-      id: json['id'] as String,
+      userId: json['userId'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
-      phonenumber: json['phonenumber'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      role: json['role'] as String? ?? 'user',
       company: json['company'] as String,
     );
 
 Map<String, dynamic> _$$_UserProfileToJson(_$_UserProfile instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'userId': instance.userId,
       'name': instance.name,
       'email': instance.email,
-      'phonenumber': instance.phonenumber,
+      'phoneNumber': instance.phoneNumber,
+      'role': instance.role,
       'company': instance.company,
     };
 
@@ -29,7 +31,8 @@ _$_UserProfileDTO _$$_UserProfileDTOFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
-      phonenumber: json['phonenumber'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      role: json['role'] as String? ?? 'user',
       company: json['company'] as String?,
     );
 
@@ -38,6 +41,7 @@ Map<String, dynamic> _$$_UserProfileDTOToJson(_$_UserProfileDTO instance) =>
       'name': instance.name,
       'email': instance.email,
       'password': instance.password,
-      'phonenumber': instance.phonenumber,
+      'phoneNumber': instance.phoneNumber,
+      'role': instance.role,
       'company': instance.company,
     };

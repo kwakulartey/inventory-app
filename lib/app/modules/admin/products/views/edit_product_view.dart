@@ -28,7 +28,7 @@ class EditProductView extends GetView<EditProductController> {
               Product? product = controller.product;
               if (product != null) {
                 return Form(
-                  key: controller.globalKey,
+                  key: controller.formKey,
                   child: Column(
                     children: [
                       SizedBox(
@@ -160,7 +160,7 @@ class EditProductView extends GetView<EditProductController> {
                                           color: Colors.grey),
                                     ),
                                     Text(
-                                      '${product.quantity}',
+                                      '${product.quantity + controller.productQuantity}',
                                       style: TextStyle(
                                           fontSize: Dimensions.font16,
                                           fontWeight: FontWeight.bold),
@@ -201,7 +201,7 @@ class EditProductView extends GetView<EditProductController> {
                                           floatingLabelBehavior:
                                               FloatingLabelBehavior.never,
                                           prefix: Text(
-                                            'GHC   ',
+                                            'GHC  ',
                                             style: TextStyle(
                                                 fontSize: Dimensions.font16),
                                           ),
@@ -212,11 +212,16 @@ class EditProductView extends GetView<EditProductController> {
                                           hintStyle: TextStyle(
                                               fontSize: Dimensions.font16),
                                         ),
-                                        controller: controller.priceController,
+                                        // controller: controller.priceController,
                                         keyboardType: TextInputType.number,
                                         style: TextStyle(
-                                            fontSize: Dimensions.font16,
-                                            fontWeight: FontWeight.bold),
+                                          fontSize: Dimensions.font16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        initialValue:
+                                            "${controller.product?.price ?? 0}",
+                                        validator: controller.validatePrice,
+                                        onChanged: controller.setProductPrice,
                                       ),
                                     )
                                   ],
@@ -276,17 +281,19 @@ class EditProductView extends GetView<EditProductController> {
                                                 fontSize: Dimensions.font16,
                                               ),
                                             ),
-                                            controller:
-                                                controller.quantityController,
+                                            // controller:
+                                            //     controller.quantityController,
                                             keyboardType: TextInputType.number,
                                             style: TextStyle(
                                                 fontSize: Dimensions.font16,
                                                 fontWeight: FontWeight.bold),
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Please fill here';
-                                              }
-                                            },
+                                            initialValue:
+                                                "${controller.product?.quantity ?? 0}",
+
+                                            validator:
+                                                controller.validateQuantity,
+                                            onChanged:
+                                                controller.setProductQuantity,
                                           ),
                                         ),
                                         Container(
@@ -315,7 +322,7 @@ class EditProductView extends GetView<EditProductController> {
                                       height: Dimensions.height10 - 5,
                                     ),
                                     GestureDetector(
-                                      onTap: (() async {}),
+                                      onTap: controller.updateProduct,
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color: const Color.fromARGB(

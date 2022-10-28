@@ -1,11 +1,18 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:inventory_1/app/data/models/dashboard_start/dashboard_stats.dart';
 import 'package:inventory_1/app/data/models/order/order.dart';
 import 'package:inventory_1/app/data/models/product/product.dart';
 
 class DashboardStatsService extends GetxService {
+  late StreamSubscription<QuerySnapshot<Map<String, dynamic>>>
+      productStreamSubscription;
+
+  late StreamSubscription<QuerySnapshot<Map<String, dynamic>>>
+      orderStreamSubscription;
+
   final dashboardStats = Rx<DashboardStats>(
     DashboardStats(
       totalProductCount: 0, // add or delete a product
@@ -27,7 +34,7 @@ class DashboardStatsService extends GetxService {
     super.onInit();
 
     // A listenert to update product stats
-    FirebaseFirestore.instance
+    productStreamSubscription = FirebaseFirestore.instance
         .collection('products')
         .snapshots()
         .listen((event) {
@@ -46,7 +53,10 @@ class DashboardStatsService extends GetxService {
     });
 
 // a listener to update the dailySales stats
-    FirebaseFirestore.instance.collection('orders').snapshots().listen((event) {
+    orderStreamSubscription = FirebaseFirestore.instance
+        .collection('orders')
+        .snapshots()
+        .listen((event) {
       // STEP 1: set allorders List
       todaysOrders(
         event.docs
@@ -115,5 +125,14 @@ class DashboardStatsService extends GetxService {
         .collection('dashboard')
         .doc('stats')
         .update(dashboardStats.toJson());
+  }
+
+  @override
+  Future<void> onClose() async {
+    await productStreamSubscription.cancel();
+    await orderStreamSubscription.cancel();
+
+    print("cacnceled dashboard service streams");
+    super.onClose();
   }
 }

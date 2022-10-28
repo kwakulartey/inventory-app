@@ -11,7 +11,7 @@ _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
       name: json['name'] as String,
       type: json['type'] as String?,
       price: (json['price'] as num).toDouble(),
-      quantity: (json['quantity'] as num?)?.toDouble(),
+      quantity: (json['quantity'] as num?)?.toDouble() ?? 0,
       unit: json['unit'] as String?,
       createdAt: timestampFromJson(json['createdAt']),
       lowOnStock: (json['lowOnStock'] as num).toDouble(),
@@ -34,7 +34,7 @@ _$_ProductDTO _$$_ProductDTOFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       type: json['type'] as String?,
       price: (json['price'] as num).toDouble(),
-      quantity: (json['quantity'] as num?)?.toDouble(),
+      quantity: (json['quantity'] as num?)?.toDouble() ?? 0,
       unit: json['unit'] as String?,
       lowOnStock: (json['lowOnStock'] as num).toDouble(),
     );

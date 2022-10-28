@@ -7,10 +7,11 @@ part 'user_profile.g.dart';
 @freezed
 class UserProfile with _$UserProfile {
   factory UserProfile({
-    required String id,
+    required String userId,
     required String name,
     required String email,
-    required String phonenumber,
+    required String phoneNumber,
+    @Default('user') String? role,
     required String company,
   }) = _UserProfile;
 
@@ -24,7 +25,8 @@ class UserProfileDTO with _$UserProfileDTO {
     required String name,
     required String email,
     required String password,
-    required String phonenumber,
+    required String phoneNumber,
+    @Default('user') String? role,
     String? company,
   }) = _UserProfileDTO;
 

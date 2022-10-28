@@ -2,17 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:inventory_1/app/data/providers/dashboard_stats_service.dart';
 
 import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(
-    DashboardStatsService().onInit(),
-    permanent: true,
-  );
 
   runApp(
     GetMaterialApp(

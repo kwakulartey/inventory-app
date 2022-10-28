@@ -13,7 +13,7 @@ class AllProdcutsView extends GetView<AllProductsController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'All Items',
+          controller.pageTitle,
           style: TextStyle(fontSize: Dimensions.font20),
         ),
         centerTitle: true,
@@ -23,9 +23,9 @@ class AllProdcutsView extends GetView<AllProductsController> {
               padding: EdgeInsets.symmetric(
                   vertical: Dimensions.height10,
                   horizontal: Dimensions.width10),
-              itemCount: controller.allProducts.length,
+              itemCount: controller.productList.length,
               itemBuilder: ((context, index) {
-                Product product = controller.allProducts[index];
+                Product product = controller.productList[index];
                 var quantity = product.quantity;
                 return Container(
                   height: Dimensions.height20 * 5,
