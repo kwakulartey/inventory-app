@@ -7,10 +7,11 @@ part 'user_profile.g.dart';
 @freezed
 class UserProfile with _$UserProfile {
   factory UserProfile({
-    required String id,
+    required String userId,
     required String name,
     required String email,
-    required String phonenumber,
+    required String phoneNumber,
+    @Default('user') String? role,
     required String company,
   }) = _UserProfile;
 
@@ -18,16 +19,19 @@ class UserProfile with _$UserProfile {
       _$UserProfileFromJson(json);
 }
 
-@freezed
+/* @freezed
 class UserProfileDTO with _$UserProfileDTO {
   factory UserProfileDTO({
+    required String userId,
     required String name,
     required String email,
     required String password,
-    required String phonenumber,
-    String? company,
+    required String phoneNumber,
+    @Default('user') String role,
+    required String? company,
   }) = _UserProfileDTO;
 
   factory UserProfileDTO.fromJson(Map<String, dynamic> json) =>
       _$UserProfileDTOFromJson(json);
 }
+ */

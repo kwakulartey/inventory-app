@@ -26,10 +26,18 @@ class DashboardView extends GetView<DashboardController> {
                   size: Dimensions.iconSize24,
                 ),
                 onPressed: () {
-                  Get.toNamed(Routes.USER_ACCOUNTS);
+                  Get.toNamed(Routes.USER_PROFILE);
                 },
               ),
-            )
+            ),
+            IconButton(
+              onPressed: controller.handleSignOut,
+              icon: Icon(
+                Icons.logout_rounded,
+                size: Dimensions.iconSize24,
+                color: Colors.red,
+              ),
+            ),
           ],
         ),
         body: Padding(
@@ -53,15 +61,16 @@ class DashboardView extends GetView<DashboardController> {
                       runSpacing: Dimensions.width20,
                       children: [
                         StatCard(
-                            color: Colors.blue,
-                            icon: Icons.desk_rounded,
+                            color: Colors.blue[900],
+                            icon: Icons.calendar_month,
                             label: 'Daily Sales',
                             value: controller.dashboardStats().dailySales,
                             onTap: () {
-                              Get.toNamed(Routes.TODAY_SALES);
+                              Get.toNamed(Routes.ORDERS);
                             }),
                         StatCard(
-                            icon: Icons.desk_rounded,
+                            color: Colors.green,
+                            icon: Icons.list_alt,
                             label: 'Total Stock ',
                             value:
                                 controller.dashboardStats().totalProductCount,
@@ -70,22 +79,24 @@ class DashboardView extends GetView<DashboardController> {
                               Get.toNamed(Routes.ALL_PRODUCTS);
                             }),
                         StatCard(
-                            icon: Icons.desk_rounded,
+                            color: Colors.amber,
+                            icon: Icons.warning_amber_rounded,
                             label: 'Low on Stock ',
                             value: controller
                                 .dashboardStats()
                                 .lowOnStockProductsCount,
                             onTap: () {
-                              Get.toNamed(Routes.LOW_ON_STOCK_PRODUCTS);
+                              Get.toNamed(Routes.LOW_ON_STOCK_PRODUCT);
                             }),
                         StatCard(
-                            icon: Icons.desk_rounded,
+                            color: Colors.red,
+                            icon: Icons.warning_amber_rounded,
                             label: 'Out Of Stock ',
                             value: controller
                                 .dashboardStats()
                                 .outOfStockProductsCount,
                             onTap: () {
-                              Get.toNamed(Routes.OUT_OF_STOCK_PRODUCTS);
+                              Get.toNamed(Routes.OUT_OF_STOCK_PRODUCT);
                             }),
                       ]),
                 ),
@@ -94,7 +105,7 @@ class DashboardView extends GetView<DashboardController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.TRANSACTION_HISTORY);
+                    Get.toNamed(Routes.ORDERS);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -141,7 +152,7 @@ class DashboardView extends GetView<DashboardController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Recent',
+                      '',
                       style: TextStyle(
                           fontSize: Dimensions.font20,
                           fontWeight: FontWeight.w600),
@@ -176,91 +187,91 @@ class DashboardView extends GetView<DashboardController> {
                 SizedBox(
                   height: Dimensions.height15,
                 ),
-                ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    physics: const ScrollPhysics(
-                      parent: NeverScrollableScrollPhysics(),
-                    ),
-                    shrinkWrap: true,
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(height: Dimensions.height10);
-                    },
-                    itemCount: 2, //controller.recentProducts.length,
-                    itemBuilder: ((BuildContext context, int index) {
-                      // var newDat = date.toDate();
+                // ListView.separated(
+                //     scrollDirection: Axis.vertical,
+                //     physics: const ScrollPhysics(
+                //       parent: NeverScrollableScrollPhysics(),
+                //     ),
+                //     shrinkWrap: true,
+                //     separatorBuilder: (BuildContext context, int index) {
+                //       return SizedBox(height: Dimensions.height10);
+                //     },
+                //     itemCount: 2, //controller.recentProducts.length,
+                //     itemBuilder: ((BuildContext context, int index) {
+                //       // var newDat = date.toDate();
 
-                      // var newDate = DateFormat.yMEd()
-                      //     .add_jm()
-                      //     .format(newDat);
+                //       // var newDate = DateFormat.yMEd()
+                //       //     .add_jm()
+                //       //     .format(newDat);
 
-                      return Container(
-                        height: Dimensions.height20 * 5,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black12),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Dimensions.width10,
-                              vertical: Dimensions.height10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Chicken Hard',
-                                    style: TextStyle(
-                                        fontSize: Dimensions.font16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  // SizedBox(
-                                  //   width: Dimensions.width10,
-                                  // ),
-                                  // Text(newDate),
-                                  SizedBox(
-                                    width: Dimensions.width10,
-                                  ),
-                                  Icon(
-                                    Icons.warning_amber_rounded,
-                                    size: Dimensions.iconSize24,
-                                    color: 1 <= 20 && 1 > 0
-                                        ? Colors.yellow
-                                        : 0 == 0
-                                            ? Colors.red
-                                            : Colors.green,
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: Dimensions.height20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    ' in Stock',
-                                    style: TextStyle(
-                                        fontSize: Dimensions.font16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  GestureDetector(
-                                      onTap: (() {
-                                        controller.showProductActionModal();
-                                      }),
-                                      child: Icon(
-                                        Icons.more_horiz,
-                                        size: Dimensions.iconSize24,
-                                      ))
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }))
+                //       return Container(
+                //         height: Dimensions.height20 * 5,
+                //         decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(10),
+                //             color: Colors.black12),
+                //         child: Container(
+                //           padding: EdgeInsets.symmetric(
+                //               horizontal: Dimensions.width10,
+                //               vertical: Dimensions.height10),
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: [
+                //               Row(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.spaceBetween,
+                //                 children: [
+                //                   Text(
+                //                     'Chicken Hard',
+                //                     style: TextStyle(
+                //                         fontSize: Dimensions.font16,
+                //                         fontWeight: FontWeight.w500),
+                //                   ),
+                //                   // SizedBox(
+                //                   //   width: Dimensions.width10,
+                //                   // ),
+                //                   // Text(newDate),
+                //                   SizedBox(
+                //                     width: Dimensions.width10,
+                //                   ),
+                //                   Icon(
+                //                     Icons.warning_amber_rounded,
+                //                     size: Dimensions.iconSize24,
+                //                     color: 1 <= 20 && 1 > 0
+                //                         ? Colors.yellow
+                //                         : 0 == 0
+                //                             ? Colors.red
+                //                             : Colors.green,
+                //                   )
+                //                 ],
+                //               ),
+                //               SizedBox(
+                //                 height: Dimensions.height20,
+                //               ),
+                //               Row(
+                //                 mainAxisAlignment:
+                //                     MainAxisAlignment.spaceBetween,
+                //                 children: [
+                //                   Text(
+                //                     ' in Stock',
+                //                     style: TextStyle(
+                //                         fontSize: Dimensions.font16,
+                //                         fontWeight: FontWeight.w500),
+                //                   ),
+                //                   GestureDetector(
+                //                       onTap: (() {
+                //                         controller.showProductActionModal();
+                //                       }),
+                //                       child: Icon(
+                //                         Icons.more_horiz,
+                //                         size: Dimensions.iconSize24,
+                //                       ))
+                //                 ],
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //       );
+                //     }))
               ],
             )));
   }

@@ -24,7 +24,7 @@ mixin _$Product {
   String get name => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
-  double? get quantity => throw _privateConstructorUsedError;
+  double get quantity => throw _privateConstructorUsedError;
   String? get unit => throw _privateConstructorUsedError;
   @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
   Timestamp? get createdAt => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $ProductCopyWith<$Res> {
       String name,
       String? type,
       double price,
-      double? quantity,
+      double quantity,
       String? unit,
       @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
           Timestamp? createdAt,
@@ -69,7 +69,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? name = null,
     Object? type = freezed,
     Object? price = null,
-    Object? quantity = freezed,
+    Object? quantity = null,
     Object? unit = freezed,
     Object? createdAt = freezed,
     Object? lowOnStock = null,
@@ -91,10 +91,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      quantity: freezed == quantity
+      quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       unit: freezed == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String name,
       String? type,
       double price,
-      double? quantity,
+      double quantity,
       String? unit,
       @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
           Timestamp? createdAt,
@@ -144,7 +144,7 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? name = null,
     Object? type = freezed,
     Object? price = null,
-    Object? quantity = freezed,
+    Object? quantity = null,
     Object? unit = freezed,
     Object? createdAt = freezed,
     Object? lowOnStock = null,
@@ -166,10 +166,10 @@ class __$$_ProductCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      quantity: freezed == quantity
+      quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       unit: freezed == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
@@ -194,8 +194,8 @@ class _$_Product with DiagnosticableTreeMixin implements _Product {
       required this.name,
       this.type,
       required this.price,
-      this.quantity,
-      this.unit,
+      this.quantity = 0,
+      this.unit = "other",
       @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
           this.createdAt,
       required this.lowOnStock});
@@ -212,8 +212,10 @@ class _$_Product with DiagnosticableTreeMixin implements _Product {
   @override
   final double price;
   @override
-  final double? quantity;
+  @JsonKey()
+  final double quantity;
   @override
+  @JsonKey()
   final String? unit;
   @override
   @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
@@ -284,7 +286,7 @@ abstract class _Product implements Product {
       required final String name,
       final String? type,
       required final double price,
-      final double? quantity,
+      final double quantity,
       final String? unit,
       @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
           final Timestamp? createdAt,
@@ -301,7 +303,7 @@ abstract class _Product implements Product {
   @override
   double get price;
   @override
-  double? get quantity;
+  double get quantity;
   @override
   String? get unit;
   @override
@@ -324,7 +326,7 @@ mixin _$ProductDTO {
   String get name => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
-  double? get quantity => throw _privateConstructorUsedError;
+  double get quantity => throw _privateConstructorUsedError;
   String? get unit => throw _privateConstructorUsedError;
   double get lowOnStock => throw _privateConstructorUsedError;
 
@@ -344,7 +346,7 @@ abstract class $ProductDTOCopyWith<$Res> {
       {String name,
       String? type,
       double price,
-      double? quantity,
+      double quantity,
       String? unit,
       double lowOnStock});
 }
@@ -365,7 +367,7 @@ class _$ProductDTOCopyWithImpl<$Res, $Val extends ProductDTO>
     Object? name = null,
     Object? type = freezed,
     Object? price = null,
-    Object? quantity = freezed,
+    Object? quantity = null,
     Object? unit = freezed,
     Object? lowOnStock = null,
   }) {
@@ -382,10 +384,10 @@ class _$ProductDTOCopyWithImpl<$Res, $Val extends ProductDTO>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      quantity: freezed == quantity
+      quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       unit: freezed == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
@@ -410,7 +412,7 @@ abstract class _$$_ProductDTOCopyWith<$Res>
       {String name,
       String? type,
       double price,
-      double? quantity,
+      double quantity,
       String? unit,
       double lowOnStock});
 }
@@ -429,7 +431,7 @@ class __$$_ProductDTOCopyWithImpl<$Res>
     Object? name = null,
     Object? type = freezed,
     Object? price = null,
-    Object? quantity = freezed,
+    Object? quantity = null,
     Object? unit = freezed,
     Object? lowOnStock = null,
   }) {
@@ -446,10 +448,10 @@ class __$$_ProductDTOCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      quantity: freezed == quantity
+      quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       unit: freezed == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
@@ -469,8 +471,8 @@ class _$_ProductDTO with DiagnosticableTreeMixin implements _ProductDTO {
       {required this.name,
       this.type,
       required this.price,
-      this.quantity,
-      this.unit,
+      this.quantity = 0,
+      this.unit = "other",
       required this.lowOnStock});
 
   factory _$_ProductDTO.fromJson(Map<String, dynamic> json) =>
@@ -483,8 +485,10 @@ class _$_ProductDTO with DiagnosticableTreeMixin implements _ProductDTO {
   @override
   final double price;
   @override
-  final double? quantity;
+  @JsonKey()
+  final double quantity;
   @override
+  @JsonKey()
   final String? unit;
   @override
   final double lowOnStock;
@@ -546,7 +550,7 @@ abstract class _ProductDTO implements ProductDTO {
       {required final String name,
       final String? type,
       required final double price,
-      final double? quantity,
+      final double quantity,
       final String? unit,
       required final double lowOnStock}) = _$_ProductDTO;
 
@@ -560,7 +564,7 @@ abstract class _ProductDTO implements ProductDTO {
   @override
   double get price;
   @override
-  double? get quantity;
+  double get quantity;
   @override
   String? get unit;
   @override

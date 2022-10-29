@@ -20,10 +20,11 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserProfile {
-  String get id => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get phonenumber => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  String? get role => throw _privateConstructorUsedError;
   String get company => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,10 +40,11 @@ abstract class $UserProfileCopyWith<$Res> {
       _$UserProfileCopyWithImpl<$Res, UserProfile>;
   @useResult
   $Res call(
-      {String id,
+      {String userId,
       String name,
       String email,
-      String phonenumber,
+      String phoneNumber,
+      String? role,
       String company});
 }
 
@@ -59,16 +61,17 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? userId = null,
     Object? name = null,
     Object? email = null,
-    Object? phonenumber = null,
+    Object? phoneNumber = null,
+    Object? role = freezed,
     Object? company = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -78,10 +81,14 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
@@ -99,10 +106,11 @@ abstract class _$$_UserProfileCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {String userId,
       String name,
       String email,
-      String phonenumber,
+      String phoneNumber,
+      String? role,
       String company});
 }
 
@@ -117,16 +125,17 @@ class __$$_UserProfileCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? userId = null,
     Object? name = null,
     Object? email = null,
-    Object? phonenumber = null,
+    Object? phoneNumber = null,
+    Object? role = freezed,
     Object? company = null,
   }) {
     return _then(_$_UserProfile(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -136,10 +145,14 @@ class __$$_UserProfileCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
@@ -152,29 +165,33 @@ class __$$_UserProfileCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
   _$_UserProfile(
-      {required this.id,
+      {required this.userId,
       required this.name,
       required this.email,
-      required this.phonenumber,
+      required this.phoneNumber,
+      this.role = 'user',
       required this.company});
 
   factory _$_UserProfile.fromJson(Map<String, dynamic> json) =>
       _$$_UserProfileFromJson(json);
 
   @override
-  final String id;
+  final String userId;
   @override
   final String name;
   @override
   final String email;
   @override
-  final String phonenumber;
+  final String phoneNumber;
+  @override
+  @JsonKey()
+  final String? role;
   @override
   final String company;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserProfile(id: $id, name: $name, email: $email, phonenumber: $phonenumber, company: $company)';
+    return 'UserProfile(userId: $userId, name: $name, email: $email, phoneNumber: $phoneNumber, role: $role, company: $company)';
   }
 
   @override
@@ -182,10 +199,11 @@ class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'UserProfile'))
-      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('phonenumber', phonenumber))
+      ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('role', role))
       ..add(DiagnosticsProperty('company', company));
   }
 
@@ -194,18 +212,19 @@ class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserProfile &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.phonenumber, phonenumber) ||
-                other.phonenumber == phonenumber) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.company, company) || other.company == company));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, email, phonenumber, company);
+      Object.hash(runtimeType, userId, name, email, phoneNumber, role, company);
 
   @JsonKey(ignore: true)
   @override
@@ -223,264 +242,30 @@ class _$_UserProfile with DiagnosticableTreeMixin implements _UserProfile {
 
 abstract class _UserProfile implements UserProfile {
   factory _UserProfile(
-      {required final String id,
+      {required final String userId,
       required final String name,
       required final String email,
-      required final String phonenumber,
+      required final String phoneNumber,
+      final String? role,
       required final String company}) = _$_UserProfile;
 
   factory _UserProfile.fromJson(Map<String, dynamic> json) =
       _$_UserProfile.fromJson;
 
   @override
-  String get id;
+  String get userId;
   @override
   String get name;
   @override
   String get email;
   @override
-  String get phonenumber;
+  String get phoneNumber;
+  @override
+  String? get role;
   @override
   String get company;
   @override
   @JsonKey(ignore: true)
   _$$_UserProfileCopyWith<_$_UserProfile> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-UserProfileDTO _$UserProfileDTOFromJson(Map<String, dynamic> json) {
-  return _UserProfileDTO.fromJson(json);
-}
-
-/// @nodoc
-mixin _$UserProfileDTO {
-  String get name => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-  String get phonenumber => throw _privateConstructorUsedError;
-  String? get company => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $UserProfileDTOCopyWith<UserProfileDTO> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $UserProfileDTOCopyWith<$Res> {
-  factory $UserProfileDTOCopyWith(
-          UserProfileDTO value, $Res Function(UserProfileDTO) then) =
-      _$UserProfileDTOCopyWithImpl<$Res, UserProfileDTO>;
-  @useResult
-  $Res call(
-      {String name,
-      String email,
-      String password,
-      String phonenumber,
-      String? company});
-}
-
-/// @nodoc
-class _$UserProfileDTOCopyWithImpl<$Res, $Val extends UserProfileDTO>
-    implements $UserProfileDTOCopyWith<$Res> {
-  _$UserProfileDTOCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? email = null,
-    Object? password = null,
-    Object? phonenumber = null,
-    Object? company = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_UserProfileDTOCopyWith<$Res>
-    implements $UserProfileDTOCopyWith<$Res> {
-  factory _$$_UserProfileDTOCopyWith(
-          _$_UserProfileDTO value, $Res Function(_$_UserProfileDTO) then) =
-      __$$_UserProfileDTOCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String name,
-      String email,
-      String password,
-      String phonenumber,
-      String? company});
-}
-
-/// @nodoc
-class __$$_UserProfileDTOCopyWithImpl<$Res>
-    extends _$UserProfileDTOCopyWithImpl<$Res, _$_UserProfileDTO>
-    implements _$$_UserProfileDTOCopyWith<$Res> {
-  __$$_UserProfileDTOCopyWithImpl(
-      _$_UserProfileDTO _value, $Res Function(_$_UserProfileDTO) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? email = null,
-    Object? password = null,
-    Object? phonenumber = null,
-    Object? company = freezed,
-  }) {
-    return _then(_$_UserProfileDTO(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      phonenumber: null == phonenumber
-          ? _value.phonenumber
-          : phonenumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_UserProfileDTO
-    with DiagnosticableTreeMixin
-    implements _UserProfileDTO {
-  _$_UserProfileDTO(
-      {required this.name,
-      required this.email,
-      required this.password,
-      required this.phonenumber,
-      this.company});
-
-  factory _$_UserProfileDTO.fromJson(Map<String, dynamic> json) =>
-      _$$_UserProfileDTOFromJson(json);
-
-  @override
-  final String name;
-  @override
-  final String email;
-  @override
-  final String password;
-  @override
-  final String phonenumber;
-  @override
-  final String? company;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserProfileDTO(name: $name, email: $email, password: $password, phonenumber: $phonenumber, company: $company)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'UserProfileDTO'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('password', password))
-      ..add(DiagnosticsProperty('phonenumber', phonenumber))
-      ..add(DiagnosticsProperty('company', company));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_UserProfileDTO &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.phonenumber, phonenumber) ||
-                other.phonenumber == phonenumber) &&
-            (identical(other.company, company) || other.company == company));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, email, password, phonenumber, company);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_UserProfileDTOCopyWith<_$_UserProfileDTO> get copyWith =>
-      __$$_UserProfileDTOCopyWithImpl<_$_UserProfileDTO>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_UserProfileDTOToJson(
-      this,
-    );
-  }
-}
-
-abstract class _UserProfileDTO implements UserProfileDTO {
-  factory _UserProfileDTO(
-      {required final String name,
-      required final String email,
-      required final String password,
-      required final String phonenumber,
-      final String? company}) = _$_UserProfileDTO;
-
-  factory _UserProfileDTO.fromJson(Map<String, dynamic> json) =
-      _$_UserProfileDTO.fromJson;
-
-  @override
-  String get name;
-  @override
-  String get email;
-  @override
-  String get password;
-  @override
-  String get phonenumber;
-  @override
-  String? get company;
-  @override
-  @JsonKey(ignore: true)
-  _$$_UserProfileDTOCopyWith<_$_UserProfileDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }

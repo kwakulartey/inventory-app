@@ -19,6 +19,7 @@ class SubmitButtonController extends GetxController {
   void onInit() {
     super.onInit();
     _worker = ever(_buttonState, (ButtonState state) {
+      print("current button state: $state");
       if (state == ButtonState.success || state == ButtonState.error) {
         Future.delayed(
           const Duration(seconds: 3),
@@ -74,7 +75,7 @@ class PrimaryButton extends GetView<SubmitButtonController> {
               ),
             if (controller.buttonState == ButtonState.error)
               const Icon(
-                Icons.check_box_rounded,
+                Icons.cancel_rounded,
                 color: Colors.white,
               ),
             // const SizedBox(width: 20),
