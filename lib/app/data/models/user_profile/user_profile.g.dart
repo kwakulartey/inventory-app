@@ -25,23 +25,3 @@ Map<String, dynamic> _$$_UserProfileToJson(_$_UserProfile instance) =>
       'role': instance.role,
       'company': instance.company,
     };
-
-_$_UserProfileDTO _$$_UserProfileDTOFromJson(Map<String, dynamic> json) =>
-    _$_UserProfileDTO(
-      name: json['name'] as String,
-      email: json['email'] as String,
-      password: json['password'] as String,
-      phoneNumber: json['phoneNumber'] as String,
-      role: json['role'] as String? ?? 'user',
-      company: json['company'] as String?,
-    );
-
-Map<String, dynamic> _$$_UserProfileDTOToJson(_$_UserProfileDTO instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'email': instance.email,
-      'password': instance.password,
-      'phoneNumber': instance.phoneNumber,
-      'role': instance.role,
-      'company': instance.company,
-    };

@@ -6,7 +6,7 @@ import 'package:inventory_1/app/data/models/product/product.dart';
 class EditProductController extends GetxController {
   // final TextEditingController quantityController = TextEditingController();
   // final TextEditingController priceController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> formKey;
 
   final Rx<Product?> _product = Rx<Product?>(null);
   Product? get product => _product.value;
@@ -25,7 +25,7 @@ class EditProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
+    formKey = GlobalKey<FormState>();
     _worker = ever<Product?>(_product, (product) {
       if (product != null) {}
     });
@@ -78,8 +78,8 @@ class EditProductController extends GetxController {
                     .toJson() ??
                 {});
 
-        Get.snackbar("Success", "Product was updated");
         Get.back();
+        Get.snackbar("Success", "User details updated");
       } else {
         Get.snackbar(
             "Something went wrong", "Please check your inputs and try again");

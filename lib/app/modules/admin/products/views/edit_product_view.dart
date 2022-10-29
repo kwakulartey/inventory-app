@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/product/product.dart';
+import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
 
 import '../controllers/edit_product_controller.dart';
 
 class EditProductView extends GetView<EditProductController> {
-  EditProductView({Key? key}) : super(key: key);
+  EditProductView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

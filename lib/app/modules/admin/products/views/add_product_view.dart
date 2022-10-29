@@ -66,8 +66,7 @@ class AddProductView extends GetView<AddProductController> {
                                       TextStyle(fontSize: Dimensions.font16),
                                   hintText: 'Enter name of item'),
                               onChanged: controller.setProductName,
-                              validator: (_) =>
-                                  controller.validationMessages["name"],
+                              validator: controller.validateProductName,
                             ),
                           ),
                         ],
@@ -118,8 +117,7 @@ class AddProductView extends GetView<AddProductController> {
                                       TextStyle(fontSize: Dimensions.font16),
                                   hintText: 'Type of item'),
                               onChanged: controller.setProductType,
-                              validator: (_) =>
-                                  controller.validationMessages["type"],
+                              //  validator: controller.validateProductType,
                             ),
                           ),
                         ],
@@ -170,8 +168,7 @@ class AddProductView extends GetView<AddProductController> {
                                       TextStyle(fontSize: Dimensions.font16),
                                   hintText: 'Enter price of product'),
                               onChanged: controller.setProductPrice,
-                              validator: (_) =>
-                                  controller.validationMessages["price"],
+                              validator: controller.validateProductName,
                             ),
                           ),
                         ],
@@ -220,8 +217,7 @@ class AddProductView extends GetView<AddProductController> {
                                     hintText: '10',
                                   ),
                                   onChanged: controller.setProductQuantity,
-                                  validator: (_) =>
-                                      controller.validationMessages["quantity"],
+                                  validator: controller.validateProductQuantiy,
                                 ),
                               ),
                             ],
@@ -247,7 +243,7 @@ class AddProductView extends GetView<AddProductController> {
                                     fontWeight: FontWeight.w600),
                               ),
                               dropdownColor: Colors.white,
-                              value: 'kilos',
+                              value: 'select option',
                               icon: Icon(
                                 Icons.arrow_drop_down,
                                 size: Dimensions.iconSize24,
@@ -272,8 +268,7 @@ class AddProductView extends GetView<AddProductController> {
                                 );
                               }).toList(),
                               onChanged: controller.setProductUnit,
-                              validator: (_) =>
-                                  controller.validationMessages["unit"],
+                              //  validator: controller.validateProductUnit,
                             ),
                           ),
                         ),
@@ -327,8 +322,7 @@ class AddProductView extends GetView<AddProductController> {
                                 hintText: '20',
                               ),
                               onChanged: controller.setProductLowOnStock,
-                              validator: (_) =>
-                                  controller.validationMessages["lowOnStock"],
+                              validator: controller.validateProductLowStock,
                             ),
                           ),
                         ],

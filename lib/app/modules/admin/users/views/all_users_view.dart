@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:get/get.dart';
+import 'package:inventory_1/app/data/models/product/product.dart';
 import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
+import 'package:inventory_1/app/modules/admin/products/controllers/edit_product_controller.dart';
 import 'package:inventory_1/app/modules/admin/users/controllers/edit_user_controller.dart';
+import 'package:inventory_1/app/modules/admin/users/views/edit_user_view.dart';
+import 'package:inventory_1/app/modules/admin/users/widgets/confirm_user_delete_alert.dart';
 import 'package:inventory_1/app/routes/app_pages.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -11,7 +15,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../controllers/all_users_controller.dart';
 
 class AllUsersView extends GetView<AllUsersController> {
-  const AllUsersView({Key? key}) : super(key: key);
+  AllUsersView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +62,8 @@ class AllUsersView extends GetView<AllUsersController> {
                       children: [
                         IconButton(
                             onPressed: (() {
-                              //TODO:
-                              Get.to(controller.showEditUserPage(user: user));
+                              controller.goToEditUser(userProfile: user);
                             }),
-                            // (() =>
-                            //     showMaterialModalBottomSheet(
-                            //         context: context,
-                            //         builder: (context) {
-                            //           return editcolla(
-                            //             userId: userId,
-                            //           );
-                            //         })),
                             icon: Icon(
                               Icons.edit,
                               size: Dimensions.iconSize24,
@@ -76,32 +71,8 @@ class AllUsersView extends GetView<AllUsersController> {
                             )),
                         IconButton(
                             onPressed: (() {
-                              showDialog(
-                                  context: context,
-                                  builder: ((context) {
-                                    return AlertDialog(
-                                      title: const Icon(
-                                          Icons.warning_amber_rounded,
-                                          color: Colors.red),
-                                      content: Text(
-                                          'Are you sure you want to delete product?'),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('No')),
-                                        TextButton(
-                                            onPressed: () async {},
-                                            child: Text(
-                                              'Yes',
-                                              style: TextStyle(
-                                                  color: Colors.red,
-                                                  fontSize: Dimensions.font16),
-                                            ))
-                                      ],
-                                    );
-                                  }));
+                              Get.dialog(
+                                  ConfirmUserDeleteDialog(userProfile: user));
                             }),
                             icon: Icon(
                               Icons.delete_rounded,

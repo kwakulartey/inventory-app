@@ -1,25 +1,22 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/product/product.dart';
-import 'package:inventory_1/app/data/providers/dashboard_stats_service.dart';
 import 'package:inventory_1/app/modules/admin/products/controllers/edit_product_controller.dart';
-import 'package:inventory_1/app/modules/admin/products/widgets/confirm_product_delete_alert.dart';
 import 'package:inventory_1/app/modules/admin/products/widgets/product_action_modal.dart';
 
 class AllProductsController extends GetxController {
   final EditProductController editProductController =
       Get.find<EditProductController>();
 
-  final DashboardStatsService dashboardStatsService =
-      Get.find<DashboardStatsService>();
+  late StreamSubscription<QuerySnapshot<Map<String, dynamic>>>
+      productStreamSubscription;
 
-  RxList<Product> get allProducts => dashboardStatsService.allProducts;
-  RxList<Product> get lowOnStockProducts =>
-      dashboardStatsService.lowOnStockProducts;
-  RxList<Product> get outOfStockProducts =>
-      dashboardStatsService.outOfStockProducts;
-
-  RxList<Product> productList = RxList([]);
+  final RxList<Product> allProducts = RxList<Product>([]);
+  final RxList<Product> lowOnStockProducts = RxList<Product>([]);
+  final RxList<Product> outOfStockProducts = RxList<Product>([]);
+  final RxList<Product> productList = RxList([]);
 
   final RxString _pageTitle = RxString('');
   String get pageTitle => _pageTitle.value;
@@ -27,6 +24,29 @@ class AllProductsController extends GetxController {
 
   @override
   void onInit() {
+    // A listenert to update product stats
+    productStreamSubscription =
+        FirebaseFirestore.instance.collection('products').snapshots().listen(
+      (event) {
+        // STEP 1: set allProduct List
+        allProducts(
+          event.docs
+              .map((doc) => Product.fromJson({...doc.data(), "id": doc.id}))
+              .toList(),
+        );
+
+        // STEP 2: set the stats
+        setLowOnStockProducts();
+        setOutOfStockProducts();
+      },
+      onError: (err) {
+        print("Product Stream error: $err");
+      },
+      onDone: () {
+        print("Product Stream is done");
+      },
+    );
+
     String? q = Get.parameters['q'];
 
     pageTitle = q?.replaceAll("-", " ").capitalize ?? 'All Products';
@@ -44,6 +64,20 @@ class AllProductsController extends GetxController {
     super.onInit();
   }
 
+  void setLowOnStockProducts() {
+    lowOnStockProducts(
+      allProducts
+          .where((product) => product.quantity <= product.lowOnStock)
+          .toList(),
+    );
+  }
+
+  void setOutOfStockProducts() {
+    outOfStockProducts(
+      allProducts.where((product) => product.quantity == 0).toList(),
+    );
+  }
+
   void onDeleteProductConfirmed(Product product) {
     FirebaseFirestore.instance
         .collection('products')
@@ -59,5 +93,10 @@ class AllProductsController extends GetxController {
   void showAlertDialog({required Product product}) {
     editProductController.product = product;
     Get.dialog(ProductActionModal(product: product));
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 }

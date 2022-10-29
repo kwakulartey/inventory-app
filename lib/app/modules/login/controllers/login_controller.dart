@@ -3,15 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
-import 'package:inventory_1/app/data/providers/dashboard_stats_service.dart';
 import 'package:inventory_1/app/routes/app_pages.dart';
 import 'package:inventory_1/app/widgets/buttons.dart';
 
 class LoginController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  // final SubmitButtonController _submitButtonController =
-  //     Get.find<SubmitButtonController>();
+  final SubmitButtonController _submitButtonController =
+      Get.find<SubmitButtonController>();
 
   final _email = ''.obs;
   String get email => _email.value;
@@ -26,16 +25,18 @@ class LoginController extends GetxController {
   set obscureText(bool value) => _obscureText.value = value;
 
   late Worker _worker;
-  late GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> formKey;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    formKey = GlobalKey<FormState>();
 
-    //   _worker = everAll([_email, _password], (_) {
-    //     _submitButtonController.isFormValid = formKey.currentState!.validate();
-    //   });
-    // }
+    _worker = everAll([_email, _password], (_) {
+      bool isFormValid = formKey.currentState!.validate();
+      print("validating form: $isFormValid");
+      _submitButtonController.isFormValid = isFormValid;
+    });
   }
 
   String? validateEmail(String? value) {
@@ -55,29 +56,35 @@ class LoginController extends GetxController {
   }
 
   void login() async {
-    print('tapped');
-    UserCredential? userCredential =
-        await signInWithEmailAndPassword(email: email, password: password);
+    try {
+      _submitButtonController.buttonState = ButtonState.loading;
+      UserCredential? userCredential =
+          await signInWithEmailAndPassword(email: email, password: password);
 
-    if (userCredential != null) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .get()
-          .then((DocumentSnapshot doc) {
-        var json = doc.data() as dynamic;
-        if (json != null) {
-          // once the user is authenticated...
-          startDashboardService();
-
-          UserProfile userProfile = UserProfile.fromJson({...json});
-          if (userProfile.role == 'admin') {
-            Get.toNamed(Routes.DASHBOARD);
-          } else {
-            Get.toNamed(Routes.SHOPPING);
+      if (userCredential != null) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .get()
+            .then((DocumentSnapshot doc) {
+          var json = doc.data() as dynamic;
+          if (json != null) {
+            UserProfile userProfile = UserProfile.fromJson({...json});
+            _submitButtonController.buttonState = ButtonState.success;
+            Future.delayed(const Duration(seconds: 3), () {
+              if (userProfile.role == 'admin') {
+                Get.offAndToNamed(Routes.DASHBOARD);
+              } else {
+                Get.offAndToNamed(Routes.SHOPPING);
+              }
+            });
           }
-        }
-      });
+        });
+      } else {
+        _submitButtonController.buttonState = ButtonState.error;
+      }
+    } catch (e) {
+      Get.snackbar("Authentication Failed", "Please try again!");
     }
   }
 
@@ -96,10 +103,9 @@ class LoginController extends GetxController {
     return null;
   }
 
-  void startDashboardService() {
-    Get.put(
-      DashboardStatsService().onInit(),
-      permanent: true,
-    );
+  @override
+  void onClose() {
+    _worker.dispose();
+    super.onClose();
   }
 }

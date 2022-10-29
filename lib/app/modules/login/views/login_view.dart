@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:inventory_1/app/utils/dimmension.dart';
+import 'package:inventory_1/app/widgets/buttons.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -110,20 +111,14 @@ class LoginView extends GetView<LoginController> {
                       )),
                 ),
                 Container(
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 4, 82, 146),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: TextButton(
-                      onPressed: () {
-                        print('Tapped');
-                        controller.login();
-                      },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                            fontSize: Dimensions.font20, color: Colors.white),
-                      ),
-                    )),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 4, 82, 146),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: PrimaryButton(
+                    onPressed: controller.login,
+                    text: "Login",
+                  ),
+                ),
                 SizedBox(
                   height: Dimensions.height20,
                 ),

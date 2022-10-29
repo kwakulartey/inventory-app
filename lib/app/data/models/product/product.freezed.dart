@@ -195,7 +195,7 @@ class _$_Product with DiagnosticableTreeMixin implements _Product {
       this.type,
       required this.price,
       this.quantity = 0,
-      this.unit,
+      this.unit = "other",
       @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
           this.createdAt,
       required this.lowOnStock});
@@ -215,6 +215,7 @@ class _$_Product with DiagnosticableTreeMixin implements _Product {
   @JsonKey()
   final double quantity;
   @override
+  @JsonKey()
   final String? unit;
   @override
   @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
@@ -471,7 +472,7 @@ class _$_ProductDTO with DiagnosticableTreeMixin implements _ProductDTO {
       this.type,
       required this.price,
       this.quantity = 0,
-      this.unit,
+      this.unit = "other",
       required this.lowOnStock});
 
   factory _$_ProductDTO.fromJson(Map<String, dynamic> json) =>
@@ -487,6 +488,7 @@ class _$_ProductDTO with DiagnosticableTreeMixin implements _ProductDTO {
   @JsonKey()
   final double quantity;
   @override
+  @JsonKey()
   final String? unit;
   @override
   final double lowOnStock;

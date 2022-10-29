@@ -19,17 +19,19 @@ class UserProfile with _$UserProfile {
       _$UserProfileFromJson(json);
 }
 
-@freezed
+/* @freezed
 class UserProfileDTO with _$UserProfileDTO {
   factory UserProfileDTO({
+    required String userId,
     required String name,
     required String email,
     required String password,
     required String phoneNumber,
-    @Default('user') String? role,
-    String? company,
+    @Default('user') String role,
+    required String? company,
   }) = _UserProfileDTO;
 
   factory UserProfileDTO.fromJson(Map<String, dynamic> json) =>
       _$UserProfileDTOFromJson(json);
 }
+ */

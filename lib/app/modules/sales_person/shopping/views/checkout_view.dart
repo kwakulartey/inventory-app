@@ -38,19 +38,28 @@ class CheckoutView extends GetView<CheckoutController> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${basketItem.product.name} ${basketItem.product.type}',
-                        style: TextStyle(
-                            fontSize: Dimensions.font16,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      Text(
-                        'GHC $subTotal',
-                        style: TextStyle(
-                            fontSize: Dimensions.font16,
-                            fontWeight: FontWeight.bold),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${basketItem.product.name} ${basketItem.product.type}',
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            Text(
+                              'GHC $subTotal',
+                              style: TextStyle(
+                                  fontSize: Dimensions.font16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         children: [
@@ -63,34 +72,37 @@ class CheckoutView extends GetView<CheckoutController> {
                           SizedBox(
                             width: Dimensions.width10,
                           ),
-                          Container(
-                            height: Dimensions.height10 * 4,
-                            width: Dimensions.width20 * 5,
-                            decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radius15 - 5)),
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.remove,
-                                    size: Dimensions.iconSize16,
+                          Padding(
+                            padding: EdgeInsets.only(left: Dimensions.width20),
+                            child: Container(
+                              height: Dimensions.height10 * 4,
+                              width: Dimensions.width20 * 5,
+                              decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radius15 - 5)),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.remove,
+                                      size: Dimensions.iconSize16,
+                                    ),
+                                    onPressed: () =>
+                                        controller.decreaseBasketQuantity(
+                                            basketItem.product),
                                   ),
-                                  onPressed: () =>
-                                      controller.decreaseBasketQuantity(
-                                          basketItem.product),
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.add,
-                                    size: Dimensions.iconSize16,
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.add,
+                                      size: Dimensions.iconSize16,
+                                    ),
+                                    onPressed: () =>
+                                        controller.increaseBasketQuantity(
+                                            basketItem.product),
                                   ),
-                                  onPressed: () =>
-                                      controller.increaseBasketQuantity(
-                                          basketItem.product),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           )
                         ],

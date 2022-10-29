@@ -29,7 +29,15 @@ class DashboardView extends GetView<DashboardController> {
                   Get.toNamed(Routes.USER_PROFILE);
                 },
               ),
-            )
+            ),
+            IconButton(
+              onPressed: controller.handleSignOut,
+              icon: Icon(
+                Icons.logout_rounded,
+                size: Dimensions.iconSize24,
+                color: Colors.red,
+              ),
+            ),
           ],
         ),
         body: Padding(
@@ -53,15 +61,16 @@ class DashboardView extends GetView<DashboardController> {
                       runSpacing: Dimensions.width20,
                       children: [
                         StatCard(
-                            color: Colors.blue,
-                            icon: Icons.desk_rounded,
+                            color: Colors.blue[900],
+                            icon: Icons.calendar_month,
                             label: 'Daily Sales',
                             value: controller.dashboardStats().dailySales,
                             onTap: () {
                               Get.toNamed(Routes.ORDERS);
                             }),
                         StatCard(
-                            icon: Icons.desk_rounded,
+                            color: Colors.green,
+                            icon: Icons.list_alt,
                             label: 'Total Stock ',
                             value:
                                 controller.dashboardStats().totalProductCount,
@@ -70,7 +79,8 @@ class DashboardView extends GetView<DashboardController> {
                               Get.toNamed(Routes.ALL_PRODUCTS);
                             }),
                         StatCard(
-                            icon: Icons.desk_rounded,
+                            color: Colors.amber,
+                            icon: Icons.warning_amber_rounded,
                             label: 'Low on Stock ',
                             value: controller
                                 .dashboardStats()
@@ -79,7 +89,8 @@ class DashboardView extends GetView<DashboardController> {
                               Get.toNamed(Routes.LOW_ON_STOCK_PRODUCT);
                             }),
                         StatCard(
-                            icon: Icons.desk_rounded,
+                            color: Colors.red,
+                            icon: Icons.warning_amber_rounded,
                             label: 'Out Of Stock ',
                             value: controller
                                 .dashboardStats()

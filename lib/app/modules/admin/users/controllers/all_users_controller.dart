@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/user_profile/user_profile.dart';
 import 'package:inventory_1/app/modules/admin/users/controllers/edit_user_controller.dart';
+import 'package:inventory_1/app/modules/admin/users/views/edit_user_view.dart';
+import 'package:inventory_1/app/routes/app_pages.dart';
 
 class AllUsersController extends GetxController {
   //TODO: Implement AllUsersController
@@ -33,7 +35,26 @@ class AllUsersController extends GetxController {
     super.onClose();
   }
 
-  showEditUserPage({required UserProfile user}) {
-    editUserController.user = user;
+  // void showAlertDioal({required UserProfile userProfile}) {
+  //   editUserController.user = userProfile;
+  //   Get.to(() => EditUserView(user: userProfile));
+  // }
+  void goToEditUser({required UserProfile userProfile}) {
+    editUserController.user = userProfile;
+    Get.toNamed(Routes.EDIT_USER, arguments: userProfile);
   }
+
+  void onDeleteUserConfirmed(UserProfile userProfile) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userProfile.userId)
+        .delete()
+        .then((_) {
+      Get.back();
+      Get.back();
+      Get.snackbar("Success", "Product was deleted successfully");
+    });
+  }
+
+  void showDialog() {}
 }

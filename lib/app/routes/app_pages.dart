@@ -72,7 +72,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ALL_USERS,
-      page: () => const AllUsersView(),
+      page: () => AllUsersView(),
       binding: AllUsersBinding(),
     ),
     GetPage(

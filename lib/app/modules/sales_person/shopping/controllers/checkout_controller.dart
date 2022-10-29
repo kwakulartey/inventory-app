@@ -22,44 +22,6 @@ class CheckoutController extends GetxController {
     adjustProductInventory();
 
     completeCheckout();
-    print("confirm button has been presseed");
-    // if (basket.isNotEmpty) {
-    //   double finalTotal = 0.0;
-    //   double quantity = 0;
-
-    //   basket.forEach((key, value) async {
-    //     double total = value.quantity * (value.productDTO.price);
-    //     finalTotal += total;
-    //     quantity += value.quantity;
-
-    //     await productManager.updateProduct(
-    //         docID: key,
-    //         price: value.productDTO.price,
-    //         quantity: (value.productDTO.quantity ?? 0) -
-    //             value.quantity);
-    //   });
-
-    //   Map<String, dynamic> basket = {};
-
-    //   for (var item in basketController.basket.entries) {
-    //     basket[item.key] = item.value.toJson();
-    //   }
-
-    //   bool order = await productManager.addOrder(
-    //       basket, finalTotal, quantity);
-
-    //   if (order) {
-    //     Get.snackbar("Success", "Product has been purchased");
-    //     basketController.basket.clear();
-    //     Navigator.of(context).pushAndRemoveUntil(
-    //         MaterialPageRoute(builder: (context) {
-    //       return Dash();
-    //     }), (route) => false);
-    //   }
-    // } else {
-    //   Get.snackbar("Empty Cart", "Can't proceed with empty cart",
-    //       backgroundColor: Colors.red, colorText: Colors.white);
-    // }
   }
 
   int get itemsInBasketCount => basket.keys.length;

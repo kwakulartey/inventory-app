@@ -5,15 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory_1/app/data/models/product/product.dart';
-import 'package:inventory_1/app/data/providers/dashboard_stats_service.dart';
 import 'package:inventory_1/app/modules/sales_person/shopping/controllers/checkout_controller.dart';
 import 'package:inventory_1/app/routes/app_pages.dart';
 
 class ShoppingController extends GetxController {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final CheckoutController checkoutController = Get.find<CheckoutController>();
-  final DashboardStatsService _dashboardStatsService =
-      Get.find<DashboardStatsService>();
+  // final DashboardStatsController _dashboardStatsService =
+  //     Get.find<DashboardStatsController>();
 
   final TextEditingController searchController = TextEditingController();
 
@@ -45,15 +44,23 @@ class ShoppingController extends GetxController {
         .collection('products')
         .where("quantity", isGreaterThan: 0)
         .snapshots()
-        .listen((event) {
-      _availableProducts(
-        event.docs.map((doc) {
-          print("Available products doc: ${doc.data()}");
+        .listen(
+      (event) {
+        _availableProducts(
+          event.docs.map((doc) {
+            print("Available products doc: ${doc.data()}");
 
-          return Product.fromJson({...doc.data(), "id": doc.id});
-        }).toList(),
-      );
-    });
+            return Product.fromJson({...doc.data(), "id": doc.id});
+          }).toList(),
+        );
+      },
+      onError: (err) {
+        print("Shopping Stream error: $err");
+      },
+      onDone: () {
+        print("Shopping Stream is done");
+      },
+    );
 
     searchForProducts();
 
@@ -61,13 +68,10 @@ class ShoppingController extends GetxController {
         everAll([_availableProducts, _searchText], (_) => searchForProducts());
   }
 
-  void handleSignOut() async {
-    await _dashboardStatsService.onClose();
+  Future<void> handleSignOut() async {
     await streamSubscription.cancel();
-
-    // Get.reset();
     await _firebaseAuth.signOut();
-    // Get.offAndToNamed(Routes.LOGIN);
+    Get.offAndToNamed(Routes.LOGIN);
   }
 
   getTotal() {
